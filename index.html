@@ -1,0 +1,1923 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PAT.Enterprise — Computer Components, Nairobi</title>
+<meta name="description" content="Genuine computer components, networking gear and accessories in Nairobi. M-Pesa checkout, same-day CBD pickup, countrywide delivery.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    /* brand — always dark, regardless of theme */
+    --rail-950:#080B10;
+    --rail-900:#0E141D;
+    --rail-line: rgba(255,255,255,0.08);
+    --amber:#FF8A1E;
+    --amber-dark:#E86F0C;
+    --cyan:#2FD0C9;
+    --cyan-dim: rgba(47,208,201,0.16);
+
+    /* content surface — light theme defaults */
+    --bg:#F3F5F9;
+    --panel:#FFFFFF;
+    --ink:#0B1220;
+    --slate:#4B5568;
+    --slate-light:#8A93A8;
+    --border:#E3E7EF;
+    --green:#1FA463;
+    --red:#E1523D;
+    --amberwarn:#C98A1D;
+    --radius:12px;
+    --shadow: 0 12px 28px rgba(11,18,32,0.08);
+  }
+  html[data-theme="dark"]{
+    --bg:#0B0F16;
+    --panel:#131922;
+    --ink:#EAF0FA;
+    --slate:#98A4BC;
+    --slate-light:#5F6C82;
+    --border:#212B39;
+    --shadow: 0 12px 28px rgba(0,0,0,0.35);
+  }
+  *{box-sizing:border-box; margin:0; padding:0;}
+  html{scroll-behavior:smooth;}
+  body{
+    font-family:'Inter', sans-serif;
+    background:var(--bg);
+    color:var(--ink);
+    -webkit-font-smoothing:antialiased;
+    transition:background .25s ease, color .25s ease;
+  }
+  a{color:inherit; text-decoration:none;}
+  button{font-family:'Inter', sans-serif;}
+  .mono{font-family:'IBM Plex Mono', monospace;}
+  .display{font-family:'Space Grotesk', sans-serif;}
+  ::selection{ background:var(--cyan-dim); color:var(--ink); }
+  :focus-visible{ outline:2px solid var(--cyan); outline-offset:2px; }
+  @media (prefers-reduced-motion: reduce){
+    *{ animation-duration:.001ms !important; animation-iteration-count:1 !important; transition-duration:.001ms !important; scroll-behavior:auto !important; }
+  }
+
+  /* ---------- topbar : diagnostic ticker ---------- */
+  .topbar{
+    background:var(--rail-950);
+    color:#B9C4DA;
+    font-size:12px;
+    padding:7px 24px;
+    display:flex; justify-content:space-between; align-items:center;
+    letter-spacing:.02em;
+    gap:16px;
+    border-bottom:1px solid var(--rail-line);
+  }
+  .topbar .ticker-wrap{ overflow:hidden; flex:1; max-width:520px; position:relative; }
+  .topbar .ticker-track{ display:flex; gap:36px; white-space:nowrap; animation:ticker 22s linear infinite; }
+  .topbar .ticker-track span{ display:inline-flex; align-items:center; gap:6px; }
+  .topbar .ticker-track span::before{ content:''; width:5px; height:5px; border-radius:50%; background:var(--cyan); box-shadow:0 0 6px var(--cyan); }
+  @keyframes ticker{ 0%{transform:translateX(0);} 100%{transform:translateX(-50%);} }
+  .topbar-right{ display:flex; align-items:center; gap:14px; flex:0 0 auto; }
+  .topbar .link-btn{ background:none; border:none; color:#B9C4DA; font-size:12px; cursor:pointer; font-family:'Inter'; }
+  .topbar .link-btn:hover{ color:#fff; }
+  .topbar .mpesa-chip{
+    background:rgba(31,164,99,0.16);
+    color:#4CD98A;
+    padding:3px 10px;
+    border-radius:20px;
+    font-weight:600;
+    font-size:11px;
+    white-space:nowrap;
+  }
+  .theme-toggle{
+    width:28px; height:28px; border-radius:7px; border:1px solid var(--rail-line); background:rgba(255,255,255,0.04);
+    color:#B9C4DA; cursor:pointer; display:flex; align-items:center; justify-content:center; font-size:13px;
+  }
+  .theme-toggle:hover{ border-color:var(--cyan); color:#fff; }
+
+  /* ---------- header ---------- */
+  header.main{
+    background:var(--rail-950);
+    position:relative;
+    padding:20px 24px 0 24px;
+    overflow:hidden;
+  }
+  .trace-canvas{ position:absolute; inset:0; pointer-events:none; opacity:.55; }
+  .trace-canvas path{
+    fill:none; stroke:var(--rail-line); stroke-width:1;
+  }
+  .trace-canvas path.live{
+    stroke:var(--amber); stroke-width:1.4; stroke-dasharray:6 520; stroke-dashoffset:0;
+    animation:trace-run 5.5s linear infinite;
+    opacity:.9;
+  }
+  @keyframes trace-run{ from{ stroke-dashoffset:526; } to{ stroke-dashoffset:0; } }
+  .header-row{
+    display:flex; align-items:center; gap:24px; max-width:1320px; margin:0 auto; position:relative; z-index:2;
+  }
+  .logo{
+    display:flex; align-items:center; gap:10px;
+    font-family:'Space Grotesk', sans-serif;
+    font-weight:700; font-size:22px; color:#fff; white-space:nowrap;
+    cursor:pointer;
+  }
+  .logo .node{
+    width:11px; height:11px; border-radius:50%;
+    background:var(--amber);
+    box-shadow:0 0 0 3px rgba(255,138,30,0.22), 0 0 10px rgba(255,138,30,.6);
+  }
+  .logo span.sub{
+    font-family:'Inter'; font-weight:500; font-size:10px; color:#8FA0C4;
+    display:block; letter-spacing:.16em; text-transform:uppercase; margin-top:-2px;
+  }
+  .search-wrap{ flex:1; max-width:600px; position:relative; }
+  .search{
+    display:flex; align-items:center;
+    background:#fff; border-radius:8px; overflow:hidden;
+    border:1px solid transparent;
+  }
+  .search:focus-within{ border-color:var(--cyan); box-shadow:0 0 0 3px var(--cyan-dim); }
+  .search input{
+    border:none; outline:none; padding:12px 16px; flex:1; font-size:14px; font-family:'Inter'; color:#0B1220;
+  }
+  .search button{
+    background:var(--amber); border:none; color:#fff; padding:0 18px; height:44px; cursor:pointer;
+    font-weight:600;
+  }
+  .search button:hover{ background:var(--amber-dark); }
+  .suggest-panel{
+    position:absolute; top:calc(100% + 6px); left:0; right:0; background:#fff; border-radius:10px;
+    box-shadow:0 16px 30px rgba(0,0,0,0.22); overflow:hidden; z-index:50; display:none;
+  }
+  .suggest-panel.show{ display:block; }
+  .suggest-item{ display:flex; align-items:center; gap:10px; padding:9px 14px; cursor:pointer; color:#0B1220; }
+  .suggest-item:hover{ background:#F3F5F9; }
+  .suggest-item .si-icon{ width:28px; height:28px; border-radius:6px; background:#EEF1F7; display:flex; align-items:center; justify-content:center; font-size:14px; flex:0 0 auto; }
+  .suggest-item .si-name{ font-size:12.5px; flex:1; }
+  .suggest-item .si-price{ font-family:'IBM Plex Mono'; font-size:11.5px; color:var(--amber-dark); }
+  .suggest-empty{ padding:14px; font-size:12.5px; color:#8A93A8; text-align:center; }
+
+  .header-actions{ display:flex; gap:8px; align-items:center; flex:0 0 auto; }
+  .icon-btn{
+    position:relative; width:42px; height:42px; border-radius:8px; border:1px solid var(--rail-line);
+    background:rgba(255,255,255,0.04); color:#EAF0FA; cursor:pointer; font-size:16px;
+    display:flex; align-items:center; justify-content:center;
+  }
+  .icon-btn:hover{ border-color:var(--amber); color:var(--amber); }
+  .icon-btn .badge-count{
+    position:absolute; top:-6px; right:-6px; background:var(--amber); color:#fff; font-size:10px; font-weight:700;
+    min-width:17px; height:17px; border-radius:9px; display:flex; align-items:center; justify-content:center; padding:0 4px;
+  }
+  .cart-pill{
+    background:var(--amber); color:#fff; border-radius:8px; padding:0 16px; height:42px;
+    display:flex; align-items:center; gap:8px; font-weight:600; font-size:13.5px;
+    border:none; cursor:pointer; transition:transform .15s;
+  }
+  .cart-pill:hover{ background:var(--amber-dark); }
+
+  nav.categories{
+    max-width:1320px; margin:16px auto 0 auto;
+    display:flex; gap:4px; padding-bottom:0;
+    color:#D4DBEA; font-size:13.5px; font-weight:500;
+    border-top:1px solid var(--rail-line);
+    padding-top:6px;
+    overflow-x:auto;
+    position:relative; z-index:3;
+  }
+  nav.categories .navcat{ position:relative; }
+  nav.categories .navcat > a{
+    display:block; padding:10px 12px; white-space:nowrap; opacity:.85; cursor:pointer; border-radius:6px 6px 0 0;
+  }
+  nav.categories .navcat > a:hover{ color:var(--amber); opacity:1; background:rgba(255,255,255,0.03); }
+  nav.categories .navcat > a.active{ color:var(--amber); opacity:1; }
+  .mega{
+    display:none; position:absolute; top:100%; left:0; min-width:220px; background:var(--panel); color:var(--ink);
+    border-radius:0 10px 10px 10px; box-shadow:0 18px 30px rgba(0,0,0,0.25); padding:10px; z-index:20; border:1px solid var(--border);
+  }
+  .navcat:hover .mega{ display:block; }
+  .mega a{ display:flex; justify-content:space-between; gap:10px; padding:8px 10px; font-size:12.5px; border-radius:6px; cursor:pointer; color:var(--ink); }
+  .mega a:hover{ background:var(--cyan-dim); color:var(--ink); }
+  .mega a .mc{ color:var(--slate-light); font-size:11px; }
+
+  /* ---------- breadcrumb ---------- */
+  .trace-crumb{
+    max-width:1320px; margin:18px auto 0 auto; padding:0 24px;
+    display:flex; align-items:center; gap:0; font-size:12.5px; color:var(--slate-light);
+  }
+  .trace-crumb .seg{ display:flex; align-items:center; gap:6px; }
+  .trace-crumb .dot{ width:6px; height:6px; border-radius:50%; background:var(--slate-light); }
+  .trace-crumb .dot.active{ background:var(--amber); box-shadow:0 0 6px rgba(255,138,30,.7); }
+  .trace-crumb .wire{ width:22px; height:1px; background:var(--border); margin:0 6px; }
+  .trace-crumb a:hover{ color:var(--amber); cursor:pointer; }
+
+  /* ---------- hero ---------- */
+  .hero{
+    max-width:1320px; margin:20px auto 0 auto; padding:0 24px;
+  }
+  .hero-inner{
+    background:linear-gradient(120deg, var(--rail-950), var(--rail-900) 60%);
+    border-radius:16px; padding:34px 30px; position:relative; overflow:hidden;
+    display:grid; grid-template-columns:1.3fr 1fr; gap:24px; align-items:center;
+    color:#fff;
+  }
+  .hero-inner::before{
+    content:''; position:absolute; inset:0;
+    background-image:
+      repeating-linear-gradient(90deg, transparent 0 62px, rgba(255,255,255,0.05) 62px 63px),
+      repeating-linear-gradient(0deg, transparent 0 62px, rgba(255,255,255,0.05) 62px 63px);
+    opacity:.5;
+  }
+  .hero-eyebrow{
+    display:inline-flex; align-items:center; gap:8px; background:rgba(47,208,201,0.12); color:var(--cyan);
+    font-family:'IBM Plex Mono'; font-size:11px; padding:5px 10px; border-radius:20px; margin-bottom:14px; position:relative; z-index:2;
+  }
+  .hero-eyebrow .pulse{ width:6px; height:6px; border-radius:50%; background:var(--cyan); box-shadow:0 0 8px var(--cyan); animation:pulse 1.6s ease-in-out infinite; }
+  @keyframes pulse{ 0%,100%{ opacity:1; } 50%{ opacity:.35; } }
+  .hero h1{ font-family:'Space Grotesk'; font-size:32px; line-height:1.15; margin-bottom:12px; position:relative; z-index:2; max-width:520px; }
+  .hero p{ color:#B9C4DA; font-size:14px; max-width:460px; line-height:1.6; margin-bottom:20px; position:relative; z-index:2; }
+  .hero-ctas{ display:flex; gap:10px; position:relative; z-index:2; flex-wrap:wrap; }
+  .hero-ctas button{ border:none; cursor:pointer; border-radius:8px; padding:12px 18px; font-weight:600; font-size:13.5px; }
+  .hero-ctas .primary{ background:var(--amber); color:#fff; }
+  .hero-ctas .primary:hover{ background:var(--amber-dark); }
+  .hero-ctas .ghost{ background:transparent; border:1px solid var(--rail-line); color:#fff; }
+  .hero-ctas .ghost:hover{ border-color:var(--cyan); color:var(--cyan); }
+  .hero-panel{
+    position:relative; z-index:2; background:rgba(255,255,255,0.04); border:1px solid var(--rail-line); border-radius:12px; padding:18px;
+  }
+  .hero-panel .hp-row{ display:flex; justify-content:space-between; font-family:'IBM Plex Mono'; font-size:12px; padding:8px 0; border-bottom:1px dashed var(--rail-line); color:#D4DBEA; }
+  .hero-panel .hp-row:last-child{ border-bottom:none; }
+  .hero-panel .hp-label{ color:#8FA0C4; }
+  .hero-panel .hp-title{ font-family:'Space Grotesk'; font-size:12.5px; text-transform:uppercase; letter-spacing:.08em; color:#8FA0C4; margin-bottom:10px; }
+
+  @media (max-width:900px){ .hero-inner{ grid-template-columns:1fr; } }
+
+  /* ---------- trust strip ---------- */
+  .trust-strip{
+    max-width:1320px; margin:16px auto 0 auto; padding:0 24px;
+    display:grid; grid-template-columns:repeat(4,1fr); gap:12px;
+  }
+  .trust-item{ background:var(--panel); border:1px solid var(--border); border-radius:10px; padding:12px 14px; display:flex; align-items:center; gap:10px; }
+  .trust-item .ti-ico{ font-size:18px; }
+  .trust-item .ti-text b{ display:block; font-size:12.5px; }
+  .trust-item .ti-text span{ font-size:11px; color:var(--slate-light); }
+  @media (max-width:900px){ .trust-strip{ grid-template-columns:repeat(2,1fr); } }
+
+  /* ---------- layout ---------- */
+  .layout{
+    max-width:1320px; margin:20px auto 60px auto; padding:0 24px;
+    display:grid; grid-template-columns:252px 1fr; gap:26px; align-items:start;
+  }
+
+  .sidebar{
+    background:var(--panel); border:1px solid var(--border); border-radius:var(--radius);
+    padding:20px; position:sticky; top:16px;
+  }
+  .sidebar h3{
+    font-family:'Space Grotesk'; font-size:12.5px; text-transform:uppercase; letter-spacing:.08em;
+    color:var(--slate); margin-bottom:12px; display:flex; align-items:center; gap:8px;
+  }
+  .sidebar h3::before{ content:''; width:8px; height:8px; background:var(--amber); border-radius:2px; }
+  .sidebar ul{ list-style:none; margin-bottom:22px; }
+  .sidebar li{ margin-bottom:9px; }
+  .sidebar li a{
+    font-size:13.5px; color:var(--ink); display:flex; justify-content:space-between; align-items:center;
+    cursor:pointer;
+  }
+  .sidebar li a:hover{ color:var(--amber); }
+  .sidebar li a.active{ color:var(--amber); font-weight:600; }
+  .sidebar li .count{ color:var(--slate-light); font-size:12px; }
+  .clear-link{ font-size:12px; color:var(--amber-dark); cursor:pointer; display:inline-block; margin-bottom:14px; }
+  .clear-link:hover{ text-decoration:underline; }
+  .check-row{ display:flex; gap:8px; font-size:13px; align-items:center; margin-bottom:9px; cursor:pointer; }
+
+  .price-filter .presets{ display:flex; flex-wrap:wrap; gap:6px; margin-bottom:10px; }
+  .price-filter .presets button{
+    border:1px solid var(--border); background:var(--panel); border-radius:14px; padding:5px 10px;
+    font-size:11.5px; cursor:pointer; color:var(--slate);
+  }
+  .price-filter .presets button:hover, .price-filter .presets button.active{
+    border-color:var(--amber); color:var(--amber-dark); background:rgba(255,138,30,0.08);
+  }
+  .price-filter .custom-range{ display:flex; align-items:center; gap:8px; margin-bottom:10px; }
+  .price-filter .custom-range input{
+    width:100%; border:1px solid var(--border); border-radius:6px; padding:8px 9px; font-size:12.5px; font-family:'IBM Plex Mono';
+    background:var(--panel); color:var(--ink);
+  }
+  .price-filter .custom-range span{ color:var(--slate-light); font-size:12px; }
+  .apply-btn{
+    margin-top:0; width:100%; padding:9px; background:var(--rail-950); color:#fff; border:none;
+    border-radius:6px; font-weight:600; font-size:13px; cursor:pointer;
+  }
+  .apply-btn:hover{ background:var(--rail-900); }
+
+  .active-filters{ display:flex; flex-wrap:wrap; gap:6px; margin-bottom:14px; }
+  .chip{
+    background:var(--cyan-dim); color:var(--ink); border-radius:14px; padding:4px 8px 4px 10px;
+    font-size:11.5px; display:flex; align-items:center; gap:6px;
+  }
+  .chip button{ border:none; background:none; cursor:pointer; color:var(--slate); font-size:12px; line-height:1; }
+
+  .content-head{
+    display:flex; justify-content:space-between; align-items:center; margin-bottom:16px; flex-wrap:wrap; gap:10px;
+  }
+  .content-head h1{ font-family:'Space Grotesk'; font-size:22px; }
+  .content-head .count{ font-size:13px; color:var(--slate-light); }
+  .head-controls{ display:flex; align-items:center; gap:10px; }
+  .sort-select{
+    border:1px solid var(--border); border-radius:7px; padding:8px 10px; font-size:12.5px; background:var(--panel); color:var(--ink);
+    font-family:'Inter'; cursor:pointer;
+  }
+  .view-toggle{ display:flex; border:1px solid var(--border); border-radius:7px; overflow:hidden; }
+  .view-toggle button{ width:34px; height:34px; border:none; background:var(--panel); cursor:pointer; color:var(--slate); font-size:14px; }
+  .view-toggle button.active{ background:var(--amber); color:#fff; }
+
+  .grid{
+    display:grid; grid-template-columns:repeat(4, 1fr); gap:18px;
+  }
+  .grid.list-view{ grid-template-columns:1fr; }
+  .empty-state{
+    grid-column:1/-1; text-align:center; padding:60px 20px; color:var(--slate-light);
+    background:var(--panel); border:1px dashed var(--border); border-radius:var(--radius);
+  }
+  .empty-state button{
+    margin-top:12px; background:var(--amber); color:#fff; border:none; border-radius:6px; padding:9px 16px;
+    font-weight:600; cursor:pointer;
+  }
+  .card{
+    background:var(--panel); border:1px solid var(--border); border-radius:var(--radius);
+    padding:16px; position:relative; transition:box-shadow .18s, transform .18s;
+    display:flex; flex-direction:column;
+  }
+  .card:hover{ box-shadow:var(--shadow); transform:translateY(-2px); }
+  .grid.list-view .card{ flex-direction:row; align-items:center; gap:18px; }
+  .grid.list-view .card .thumb{ width:120px; flex:0 0 auto; margin-bottom:0; }
+  .grid.list-view .card .cbody{ flex:1; display:flex; flex-direction:column; }
+  .grid.list-view .card .name{ min-height:0; }
+  .grid.list-view .card .list-desc{ font-size:12px; color:var(--slate); margin-bottom:8px; display:-webkit-box; -webkit-line-clamp:2; -webkit-box-orient:vertical; overflow:hidden; }
+  .badge-row{ position:absolute; top:12px; left:12px; z-index:2; display:flex; flex-direction:column; gap:5px; }
+  .badge{
+    font-size:10.5px; font-weight:700;
+    padding:3px 8px; border-radius:5px; letter-spacing:.03em;
+  }
+  .badge.sale{ background:#FCE3CC; color:var(--amber-dark); }
+  .badge.new{ background:#DDF4E6; color:var(--green); }
+  .badge.out{ background:#FBE4E4; color:var(--red); }
+  .badge.best{ background:var(--cyan-dim); color:#0E8B85; }
+  .wish-btn{
+    position:absolute; top:12px; right:12px; z-index:2; width:30px; height:30px; border-radius:50%;
+    border:1px solid var(--border); background:var(--panel); cursor:pointer; font-size:14px; color:var(--slate-light);
+    display:flex; align-items:center; justify-content:center;
+  }
+  .wish-btn.active{ color:var(--red); border-color:var(--red); }
+  .card .thumb{
+    height:120px; display:flex; align-items:center; justify-content:center; margin-bottom:12px; cursor:pointer;
+  }
+  .card .thumb-box{
+    width:100%; height:100%; border-radius:8px; background:linear-gradient(135deg, var(--cyan-dim), rgba(255,138,30,0.10));
+    display:flex; align-items:center; justify-content:center; font-size:34px;
+  }
+  .card .cat-label{ font-size:10.5px; color:var(--amber-dark); font-weight:700; letter-spacing:.05em; text-transform:uppercase; margin-bottom:4px; }
+  .card .name{ font-size:13.5px; font-weight:600; line-height:1.35; margin-bottom:6px; min-height:36px; cursor:pointer; }
+  .card .name:hover{ color:var(--amber-dark); }
+  .rating-row{ display:flex; align-items:center; gap:6px; margin-bottom:8px; }
+  .stars{ color:var(--amber); font-size:12px; letter-spacing:1px; }
+  .rating-row .rc{ font-size:11px; color:var(--slate-light); }
+  .trace-divider{
+    height:1px; background:repeating-linear-gradient(90deg, var(--border) 0 6px, transparent 6px 10px);
+    margin:2px 0 10px 0; position:relative;
+  }
+  .trace-divider::after{
+    content:''; position:absolute; right:0; top:-2.5px; width:6px; height:6px; border-radius:50%;
+    background:var(--amber);
+  }
+  .price-row{ display:flex; align-items:center; justify-content:space-between; gap:8px; }
+  .price{ font-family:'IBM Plex Mono'; font-weight:600; font-size:15px; }
+  .price .old{ font-family:'IBM Plex Mono'; font-size:11.5px; color:var(--slate-light); text-decoration:line-through; font-weight:500; margin-right:6px;}
+  .card-actions{ display:flex; gap:6px; align-items:center; }
+  .add-btn{
+    width:32px; height:32px; border-radius:7px; border:none; background:var(--rail-950);
+    color:#fff; cursor:pointer; font-size:15px; display:flex; align-items:center; justify-content:center; flex:0 0 auto;
+  }
+  .add-btn:hover{ background:var(--amber); }
+  .add-btn:disabled{ background:var(--border); color:var(--slate-light); cursor:not-allowed; }
+  .stock{ font-size:11px; color:var(--green); margin-top:6px; font-weight:600; }
+  .stock.low{ color:var(--amberwarn); }
+  .stock.out{ color:var(--red); }
+  .notify-link{ font-size:11px; color:var(--amber-dark); font-weight:600; margin-top:4px; background:none; border:none; cursor:pointer; padding:0; text-align:left; }
+  .notify-link:hover{ text-decoration:underline; }
+  .compare-row{ display:flex; align-items:center; gap:6px; font-size:11px; color:var(--slate-light); margin-top:8px; cursor:pointer; }
+
+  /* ---------- recently viewed ---------- */
+  .rv-wrap{ max-width:1320px; margin:0 auto 10px auto; padding:0 24px; }
+  .rv-wrap h3{ font-family:'Space Grotesk'; font-size:14px; color:var(--slate); margin-bottom:12px; }
+  .rv-track{ display:flex; gap:14px; overflow-x:auto; padding-bottom:8px; }
+  .rv-card{ flex:0 0 150px; background:var(--panel); border:1px solid var(--border); border-radius:10px; padding:12px; cursor:pointer; }
+  .rv-card .rv-thumb{ height:70px; border-radius:7px; background:var(--cyan-dim); display:flex; align-items:center; justify-content:center; font-size:24px; margin-bottom:8px; }
+  .rv-card .rv-name{ font-size:11.5px; font-weight:600; line-height:1.3; min-height:30px; margin-bottom:4px; }
+  .rv-card .rv-price{ font-family:'IBM Plex Mono'; font-size:12px; color:var(--amber-dark); }
+
+  /* ---------- bottom strips ---------- */
+  .strips{
+    max-width:1320px; margin:0 auto 50px auto; padding:0 24px;
+    display:grid; grid-template-columns:repeat(3,1fr); gap:20px;
+  }
+  .strip-card{ background:var(--panel); border:1px solid var(--border); border-radius:var(--radius); padding:18px; }
+  .strip-card h4{ font-family:'Space Grotesk'; font-size:14px; margin-bottom:12px; }
+  .strip-item{ display:flex; align-items:center; gap:10px; margin-bottom:10px; font-size:12.5px; cursor:pointer; }
+  .strip-item:hover .strip-name{ color:var(--amber-dark); }
+  .strip-item .sw{ width:36px; height:36px; border-radius:6px; background:var(--cyan-dim); flex:0 0 auto; display:flex; align-items:center; justify-content:center; font-size:16px;}
+  .strip-item .sp{ color:var(--amber-dark); font-family:'IBM Plex Mono'; font-weight:600; font-size:12px; margin-left:auto; }
+
+  /* ---------- testimonials ---------- */
+  .testi-wrap{ max-width:1320px; margin:0 auto 50px auto; padding:0 24px; }
+  .testi-wrap h3{ font-family:'Space Grotesk'; font-size:14px; color:var(--slate); margin-bottom:14px; }
+  .testi-grid{ display:grid; grid-template-columns:repeat(4,1fr); gap:16px; }
+  .testi{ background:var(--panel); border:1px solid var(--border); border-radius:var(--radius); padding:16px; font-size:12.5px; }
+  .testi .who{ margin-top:10px; font-weight:600; font-size:12px; }
+
+  /* ---------- footer ---------- */
+  footer{ background:var(--rail-950); color:#C7D0E3; }
+  .newsletter{
+    background:var(--amber); color:#fff; padding:18px 24px;
+    display:flex; justify-content:center; align-items:center; gap:16px; flex-wrap:wrap; flex-direction:column;
+  }
+  .newsletter .row{ display:flex; justify-content:center; align-items:center; gap:16px; flex-wrap:wrap; }
+  .newsletter form{ display:flex; }
+  .newsletter input{ padding:10px 14px; border:none; border-radius:6px 0 0 6px; width:280px; font-size:13px; }
+  .newsletter button{ padding:10px 16px; border:none; border-radius:0 6px 6px 0; background:var(--rail-950); color:#fff; font-weight:600; cursor:pointer; }
+  .newsletter .alt-link{ font-size:12px; color:#fff; text-decoration:underline; cursor:pointer; background:none; border:none; opacity:.9; }
+  .newsletter .confirm{ font-size:13.5px; font-weight:600; }
+  .footer-grid{
+    max-width:1320px; margin:0 auto; padding:36px 24px; display:grid; grid-template-columns:1.4fr 1fr 1fr 1fr;
+    gap:30px;
+  }
+  .footer-grid h4{ font-family:'Space Grotesk'; color:#fff; font-size:14px; margin-bottom:14px; }
+  .footer-grid p, .footer-grid a{ font-size:12.5px; line-height:1.9; color:#B7C2DA; display:block; }
+  .footer-grid a:hover{ color:var(--amber); }
+  .social-row{ display:flex; gap:8px; margin-top:12px; }
+  .social-row a{ width:32px; height:32px; border-radius:8px; background:rgba(255,255,255,0.06); display:flex; align-items:center; justify-content:center; font-size:14px; }
+  .social-row a:hover{ background:var(--amber); }
+  .footer-bottom{ border-top:1px solid var(--rail-line); text-align:center; padding:14px; font-size:12px; color:#8FA0C4; }
+  @media (max-width:900px){ .footer-grid{ grid-template-columns:1fr 1fr; } }
+
+  /* ---------- floating whatsapp ---------- */
+  .wa-float{
+    position:fixed; bottom:22px; right:22px; z-index:80; width:56px; height:56px; border-radius:50%;
+    background:#25D366; display:flex; align-items:center; justify-content:center; font-size:26px; color:#fff;
+    box-shadow:0 10px 26px rgba(0,0,0,.28); cursor:pointer; border:none;
+  }
+  .wa-float:hover{ transform:scale(1.06); }
+
+  /* ---------- compare tray ---------- */
+  .compare-tray{
+    position:fixed; left:50%; transform:translateX(-50%) translateY(120%); bottom:20px; z-index:70;
+    background:var(--rail-950); color:#fff; border-radius:12px; padding:12px 16px; display:flex; align-items:center; gap:14px;
+    box-shadow:0 16px 34px rgba(0,0,0,.35); transition:transform .25s ease; max-width:92vw;
+  }
+  .compare-tray.show{ transform:translateX(-50%) translateY(0); }
+  .compare-tray .ct-thumbs{ display:flex; gap:6px; }
+  .compare-tray .ct-thumb{ width:34px; height:34px; border-radius:7px; background:rgba(255,255,255,.08); display:flex; align-items:center; justify-content:center; font-size:16px; }
+  .compare-tray button.ct-go{ background:var(--amber); border:none; color:#fff; padding:8px 14px; border-radius:7px; font-weight:600; cursor:pointer; font-size:12.5px; white-space:nowrap; }
+  .compare-tray button.ct-clear{ background:none; border:none; color:#8FA0C4; cursor:pointer; font-size:12px; }
+
+  /* ---------- toasts ---------- */
+  .toast-stack{ position:fixed; top:16px; right:16px; z-index:200; display:flex; flex-direction:column; gap:8px; }
+  .toast{
+    background:var(--rail-950); color:#fff; padding:11px 16px; border-radius:9px; font-size:12.5px; display:flex; align-items:center; gap:10px;
+    box-shadow:0 12px 26px rgba(0,0,0,.3); animation:toast-in .22s ease; min-width:220px;
+  }
+  .toast .t-ico{ font-size:15px; }
+  @keyframes toast-in{ from{ opacity:0; transform:translateY(-8px); } to{ opacity:1; transform:translateY(0); } }
+
+  /* ---------- overlays / modals ---------- */
+  .overlay{
+    position:fixed; inset:0; background:rgba(8,11,16,0.6); display:none;
+    align-items:center; justify-content:center; z-index:100; padding:20px;
+  }
+  .overlay.show{ display:flex; }
+  .modal{
+    background:var(--panel); color:var(--ink); border-radius:var(--radius); max-width:760px; width:100%;
+    max-height:88vh; overflow-y:auto; position:relative; padding:26px;
+  }
+  .modal.small{ max-width:430px; }
+  .modal.wide{ max-width:960px; }
+  .modal-close{
+    position:absolute; top:14px; right:14px; background:var(--bg); border:none; width:30px; height:30px;
+    border-radius:50%; cursor:pointer; font-size:15px; color:var(--slate);
+  }
+  .modal-close:hover{ background:var(--border); }
+  .pd-top{ display:grid; grid-template-columns:1fr 1fr; gap:24px; }
+  .pd-gallery-main{
+    height:220px; border-radius:10px; background:linear-gradient(135deg, var(--cyan-dim), rgba(255,138,30,0.10));
+    display:flex; align-items:center; justify-content:center; font-size:80px; margin-bottom:10px;
+  }
+  .pd-gallery-thumbs{ display:flex; gap:8px; }
+  .pd-gallery-thumbs .gthumb{
+    width:52px; height:52px; border-radius:7px; background:var(--bg); display:flex; align-items:center;
+    justify-content:center; font-size:22px; cursor:pointer; border:2px solid transparent;
+  }
+  .pd-gallery-thumbs .gthumb.active{ border-color:var(--amber); }
+  .pd-cat{ font-size:11px; color:var(--amber-dark); font-weight:700; text-transform:uppercase; letter-spacing:.05em; }
+  .pd-title{ font-family:'Space Grotesk'; font-size:20px; margin:6px 0 8px 0; }
+  .pd-brand{ font-size:12.5px; color:var(--slate); margin-bottom:6px; }
+  .pd-rating{ display:flex; align-items:center; gap:8px; margin-bottom:10px; font-size:12px; color:var(--slate); }
+  .pd-price{ font-family:'IBM Plex Mono'; font-size:22px; font-weight:700; margin-bottom:4px; }
+  .pd-price .old{ font-size:14px; color:var(--slate-light); text-decoration:line-through; font-weight:500; margin-right:8px; }
+  .pd-desc{ font-size:13.5px; color:var(--slate); line-height:1.6; margin:14px 0; }
+  .pd-actions-row{ display:flex; gap:8px; }
+  .pd-icon-btn{ width:46px; flex:0 0 auto; border-radius:7px; border:1px solid var(--border); background:var(--panel); cursor:pointer; font-size:16px; color:var(--slate); }
+  .pd-icon-btn.active{ color:var(--red); border-color:var(--red); }
+  .pd-specs{ list-style:none; margin-bottom:8px; }
+  .pd-specs li{ font-size:12.5px; color:var(--slate); padding:5px 0; border-bottom:1px dashed var(--border); }
+  .qty-row{ display:flex; align-items:center; gap:12px; margin-bottom:14px; }
+  .qty-stepper{ display:flex; align-items:center; border:1px solid var(--border); border-radius:7px; overflow:hidden; }
+  .qty-stepper button{ width:32px; height:32px; border:none; background:var(--bg); cursor:pointer; font-size:15px; color:var(--ink); }
+  .qty-stepper span{ width:34px; text-align:center; font-family:'IBM Plex Mono'; font-size:13.5px; }
+  .pd-add{ flex:1; background:var(--rail-950); color:#fff; border:none; border-radius:7px; padding:12px; font-weight:600; cursor:pointer; font-size:14px; }
+  .pd-add:hover{ background:var(--amber); }
+  .pd-add:disabled{ background:var(--border); color:var(--slate-light); cursor:not-allowed; }
+  .pd-notify{ width:100%; background:var(--panel); color:var(--amber-dark); border:1px solid var(--amber); border-radius:7px; padding:12px; font-weight:600; cursor:pointer; font-size:14px; margin-top:8px; }
+
+  .tabs{ display:flex; gap:4px; border-bottom:1px solid var(--border); margin:18px 0 14px 0; }
+  .tabs button{ background:none; border:none; padding:9px 4px; margin-right:16px; font-size:13px; font-weight:600; color:var(--slate-light); cursor:pointer; border-bottom:2px solid transparent; }
+  .tabs button.active{ color:var(--ink); border-bottom-color:var(--amber); }
+  .tab-panel{ display:none; }
+  .tab-panel.active{ display:block; }
+  .review{ border-bottom:1px solid var(--border); padding:12px 0; }
+  .review .rev-top{ display:flex; justify-content:space-between; align-items:center; margin-bottom:4px; }
+  .review .rev-name{ font-size:12.5px; font-weight:600; }
+  .review .rev-text{ font-size:12.5px; color:var(--slate); }
+  .review-form textarea{ width:100%; border:1px solid var(--border); border-radius:7px; padding:10px; font-family:'Inter'; font-size:13px; min-height:70px; background:var(--panel); color:var(--ink); }
+  .star-pick{ display:flex; gap:4px; margin:8px 0; font-size:20px; }
+  .star-pick span{ cursor:pointer; color:var(--border); }
+  .star-pick span.on{ color:var(--amber); }
+  .related-grid{ display:grid; grid-template-columns:repeat(4,1fr); gap:12px; margin-top:8px; }
+  .related-card{ border:1px solid var(--border); border-radius:9px; padding:10px; cursor:pointer; }
+  .related-card .rc-thumb{ height:56px; border-radius:6px; background:var(--bg); display:flex; align-items:center; justify-content:center; font-size:22px; margin-bottom:6px; }
+  .related-card .rc-name{ font-size:11px; font-weight:600; line-height:1.3; margin-bottom:4px; min-height:28px; }
+  .related-card .rc-price{ font-family:'IBM Plex Mono'; font-size:11.5px; color:var(--amber-dark); }
+
+  /* cart drawer */
+  .cart-item{ display:flex; align-items:center; gap:12px; padding:12px 0; border-bottom:1px solid var(--border); }
+  .cart-item .ci-icon{ width:46px; height:46px; border-radius:7px; background:var(--bg); display:flex; align-items:center; justify-content:center; font-size:20px; flex:0 0 auto; }
+  .cart-item .ci-name{ font-size:13px; font-weight:600; margin-bottom:4px; }
+  .cart-item .ci-price{ font-family:'IBM Plex Mono'; font-size:12.5px; color:var(--slate); }
+  .cart-item .ci-qty{ display:flex; align-items:center; border:1px solid var(--border); border-radius:6px; overflow:hidden; margin-left:auto; }
+  .cart-item .ci-qty button{ width:26px; height:26px; border:none; background:var(--bg); cursor:pointer; color:var(--ink); }
+  .cart-item .ci-qty span{ width:26px; text-align:center; font-size:12.5px; }
+  .cart-item .ci-remove{ border:none; background:none; color:var(--red); cursor:pointer; font-size:11.5px; margin-left:10px; }
+  .cart-empty{ text-align:center; padding:40px 10px; color:var(--slate-light); font-size:13.5px; }
+  .free-ship-bar{ background:var(--bg); border-radius:20px; height:8px; overflow:hidden; margin:6px 0 4px 0; }
+  .free-ship-bar .fill{ height:100%; background:linear-gradient(90deg, var(--cyan), var(--amber)); transition:width .3s; }
+  .free-ship-note{ font-size:11.5px; color:var(--slate); margin-bottom:12px; }
+  .promo-row{ display:flex; gap:8px; margin:12px 0; }
+  .promo-row input{ flex:1; border:1px solid var(--border); border-radius:7px; padding:9px 10px; font-size:12.5px; background:var(--panel); color:var(--ink); }
+  .promo-row button{ border:none; background:var(--rail-950); color:#fff; border-radius:7px; padding:0 14px; font-size:12.5px; font-weight:600; cursor:pointer; }
+  .promo-msg{ font-size:11.5px; margin-bottom:6px; }
+  .promo-msg.ok{ color:var(--green); } .promo-msg.err{ color:var(--red); }
+  .cart-total-row{ display:flex; justify-content:space-between; align-items:center; padding:6px 0; font-size:13px; }
+  .cart-total-row.grand{ font-weight:700; font-size:15px; border-top:1px solid var(--border); margin-top:6px; padding-top:12px; }
+  .checkout-btn{ width:100%; background:var(--amber); color:#fff; border:none; border-radius:7px; padding:13px; font-weight:700; cursor:pointer; font-size:14px; margin-top:6px; }
+  .checkout-btn:hover{ background:var(--amber-dark); }
+  .checkout-btn:disabled{ background:var(--border); color:var(--slate-light); cursor:not-allowed; }
+  .points-note{ font-size:11.5px; color:var(--slate); background:var(--cyan-dim); border-radius:7px; padding:8px 10px; margin-top:10px; }
+
+  /* checkout modal */
+  .step-dots{ display:flex; gap:6px; margin-bottom:16px; }
+  .step-dots .sd{ flex:1; height:4px; border-radius:3px; background:var(--border); }
+  .step-dots .sd.on{ background:var(--amber); }
+  .delivery-opts{ display:flex; gap:10px; margin:12px 0; }
+  .delivery-opt{ flex:1; border:1px solid var(--border); border-radius:9px; padding:12px; cursor:pointer; font-size:12.5px; }
+  .delivery-opt.active{ border-color:var(--amber); background:rgba(255,138,30,0.06); }
+  .delivery-opt b{ display:block; font-size:13px; margin-bottom:3px; }
+  .delivery-opt span{ color:var(--slate-light); font-size:11.5px; }
+  .pm-tabs{ display:flex; gap:8px; margin:16px 0; }
+  .pm-tabs button{
+    flex:1; padding:10px; border:1px solid var(--border); background:var(--panel); border-radius:7px; cursor:pointer;
+    font-size:12.5px; font-weight:600; color:var(--slate);
+  }
+  .pm-tabs button.active{ border-color:var(--amber); color:var(--amber-dark); background:rgba(255,138,30,0.08); }
+  .pm-panel{ background:var(--bg); border-radius:8px; padding:16px; font-size:13px; color:var(--ink); }
+  .pm-panel .pm-row{ display:flex; justify-content:space-between; padding:6px 0; font-family:'IBM Plex Mono'; font-size:13px; }
+  .pm-panel .pm-label{ color:var(--slate); font-family:'Inter'; font-size:12.5px; }
+  .order-line{ display:flex; justify-content:space-between; font-size:12.5px; padding:5px 0; color:var(--slate); }
+  .success-box{ text-align:center; padding:20px 10px; }
+  .success-box .tick{ font-size:44px; margin-bottom:10px; }
+  .success-box h3{ font-family:'Space Grotesk'; margin-bottom:8px; }
+  .success-box p{ font-size:13px; color:var(--slate); margin-bottom:16px; }
+
+  /* forms */
+  .form-field{ margin-bottom:12px; }
+  .form-field label{ display:block; font-size:12.5px; font-weight:600; margin-bottom:5px; color:var(--slate); }
+  .form-field input, .form-field textarea{
+    width:100%; border:1px solid var(--border); border-radius:6px; padding:10px 12px; font-size:13px; font-family:'Inter';
+    background:var(--panel); color:var(--ink);
+  }
+  .form-row2{ display:grid; grid-template-columns:1fr 1fr; gap:10px; }
+  .form-submit{ width:100%; background:var(--rail-950); color:#fff; border:none; border-radius:7px; padding:12px; font-weight:600; cursor:pointer; font-size:14px; margin-top:4px; }
+  .form-submit:hover{ background:var(--amber); }
+
+  /* track order timeline */
+  .track-timeline{ margin-top:18px; }
+  .tt-step{ display:flex; gap:12px; position:relative; padding-bottom:22px; }
+  .tt-step:last-child{ padding-bottom:0; }
+  .tt-step::before{ content:''; position:absolute; left:9px; top:22px; bottom:0; width:2px; background:var(--border); }
+  .tt-step:last-child::before{ display:none; }
+  .tt-step.done::before{ background:var(--cyan); }
+  .tt-dot{ width:20px; height:20px; border-radius:50%; background:var(--border); flex:0 0 auto; display:flex; align-items:center; justify-content:center; font-size:11px; color:#fff; }
+  .tt-step.done .tt-dot{ background:var(--green); }
+  .tt-step.current .tt-dot{ background:var(--amber); box-shadow:0 0 0 4px rgba(255,138,30,0.2); }
+  .tt-label b{ display:block; font-size:13px; }
+  .tt-label span{ font-size:11.5px; color:var(--slate-light); }
+
+  @media (max-width:900px){
+    .layout{ grid-template-columns:1fr; }
+    .sidebar{ position:static; }
+    .grid{ grid-template-columns:repeat(2,1fr); }
+    .strips{ grid-template-columns:1fr; }
+    .testi-grid{ grid-template-columns:repeat(2,1fr); }
+    .footer-grid{ grid-template-columns:1fr; }
+    .header-row{ flex-wrap:wrap; }
+    .pd-top{ grid-template-columns:1fr; }
+    .related-grid{ grid-template-columns:repeat(2,1fr); }
+    .hero h1{ font-size:24px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="toast-stack" id="toastStack"></div>
+
+<div class="topbar">
+  <div class="ticker-wrap">
+    <div class="ticker-track" id="tickerTrack"></div>
+  </div>
+  <div class="topbar-right">
+    <span class="mpesa-chip">M-Pesa accepted</span>
+    <button class="link-btn" onclick="openTrackOrder()">Track order</button>
+    <button class="theme-toggle" id="themeToggle" onclick="toggleTheme()" title="Toggle dark mode">◐</button>
+  </div>
+</div>
+
+<header class="main">
+  <svg class="trace-canvas" viewBox="0 0 1320 150" preserveAspectRatio="none">
+    <path d="M0,40 H260 V10 H520" />
+    <path d="M0,90 H160 V120 H700" />
+    <path d="M900,10 V60 H1320" />
+    <path d="M780,120 H1050 V70 H1320" />
+    <path class="live" d="M0,40 H260 V10 H520" />
+    <path class="live" d="M780,120 H1050 V70 H1320" style="animation-delay:1.8s;" />
+  </svg>
+  <div class="header-row">
+    <div class="logo" onclick="resetToHome()"><span class="node"></span>PAT<span class="sub" style="margin-left:6px;">.Enterprise</span></div>
+    <div class="search-wrap">
+      <div class="search">
+        <input type="text" id="searchInput" placeholder="Search motherboards, GPUs, cables, capture cards..." autocomplete="off">
+        <button onclick="runSearch()">Search</button>
+      </div>
+      <div class="suggest-panel" id="suggestPanel"></div>
+    </div>
+    <div class="header-actions">
+      <button class="icon-btn" onclick="openWishlist()" title="Wishlist">♥<span class="badge-count" id="wishCount" style="display:none;">0</span></button>
+      <button class="icon-btn" onclick="openCompareModal()" title="Compare">⇄<span class="badge-count" id="compareCount" style="display:none;">0</span></button>
+      <button class="cart-pill" onclick="openCart()">🛒 Cart · <span id="cartCount">0</span></button>
+    </div>
+  </div>
+  <nav class="categories" id="navCategories"></nav>
+</header>
+
+<div class="trace-crumb" id="breadcrumb"></div>
+
+<div class="hero" id="heroSection">
+  <div class="hero-inner">
+    <div>
+      <div class="hero-eyebrow"><span class="pulse"></span>LIVE · NAIROBI CBD PICKUP TODAY</div>
+      <h1>Genuine components, wired straight into Nairobi.</h1>
+      <p>Motherboards, GPUs power gear, networking kit and the small cables that make everything actually work — stocked locally, paid for on M-Pesa, and in your hands in hours, not weeks.</p>
+      <div class="hero-ctas">
+        <button class="primary" onclick="document.querySelector('.layout').scrollIntoView({behavior:'smooth'})">Shop components</button>
+        <button class="ghost" onclick="selectNavCat('clearance')">View clearance</button>
+      </div>
+    </div>
+    <div class="hero-panel">
+      <div class="hp-title">System status</div>
+      <div class="hp-row"><span class="hp-label">Catalog</span><span id="hpCatalog">24 parts online</span></div>
+      <div class="hp-row"><span class="hp-label">CBD pickup</span><span>Ready in ~2 hrs</span></div>
+      <div class="hp-row"><span class="hp-label">Countrywide delivery</span><span>24–48 hrs</span></div>
+      <div class="hp-row"><span class="hp-label">Checkout</span><span>M-Pesa Paybill / Till / Send Money</span></div>
+      <div class="hp-row"><span class="hp-label">PAT Points</span><span>Earn 2% back on every order</span></div>
+    </div>
+  </div>
+</div>
+
+<div class="trust-strip">
+  <div class="trust-item"><span class="ti-ico">🛡️</span><div class="ti-text"><b>Genuine parts</b><span>Sourced, not grey-market</span></div></div>
+  <div class="trust-item"><span class="ti-ico">📱</span><div class="ti-text"><b>M-Pesa secured</b><span>Paybill, Till or Send Money</span></div></div>
+  <div class="trust-item"><span class="ti-ico">🏬</span><div class="ti-text"><b>CBD pickup</b><span>Same-day, no delivery fee</span></div></div>
+  <div class="trust-item"><span class="ti-ico">↩️</span><div class="ti-text"><b>7-day returns</b><span>On unopened, faulty items</span></div></div>
+</div>
+
+<div class="layout">
+  <aside class="sidebar">
+    <h3>Categories</h3>
+    <ul id="sidebarCats"></ul>
+
+    <h3>Brand</h3>
+    <ul id="sidebarBrands"></ul>
+
+    <h3>Rating</h3>
+    <ul id="sidebarRatings"></ul>
+
+    <h3>Availability</h3>
+    <div class="check-row"><input type="checkbox" id="inStockOnly" onchange="toggleInStock()"><label for="inStockOnly">In stock only</label></div>
+
+    <h3>Price range (KES)</h3>
+    <div class="price-filter">
+      <div class="presets" id="pricePresets"></div>
+      <div class="custom-range">
+        <input type="number" id="minPriceInput" placeholder="Min">
+        <span>–</span>
+        <input type="number" id="maxPriceInput" placeholder="Max">
+      </div>
+      <button class="apply-btn" onclick="applyCustomPrice()">Apply filter</button>
+    </div>
+  </aside>
+
+  <main>
+    <div class="active-filters" id="activeFilters"></div>
+    <div class="content-head">
+      <div>
+        <h1 class="display" id="contentTitle">All Products</h1>
+        <span class="count" id="resultCount"></span>
+      </div>
+      <div class="head-controls">
+        <select class="sort-select" id="sortSelect" onchange="setSort(this.value)">
+          <option value="featured">Sort: Featured</option>
+          <option value="price-asc">Price: Low to High</option>
+          <option value="price-desc">Price: High to Low</option>
+          <option value="rating">Rating</option>
+          <option value="newest">Newest</option>
+        </select>
+        <div class="view-toggle">
+          <button id="viewGridBtn" class="active" onclick="setView('grid')" title="Grid view">▦</button>
+          <button id="viewListBtn" onclick="setView('list')" title="List view">☰</button>
+        </div>
+      </div>
+    </div>
+    <div class="grid" id="productGrid"></div>
+  </main>
+</div>
+
+<div class="rv-wrap" id="rvWrap" style="display:none;">
+  <h3>Recently viewed</h3>
+  <div class="rv-track" id="rvTrack"></div>
+</div>
+
+<div class="strips">
+  <div class="strip-card">
+    <h4>Top selling products</h4>
+    <div id="topSellingStrip"></div>
+  </div>
+  <div class="strip-card">
+    <h4>On-sale products</h4>
+    <div id="onSaleStrip"></div>
+  </div>
+  <div class="strip-card">
+    <h4>Shop PAT.Enterprise Merch</h4>
+    <div class="strip-item"><div class="sw">🧢</div><span class="strip-name">PAT.Enterprise Branded Cap</span><span class="sp">KES 800</span></div>
+    <div class="strip-item"><div class="sw">👕</div><span class="strip-name">PAT.Enterprise Tech Tee</span><span class="sp">KES 1,200</span></div>
+    <div class="strip-item"><div class="sw">🎒</div><span class="strip-name">Laptop Sleeve, 15.6&quot;</span><span class="sp">KES 1,500</span></div>
+  </div>
+</div>
+
+<div class="testi-wrap">
+  <h3>What Nairobi is saying</h3>
+  <div class="testi-grid">
+    <div class="testi"><div class="stars">★★★★★</div>Ordered a sound card in the morning, had it by 3pm same day. Paid on delivery via M-Pesa, no stress.<div class="who">— Wanjiru K.</div></div>
+    <div class="testi"><div class="stars">★★★★★</div>Good prices on cables compared to River Road, and they actually pick up the phone.<div class="who">— Otieno M.</div></div>
+    <div class="testi"><div class="stars">★★★★☆</div>SSD came well packed. Would've liked more brand options but the price was fair.<div class="who">— Faith N.</div></div>
+    <div class="testi"><div class="stars">★★★★★</div>Helped me pick the right capture card for streaming on a budget. Solid support.<div class="who">— Brian O.</div></div>
+  </div>
+</div>
+
+<footer>
+  <div class="newsletter" id="newsletterWrap">
+    <div class="row" id="newsletterRow">
+      <strong>Get restock alerts & deals in your inbox</strong>
+      <form id="newsletterForm">
+        <input type="email" id="newsletterEmail" placeholder="Enter your email" required>
+        <button type="submit">Subscribe</button>
+      </form>
+    </div>
+    <button class="alt-link" onclick="openNotify(null)">Want an alert for one specific product instead?</button>
+  </div>
+  <div class="footer-grid">
+    <div>
+      <h4 class="display">PAT.Enterprise</h4>
+      <p>Computer components, networking gear, and accessories for Nairobi builders, gamers, and offices. M-Pesa accepted at checkout and on delivery.</p>
+      <p style="margin-top:10px;">📍 Nairobi CBD, Kenya &nbsp; · &nbsp; 📞 0700 000 000</p>
+      <div class="social-row">
+        <a href="#" title="WhatsApp">📞</a>
+        <a href="#" title="Instagram">📷</a>
+        <a href="#" title="X / Twitter">🐦</a>
+        <a href="#" title="Facebook">📘</a>
+      </div>
+    </div>
+    <div>
+      <h4>Useful links</h4>
+      <a onclick="openTrackOrder()">Track my order</a>
+      <a onclick="openWishlist()">My wishlist</a>
+      <a href="#">Delivery & returns</a>
+      <a href="#">Privacy policy</a>
+      <a href="#">Terms of service</a>
+    </div>
+    <div>
+      <h4>Categories</h4>
+      <a onclick="selectNavCat('components')">Computer Components</a>
+      <a onclick="selectNavCat('networking')">Networking</a>
+      <a onclick="selectNavCat('storage')">Storage & SSDs</a>
+      <a onclick="selectNavCat('cables')">Cables & Adapters</a>
+    </div>
+    <div>
+      <h4>Opening hours</h4>
+      <p>Mon – Fri: 8:00 – 18:00</p>
+      <p>Saturday: 9:00 – 16:00</p>
+      <p>Sunday: Closed</p>
+    </div>
+  </div>
+  <div class="footer-bottom">© 2026 PAT.Enterprise. All rights reserved. Demo storefront — payments are simulated.</div>
+</footer>
+
+<button class="wa-float" onclick="openWhatsApp()" title="Chat on WhatsApp">💬</button>
+
+<div class="compare-tray" id="compareTray">
+  <div class="ct-thumbs" id="ctThumbs"></div>
+  <span class="mono" id="ctCount" style="font-size:12.5px;"></span>
+  <button class="ct-go" onclick="openCompareModal()">Compare now</button>
+  <button class="ct-clear" onclick="clearCompare()">Clear</button>
+</div>
+
+<!-- Product detail modal -->
+<div class="overlay" id="productOverlay">
+  <div class="modal wide" id="productModal"></div>
+</div>
+
+<!-- Cart drawer modal -->
+<div class="overlay" id="cartOverlay">
+  <div class="modal small" id="cartModal"></div>
+</div>
+
+<!-- Checkout modal -->
+<div class="overlay" id="checkoutOverlay">
+  <div class="modal small" id="checkoutModal"></div>
+</div>
+
+<!-- Notify me modal -->
+<div class="overlay" id="notifyOverlay">
+  <div class="modal small" id="notifyModal"></div>
+</div>
+
+<!-- Wishlist modal -->
+<div class="overlay" id="wishlistOverlay">
+  <div class="modal small" id="wishlistModal"></div>
+</div>
+
+<!-- Compare modal -->
+<div class="overlay" id="compareOverlay">
+  <div class="modal wide" id="compareModal"></div>
+</div>
+
+<!-- Track order modal -->
+<div class="overlay" id="trackOverlay">
+  <div class="modal small" id="trackModal"></div>
+</div>
+
+<script>
+/* ============================================================
+   DATA
+============================================================ */
+const NAV_CATS = [
+  {key:'all', label:'All Products'},
+  {key:'components', label:'Computer Components'},
+  {key:'networking', label:'Networking'},
+  {key:'storage', label:'Storage & SSDs'},
+  {key:'cables', label:'Cables & Adapters'},
+  {key:'audio', label:'Audio & Capture'},
+  {key:'cooling', label:'Cooling'},
+  {key:'clearance', label:'Clearance'},
+];
+
+const SUBCATS = [
+  {name:'Motherboards', cat:'components'},
+  {name:'Power Supply Units', cat:'components'},
+  {name:'Networking Devices', cat:'networking'},
+  {name:'Wireless Cards', cat:'networking'},
+  {name:'Storage Drives', cat:'storage'},
+  {name:'Cables & Adapters', cat:'cables'},
+  {name:'Sound & Capture Cards', cat:'audio'},
+  {name:'Cooling Fans', cat:'cooling'},
+];
+
+const BRANDS = ['Corsair','TP-Link','Deep Cool','Sabrent','Kingston','Generic OEM'];
+
+const TICKER_ITEMS = [
+  'Nairobi CBD pickup ready in ~2 hrs',
+  'Countrywide delivery in 24–48 hrs',
+  '38 orders confirmed via M-Pesa today',
+  'Free delivery on orders above KES 5,000',
+  'New: Z790 ATX Gaming Motherboard in stock',
+  'PAT Points: earn 2% back on every order',
+];
+
+const REVIEW_POOL = [
+  {name:'Wanjiru K.', text:'Arrived fast and exactly as described. Would buy again.'},
+  {name:'Otieno M.', text:'Good build quality for the price, no complaints so far.'},
+  {name:'Faith N.', text:'Packaging was solid and the item works perfectly.'},
+  {name:'Brian O.', text:'Support helped me pick the right one for my setup.'},
+  {name:'Njoroge W.', text:'Exactly what I needed, delivery was quick.'},
+  {name:'Amina H.', text:'Great value, been using it daily without issues.'},
+  {name:'Kevin M.', text:'Setup was straightforward, works as advertised.'},
+  {name:'Grace A.', text:'A bit pricier than River Road but worth the reliability.'},
+  {name:'Dennis K.', text:'Second purchase from PAT.Enterprise, never disappointed.'},
+  {name:'Cynthia L.', text:'Fast CBD pickup, saved me a delivery fee and the wait.'},
+];
+
+const products = [
+  {id:1, name:'Sabrent 8-Channel PCIe Sound Card', category:'audio', subcategory:'Sound & Capture Cards', brand:'Sabrent', price:3150, oldPrice:3800, badge:'sale', stock:'in', stockNote:'In stock', icon:'🎛️', gallery:['🎛️','🎚️','📦','🔊'], rating:4.6, reviewCount:34,
+    desc:'A PCIe sound card built for creators who need clean multichannel audio without relying on a laptop\'s onboard chip. Handles streaming, podcasting and studio monitoring with low-latency drivers.',
+    specs:['8-channel output, 24-bit/192kHz DAC','PCIe x1 interface, low-profile bracket included','Dedicated headphone amp for high-impedance cans']},
+  {id:2, name:'USB 3.0 to HDMI Video Capture Card', category:'audio', subcategory:'Sound & Capture Cards', brand:'Generic OEM', price:4300, badge:'new', stock:'in', stockNote:'In stock', icon:'💽', gallery:['💽','🎥','🔌'], rating:4.3, reviewCount:51,
+    desc:'Plug-and-play capture card for streaming consoles, cameras or a second PC to OBS, Zoom or Discord at up to 1080p60.',
+    specs:['HDMI in / USB-A 3.0 out, UVC compatible','1080p60 passthrough and capture','Works with OBS, Zoom, Discord out of the box']},
+  {id:3, name:'120mm RGB Case Fan, 3-Pack', category:'cooling', subcategory:'Cooling Fans', brand:'Corsair', price:2750, stock:'in', stockNote:'In stock', icon:'🌀', gallery:['🌀','💡','📦'], rating:4.7, reviewCount:88,
+    desc:'Addressable RGB case fans for quiet, high static-pressure airflow. Sold as a 3-pack with a shared RGB hub.',
+    specs:['120mm, up to 1800 RPM','Daisy-chainable ARGB hub included','Rubber corner dampeners for quiet operation']},
+  {id:4, name:'Dual-Band AX3000 Wi-Fi PCIe Card', category:'networking', subcategory:'Wireless Cards', brand:'TP-Link', price:3890, oldPrice:4500, badge:'sale', stock:'in', stockNote:'In stock', icon:'📡', gallery:['📡','📶','🔩'], rating:4.4, reviewCount:42,
+    desc:'Wi-Fi 6 PCIe card for desktop PCs that need fast, stable dual-band wireless plus Bluetooth 5.2.',
+    specs:['Wi-Fi 6 (802.11ax), up to 2402Mbps','Bluetooth 5.2 built in','Includes low-profile bracket and antenna']},
+  {id:5, name:'USB-C to Dual HDMI 4K Adapter', category:'cables', subcategory:'Cables & Adapters', brand:'Generic OEM', price:1950, stock:'in', stockNote:'In stock', icon:'🔌', gallery:['🔌','🖥️'], rating:4.1, reviewCount:29,
+    desc:'Drive two 4K monitors from a single USB-C laptop port. Great for compact multi-monitor desk setups.',
+    specs:['Dual HDMI output, up to 4K@30Hz each','USB-C with DP Alt Mode required','Plug-and-play, no drivers needed']},
+  {id:6, name:'1TB NVMe M.2 Internal SSD', category:'storage', subcategory:'Storage Drives', brand:'Kingston', price:7800, stock:'low', stockNote:'4 left', icon:'🗄️', gallery:['🗄️','⚡','📦'], rating:4.8, reviewCount:156, badge:'best',
+    desc:'Fast NVMe storage for a snappy OS drive or game library upgrade. Fits standard M.2 2280 slots.',
+    specs:['1TB, PCIe Gen3 NVMe','Sequential read up to 3500MB/s','M.2 2280 form factor']},
+  {id:7, name:'Aluminium Laptop Cooling Pad, 6-Fan', category:'cooling', subcategory:'Cooling Fans', brand:'Deep Cool', price:2400, badge:'new', stock:'in', stockNote:'In stock', icon:'🧊', gallery:['🧊','💻'], rating:4.2, reviewCount:37,
+    desc:'Six-fan aluminium cooling pad for laptops running hot under gaming or render workloads.',
+    specs:['6 fans, adjustable speed','Aluminium mesh top for heat dissipation','Fits 12"–17" laptops']},
+  {id:8, name:'Braided HDMI 2.1 Cable, 2m', category:'cables', subcategory:'Cables & Adapters', brand:'Generic OEM', price:950, stock:'in', stockNote:'In stock', icon:'🧵', gallery:['🧵'], rating:4.5, reviewCount:63,
+    desc:'Durable braided HDMI 2.1 cable rated for 4K/120Hz and 8K/60Hz signal, ideal for next-gen consoles and GPUs.',
+    specs:['HDMI 2.1, 48Gbps bandwidth','Supports 4K@120Hz / 8K@60Hz','2 metres, braided jacket']},
+  {id:9, name:'650W 80+ Bronze PSU', category:'components', subcategory:'Power Supply Units', brand:'Corsair', price:5600, stock:'in', stockNote:'In stock', icon:'⚡', gallery:['⚡','🔋'], rating:4.6, reviewCount:71,
+    desc:'Reliable 650W power supply for mid-range gaming builds, with 80+ Bronze efficiency certification.',
+    specs:['650W continuous, 80+ Bronze','Single +12V rail','120mm fan, quiet operation']},
+  {id:10, name:'USB External Sound Card Adapter', category:'audio', subcategory:'Sound & Capture Cards', brand:'Generic OEM', price:1150, oldPrice:1400, badge:'sale', stock:'in', stockNote:'In stock', icon:'🎚️', gallery:['🎚️','🎧'], rating:4.0, reviewCount:45,
+    desc:'Compact USB audio adapter that adds a mic-in and headphone-out to any PC or laptop.',
+    specs:['USB-A plug and play','3.5mm mic in + headphone out','No drivers required on Windows/Mac/Linux']},
+  {id:11, name:'Gigabit 8-Port Ethernet Switch', category:'networking', subcategory:'Networking Devices', brand:'TP-Link', price:3200, stock:'in', stockNote:'In stock', icon:'🖧', gallery:['🖧','🔌'], rating:4.3, reviewCount:26,
+    desc:'Unmanaged 8-port switch for expanding a home or small-office wired network.',
+    specs:['8x Gigabit RJ45 ports','Plug and play, fanless design','Metal casing']},
+  {id:12, name:'18-Pin PCIe Cable for RTX 40-Series', category:'cables', subcategory:'Cables & Adapters', brand:'Corsair', price:1600, stock:'low', stockNote:'2 left', icon:'🔋', gallery:['🔋'], rating:4.4, reviewCount:18,
+    desc:'12VHPWR adapter cable for powering RTX 40-series GPUs from standard PCIe connectors.',
+    specs:['2x 8-pin PCIe to 16-pin 12VHPWR','Rated for up to 450W','30cm length']},
+  {id:13, name:'B450M Micro-ATX Motherboard', category:'components', subcategory:'Motherboards', brand:'Generic OEM', price:8200, stock:'in', stockNote:'In stock', icon:'🧩', gallery:['🧩','🔧'], rating:4.5, reviewCount:40,
+    desc:'Budget-friendly Micro-ATX motherboard for AMD Ryzen builds, good for everyday and light gaming use.',
+    specs:['AM4 socket, supports Ryzen up to 5000-series','2x DDR4 slots, up to 64GB','M.2 NVMe slot, 4x SATA III']},
+  {id:14, name:'Z790 ATX Gaming Motherboard', category:'components', subcategory:'Motherboards', brand:'Generic OEM', price:24500, badge:'new', stock:'in', stockNote:'In stock', icon:'🖥️', gallery:['🖥️','💡','🧩'], rating:4.9, reviewCount:22,
+    desc:'High-end ATX board for the latest Intel gaming and creator builds with strong VRM and connectivity.',
+    specs:['LGA1700 socket, Intel Z790 chipset','DDR5 support, up to 128GB','Wi-Fi 6E and 2.5G LAN built in']},
+  {id:15, name:'Kingston 480GB Internal SSD', category:'storage', subcategory:'Storage Drives', brand:'Kingston', price:3900, stock:'in', stockNote:'In stock', icon:'🗄️', gallery:['🗄️','📦'], rating:4.7, reviewCount:132, badge:'best',
+    desc:'Reliable SATA SSD for a fast, affordable OS or secondary storage upgrade over a mechanical drive.',
+    specs:['480GB, SATA III 2.5"','Sequential read up to 500MB/s','3-year warranty']},
+  {id:16, name:'Corsair RGB Case Fan Pack', category:'cooling', subcategory:'Cooling Fans', brand:'Corsair', price:2600, stock:'in', stockNote:'In stock', icon:'🌀', gallery:['🌀','💡'], rating:4.6, reviewCount:95,
+    desc:'Twin-pack RGB case fans with smooth airflow and vivid lighting for build showcase cases.',
+    specs:['120mm x2, ARGB header compatible','Fluid dynamic bearing for quiet running','Includes mounting screws']},
+  {id:17, name:'Braided USB-C Cable, 1.5m', category:'cables', subcategory:'Cables & Adapters', brand:'Generic OEM', price:650, stock:'in', stockNote:'In stock', icon:'🧵', gallery:['🧵'], rating:4.2, reviewCount:110,
+    desc:'Everyday braided USB-C charging and data cable, reinforced for daily use.',
+    specs:['USB-C to USB-C, 60W PD support','Data transfer up to 480Mbps','1.5 metre braided cable']},
+  {id:18, name:'7.1 Channel USB Sound Card', category:'audio', subcategory:'Sound & Capture Cards', brand:'Generic OEM', price:2100, stock:'in', stockNote:'In stock', icon:'🎛️', gallery:['🎛️','🎧'], rating:4.1, reviewCount:58,
+    desc:'Virtual 7.1 surround USB sound card for gaming headsets and desktop speaker setups.',
+    specs:['Virtual 7.1 surround via USB','Plug and play, no external power','Compatible with Windows and Linux']},
+  {id:19, name:'Dual-Band Wi-Fi Router AC1200', category:'networking', subcategory:'Networking Devices', brand:'TP-Link', price:4500, stock:'in', stockNote:'In stock', icon:'🖧', gallery:['🖧','📶'], rating:4.5, reviewCount:143, badge:'best',
+    desc:'AC1200 dual-band router for reliable home Wi-Fi across a 2-3 bedroom apartment.',
+    specs:['AC1200, 2.4GHz + 5GHz bands','4x Fast Ethernet LAN ports','WPA3 security support']},
+  {id:20, name:'4-Port USB 3.0 Hub', category:'cables', subcategory:'Cables & Adapters', brand:'Generic OEM', price:900, stock:'in', stockNote:'In stock', icon:'🔌', gallery:['🔌'], rating:4.0, reviewCount:67,
+    desc:'Compact 4-port USB hub for expanding limited ports on a laptop or thin desktop.',
+    specs:['4x USB 3.0 ports, up to 5Gbps','Compact aluminium housing','No external power needed']},
+  {id:21, name:'2TB External HDD', category:'storage', subcategory:'Storage Drives', brand:'Generic OEM', price:6800, oldPrice:7900, badge:'sale', stock:'in', stockNote:'In stock', icon:'💾', gallery:['💾','📦'], rating:4.6, reviewCount:84,
+    desc:'Portable 2TB external hard drive for backups, media libraries and transferring large files.',
+    specs:['2TB capacity, USB 3.0','Compact portable design','Compatible with Windows and Mac']},
+  {id:22, name:'750W 80+ Gold Modular PSU', category:'components', subcategory:'Power Supply Units', brand:'Deep Cool', price:8900, stock:'in', stockNote:'In stock', icon:'⚡', gallery:['⚡','🔋','📦'], rating:4.7, reviewCount:33,
+    desc:'Fully modular 750W power supply with Gold efficiency, suited to higher-end gaming rigs.',
+    specs:['750W continuous, 80+ Gold','Fully modular cabling','135mm fan with hybrid silent mode']},
+  {id:23, name:'Wireless USB Wi-Fi Adapter AC600', category:'networking', subcategory:'Wireless Cards', brand:'TP-Link', price:1450, stock:'out', stockNote:'Out of stock', icon:'📶', gallery:['📶','🔌'], rating:3.9, reviewCount:12,
+    desc:'Compact USB Wi-Fi adapter for adding wireless connectivity to a desktop PC without opening the case.',
+    specs:['AC600, dual-band 2.4GHz/5GHz','Nano USB design','Supports Windows and Linux drivers']},
+  {id:24, name:'Tower CPU Air Cooler, 4-Heatpipe', category:'cooling', subcategory:'Cooling Fans', brand:'Deep Cool', price:3600, badge:'new', stock:'in', stockNote:'In stock', icon:'🧊', gallery:['🧊','🌀'], rating:4.5, reviewCount:44,
+    desc:'Quiet 4-heatpipe tower cooler that keeps mid-range and gaming CPUs cool under sustained load.',
+    specs:['4 direct-touch heatpipes','120mm PWM fan included','Compatible with Intel and AMD sockets']},
+];
+
+/* ============================================================
+   STATE + PERSISTENCE
+============================================================ */
+const state = { navCat:'all', subCat:null, brands:new Set(), search:'', minPrice:null, maxPrice:null, minRating:0, inStockOnly:false, sort:'featured', view:'grid' };
+let cart = loadJSON('pat_cart', {});
+let wishlist = new Set(loadJSON('pat_wishlist', []));
+let compareSet = new Set(loadJSON('pat_compare', []));
+let recentlyViewed = loadJSON('pat_recent', []);
+let orders = loadJSON('pat_orders', []);
+let points = loadJSON('pat_points', 0);
+let activeGalleryIdx = 0;
+let currentProductId = null;
+let activeTab = 'desc';
+let pickedStars = 5;
+let paymentMethod = 'paybill';
+let deliveryMethod = 'pickup';
+let promoApplied = null;
+let orderRef = null;
+
+function loadJSON(key, fallback){
+  try{ const v = localStorage.getItem(key); return v ? JSON.parse(v) : fallback; }catch(e){ return fallback; }
+}
+function saveJSON(key, val){
+  try{ localStorage.setItem(key, JSON.stringify(val)); }catch(e){}
+}
+function fmt(n){ return 'KES ' + Math.round(n).toLocaleString(); }
+
+/* ============================================================
+   THEME
+============================================================ */
+function initTheme(){
+  const saved = localStorage.getItem('pat_theme');
+  if(saved==='dark'){ document.documentElement.setAttribute('data-theme','dark'); }
+  updateThemeIcon();
+}
+function toggleTheme(){
+  const isDark = document.documentElement.getAttribute('data-theme')==='dark';
+  if(isDark){ document.documentElement.removeAttribute('data-theme'); localStorage.setItem('pat_theme','light'); }
+  else { document.documentElement.setAttribute('data-theme','dark'); localStorage.setItem('pat_theme','dark'); }
+  updateThemeIcon();
+}
+function updateThemeIcon(){
+  document.getElementById('themeToggle').textContent = document.documentElement.getAttribute('data-theme')==='dark' ? '☀' : '◐';
+}
+
+/* ============================================================
+   TOASTS
+============================================================ */
+function toast(msg, icon){
+  const stack = document.getElementById('toastStack');
+  const el = document.createElement('div');
+  el.className = 'toast';
+  el.innerHTML = `<span class="t-ico">${icon||'✓'}</span><span>${msg}</span>`;
+  stack.appendChild(el);
+  setTimeout(()=>{ el.style.opacity='0'; el.style.transition='opacity .25s'; setTimeout(()=>el.remove(), 250); }, 2400);
+}
+
+/* ============================================================
+   TICKER
+============================================================ */
+function renderTicker(){
+  const items = TICKER_ITEMS.concat(TICKER_ITEMS);
+  document.getElementById('tickerTrack').innerHTML = items.map(t=>`<span>${t}</span>`).join('');
+}
+
+/* ============================================================
+   NAV / SIDEBAR
+============================================================ */
+function renderNav(){
+  const nav = document.getElementById('navCategories');
+  nav.innerHTML = NAV_CATS.map(c => {
+    const subs = SUBCATS.filter(s=>s.cat===c.key);
+    const mega = subs.length ? `<div class="mega">${subs.map(s=>{
+      const cnt = products.filter(p=>p.subcategory===s.name).length;
+      return `<a onclick="selectSubCat('${s.name}','${s.cat}')">${s.name}<span class="mc">${cnt}</span></a>`;
+    }).join('')}</div>` : '';
+    return `<div class="navcat"><a class="${state.navCat===c.key?'active':''}" onclick="selectNavCat('${c.key}')">${c.label}</a>${mega}</div>`;
+  }).join('');
+}
+
+function renderSidebarCats(){
+  const base = products.filter(p => {
+    if(state.navCat==='clearance') return p.badge==='sale';
+    if(state.navCat==='all') return true;
+    return p.category===state.navCat;
+  });
+  const ul = document.getElementById('sidebarCats');
+  ul.innerHTML = SUBCATS.map(s => {
+    const count = base.filter(p=>p.subcategory===s.name).length;
+    const active = state.subCat===s.name ? 'active' : '';
+    return `<li><a class="${active}" onclick="selectSubCat('${s.name}','${s.cat}')">${s.name} <span class="count">${count}</span></a></li>`;
+  }).join('');
+}
+
+function renderSidebarBrands(){
+  const ul = document.getElementById('sidebarBrands');
+  ul.innerHTML = BRANDS.map(b => {
+    const checked = state.brands.has(b) ? 'checked' : '';
+    return `<li><label class="check-row"><input type="checkbox" ${checked} onchange="toggleBrand('${b}')">${b}</label></li>`;
+  }).join('');
+}
+
+function renderSidebarRatings(){
+  const ul = document.getElementById('sidebarRatings');
+  const tiers = [4.5, 4, 3];
+  ul.innerHTML = tiers.map(t => {
+    const active = state.minRating===t ? 'active' : '';
+    return `<li><a class="${active}" onclick="setMinRating(${t})">${starsHtml(t)} <span class="count">& up</span></a></li>`;
+  }).join('') + `<li><a class="${state.minRating===0?'active':''}" onclick="setMinRating(0)">Any rating</a></li>`;
+}
+
+function renderPricePresets(){
+  const presets = [
+    {label:'Under 2,000', min:0, max:2000},
+    {label:'2,000–5,000', min:2000, max:5000},
+    {label:'5,000–10,000', min:5000, max:10000},
+    {label:'10,000+', min:10000, max:null},
+  ];
+  const wrap = document.getElementById('pricePresets');
+  wrap.innerHTML = presets.map(p => {
+    const active = state.minPrice===p.min && state.maxPrice===p.max ? 'active' : '';
+    return `<button class="${active}" onclick="applyPreset(${p.min}, ${p.max})">${p.label}</button>`;
+  }).join('');
+}
+
+function selectNavCat(key){ state.navCat = key; state.subCat = null; document.getElementById('heroSection').style.display = key==='all' ? '' : 'none'; render(); }
+function selectSubCat(name, cat){ state.navCat = cat; state.subCat = state.subCat===name ? null : name; document.getElementById('heroSection').style.display='none'; render(); }
+function toggleBrand(b){ if(state.brands.has(b)) state.brands.delete(b); else state.brands.add(b); render(); }
+function setMinRating(v){ state.minRating = state.minRating===v ? 0 : v; render(); }
+function toggleInStock(){ state.inStockOnly = document.getElementById('inStockOnly').checked; render(); }
+function setSort(v){ state.sort = v; render(); }
+function setView(v){
+  state.view = v;
+  document.getElementById('viewGridBtn').classList.toggle('active', v==='grid');
+  document.getElementById('viewListBtn').classList.toggle('active', v==='list');
+  render();
+}
+
+function applyPreset(min, max){
+  if(state.minPrice===min && state.maxPrice===max){ state.minPrice=null; state.maxPrice=null; }
+  else { state.minPrice = min; state.maxPrice = max; }
+  document.getElementById('minPriceInput').value = state.minPrice ?? '';
+  document.getElementById('maxPriceInput').value = state.maxPrice ?? '';
+  render();
+}
+function applyCustomPrice(){
+  const minV = document.getElementById('minPriceInput').value;
+  const maxV = document.getElementById('maxPriceInput').value;
+  state.minPrice = minV === '' ? null : Number(minV);
+  state.maxPrice = maxV === '' ? null : Number(maxV);
+  render();
+}
+
+function runSearch(){
+  state.search = document.getElementById('searchInput').value.trim();
+  document.getElementById('suggestPanel').classList.remove('show');
+  document.getElementById('heroSection').style.display = state.search ? 'none' : (state.navCat==='all' ? '' : 'none');
+  render();
+}
+
+function resetToHome(){
+  state.navCat='all'; state.subCat=null; state.brands.clear(); state.search='';
+  state.minPrice=null; state.maxPrice=null; state.minRating=0; state.inStockOnly=false; state.sort='featured';
+  document.getElementById('searchInput').value='';
+  document.getElementById('minPriceInput').value='';
+  document.getElementById('maxPriceInput').value='';
+  document.getElementById('inStockOnly').checked=false;
+  document.getElementById('sortSelect').value='featured';
+  document.getElementById('heroSection').style.display='';
+  render();
+  window.scrollTo({top:0, behavior:'smooth'});
+}
+function clearAllFilters(){ resetToHome(); }
+
+/* ---------------- search autocomplete ---------------- */
+document.addEventListener('DOMContentLoaded', () => {
+  const input = document.getElementById('searchInput');
+  input.addEventListener('input', () => {
+    const q = input.value.trim().toLowerCase();
+    const panel = document.getElementById('suggestPanel');
+    if(!q){ panel.classList.remove('show'); return; }
+    const matches = products.filter(p=>p.name.toLowerCase().includes(q)).slice(0,5);
+    if(!matches.length){ panel.innerHTML = `<div class="suggest-empty">No matches for "${q}"</div>`; panel.classList.add('show'); return; }
+    panel.innerHTML = matches.map(p=>`<div class="suggest-item" onclick="pickSuggestion(${p.id})"><div class="si-icon">${p.icon}</div><div class="si-name">${p.name}</div><div class="si-price">${fmt(p.price)}</div></div>`).join('');
+    panel.classList.add('show');
+  });
+  input.addEventListener('keydown', e => { if(e.key==='Enter') runSearch(); });
+  document.addEventListener('click', e => {
+    if(!e.target.closest('.search-wrap')) document.getElementById('suggestPanel').classList.remove('show');
+  });
+});
+function pickSuggestion(id){
+  document.getElementById('suggestPanel').classList.remove('show');
+  openProduct(id);
+}
+
+/* ---------------- active filter chips ---------------- */
+function renderActiveFilters(){
+  const chips = [];
+  if(state.navCat!=='all'){
+    const label = NAV_CATS.find(c=>c.key===state.navCat).label;
+    chips.push({text:label, onClear:"selectNavCat('all')"});
+  }
+  if(state.subCat) chips.push({text:state.subCat, onClear:"state.subCat=null; render();"});
+  state.brands.forEach(b => chips.push({text:b, onClear:`toggleBrand('${b}')`}));
+  if(state.search) chips.push({text:'"'+state.search+'"', onClear:"state.search=''; document.getElementById('searchInput').value=''; render();"});
+  if(state.minRating>0) chips.push({text:state.minRating+'★ & up', onClear:"setMinRating(0)"});
+  if(state.inStockOnly) chips.push({text:'In stock only', onClear:"document.getElementById('inStockOnly').checked=false; toggleInStock();"});
+  if(state.minPrice!=null || state.maxPrice!=null){
+    const lo = state.minPrice!=null ? fmt(state.minPrice) : 'KES 0';
+    const hi = state.maxPrice!=null ? fmt(state.maxPrice) : 'and up';
+    chips.push({text:`${lo} – ${hi}`, onClear:"state.minPrice=null; state.maxPrice=null; document.getElementById('minPriceInput').value=''; document.getElementById('maxPriceInput').value=''; render();"});
+  }
+  const wrap = document.getElementById('activeFilters');
+  if(!chips.length){ wrap.innerHTML=''; return; }
+  wrap.innerHTML = chips.map(c => `<span class="chip">${c.text}<button onclick="${c.onClear}">✕</button></span>`).join('')
+    + `<span class="chip clear-link" onclick="clearAllFilters()" style="cursor:pointer;">Clear all</span>`;
+}
+
+/* ---------------- breadcrumb ---------------- */
+function renderBreadcrumb(){
+  const parts = [`<div class="seg"><a onclick="resetToHome()">Home</a></div>`];
+  parts.push(`<div class="wire"></div><div class="seg"><span class="dot"></span><a onclick="resetToHome()">Shop</a></div>`);
+  if(state.navCat!=='all'){
+    const label = NAV_CATS.find(c=>c.key===state.navCat).label;
+    const isLast = !state.subCat;
+    parts.push(`<div class="wire"></div><div class="seg"><span class="dot ${isLast?'active':''}"></span>${isLast?`<span>${label}</span>`:`<a onclick="selectNavCat('${state.navCat}')">${label}</a>`}</div>`);
+  }
+  if(state.subCat){
+    parts.push(`<div class="wire"></div><div class="seg"><span class="dot active"></span><span>${state.subCat}</span></div>`);
+  }
+  document.getElementById('breadcrumb').innerHTML = parts.join('');
+}
+
+/* ============================================================
+   FILTER + SORT + RENDER GRID
+============================================================ */
+function getFiltered(){
+  let list = products.filter(p => {
+    if(state.navCat==='clearance' && p.badge!=='sale') return false;
+    if(state.navCat!=='all' && state.navCat!=='clearance' && p.category!==state.navCat) return false;
+    if(state.subCat && p.subcategory!==state.subCat) return false;
+    if(state.brands.size && !state.brands.has(p.brand)) return false;
+    if(state.search && !p.name.toLowerCase().includes(state.search.toLowerCase())) return false;
+    if(state.minPrice!=null && p.price<state.minPrice) return false;
+    if(state.maxPrice!=null && p.price>state.maxPrice) return false;
+    if(state.minRating>0 && p.rating<state.minRating) return false;
+    if(state.inStockOnly && p.stock==='out') return false;
+    return true;
+  });
+  if(state.sort==='price-asc') list = list.slice().sort((a,b)=>a.price-b.price);
+  else if(state.sort==='price-desc') list = list.slice().sort((a,b)=>b.price-a.price);
+  else if(state.sort==='rating') list = list.slice().sort((a,b)=>b.rating-a.rating);
+  else if(state.sort==='newest') list = list.slice().sort((a,b)=>(b.badge==='new')-(a.badge==='new') || b.id-a.id);
+  return list;
+}
+
+function stockClass(p){ return p.stock==='out' ? 'out' : (p.stock==='low' ? 'low' : ''); }
+function starsHtml(rating){
+  const full = Math.round(rating);
+  return `<span class="stars">${'★'.repeat(full)}${'☆'.repeat(5-full)}</span>`;
+}
+
+function badgeHtml(p){
+  const badges = [];
+  if(p.badge==='sale') badges.push(`<span class="badge sale">SALE</span>`);
+  if(p.badge==='new') badges.push(`<span class="badge new">NEW</span>`);
+  if(p.badge==='best') badges.push(`<span class="badge best">BESTSELLER</span>`);
+  if(p.stock==='out') badges.push(`<span class="badge out">OUT OF STOCK</span>`);
+  return badges.length ? `<div class="badge-row">${badges.join('')}</div>` : '';
+}
+
+function renderGrid(){
+  const list = getFiltered();
+  const grid = document.getElementById('productGrid');
+  grid.classList.toggle('list-view', state.view==='list');
+  const title = state.subCat ? state.subCat : (state.search ? `Results for "${state.search}"` : NAV_CATS.find(c=>c.key===state.navCat).label);
+  document.getElementById('contentTitle').textContent = title;
+  document.getElementById('resultCount').textContent = `Showing ${list.length} of ${products.length} results`;
+
+  if(!list.length){
+    grid.innerHTML = `<div class="empty-state">No products match your filters right now.<br><button onclick="clearAllFilters()">Clear filters</button></div>`;
+    return;
+  }
+
+  grid.innerHTML = list.map(p => {
+    const priceHtml = p.oldPrice ? `<span class="old">${fmt(p.oldPrice)}</span>${fmt(p.price)}` : fmt(p.price);
+    const addBtn = p.stock==='out'
+      ? `<button class="add-btn" disabled>+</button>`
+      : `<button class="add-btn" onclick="event.stopPropagation(); addToCart(${p.id},1); toast('Added to cart', '🛒');">+</button>`;
+    const notifyLink = p.stock==='out' ? `<button class="notify-link" onclick="event.stopPropagation(); openNotify(${p.id});">Notify me when back in stock</button>` : '';
+    const wished = wishlist.has(p.id);
+    const compared = compareSet.has(p.id);
+    const listDesc = state.view==='list' ? `<div class="list-desc">${p.desc}</div>` : '';
+    return `
+      <div class="card">
+        ${badgeHtml(p)}
+        <button class="wish-btn ${wished?'active':''}" onclick="event.stopPropagation(); toggleWishlist(${p.id});" title="Wishlist">${wished?'♥':'♡'}</button>
+        <div class="thumb" onclick="openProduct(${p.id})"><div class="thumb-box">${p.icon}</div></div>
+        <div class="cbody">
+          <div class="cat-label">${p.subcategory}</div>
+          <div class="name" onclick="openProduct(${p.id})">${p.name}</div>
+          <div class="rating-row">${starsHtml(p.rating)}<span class="rc">${p.rating.toFixed(1)} (${p.reviewCount})</span></div>
+          ${listDesc}
+          <div class="trace-divider"></div>
+          <div class="price-row">
+            <div class="price">${priceHtml}</div>
+            <div class="card-actions">${addBtn}</div>
+          </div>
+          <div class="stock ${stockClass(p)}">● ${p.stockNote}</div>
+          ${notifyLink}
+          <label class="compare-row"><input type="checkbox" ${compared?'checked':''} onchange="event.stopPropagation(); toggleCompare(${p.id});" onclick="event.stopPropagation();">Add to compare</label>
+        </div>
+      </div>`;
+  }).join('');
+}
+
+function renderStrips(){
+  const bestSellers = products.filter(p=>p.badge==='best').concat(products.slice().sort((a,b)=>b.reviewCount-a.reviewCount)).slice(0,3);
+  const uniqueBest = [...new Map(bestSellers.map(p=>[p.id,p])).values()].slice(0,3);
+  document.getElementById('topSellingStrip').innerHTML = uniqueBest.map(p=>`
+    <div class="strip-item" onclick="openProduct(${p.id})"><div class="sw">${p.icon}</div><span class="strip-name">${p.name}</span><span class="sp">${fmt(p.price)}</span></div>
+  `).join('');
+  const onSale = products.filter(p=>p.badge==='sale').slice(0,3);
+  document.getElementById('onSaleStrip').innerHTML = onSale.map(p=>`
+    <div class="strip-item" onclick="openProduct(${p.id})"><div class="sw">${p.icon}</div><span class="strip-name">${p.name}</span><span class="sp">${fmt(p.price)}</span></div>
+  `).join('');
+}
+
+function renderRecentlyViewed(){
+  const wrap = document.getElementById('rvWrap');
+  if(!recentlyViewed.length){ wrap.style.display='none'; return; }
+  wrap.style.display='';
+  const items = recentlyViewed.map(id=>products.find(p=>p.id===id)).filter(Boolean);
+  document.getElementById('rvTrack').innerHTML = items.map(p=>`
+    <div class="rv-card" onclick="openProduct(${p.id})">
+      <div class="rv-thumb">${p.icon}</div>
+      <div class="rv-name">${p.name}</div>
+      <div class="rv-price">${fmt(p.price)}</div>
+    </div>`).join('');
+}
+
+function render(){
+  renderNav();
+  renderSidebarCats();
+  renderSidebarBrands();
+  renderSidebarRatings();
+  renderPricePresets();
+  renderActiveFilters();
+  renderBreadcrumb();
+  renderGrid();
+  renderStrips();
+  renderRecentlyViewed();
+  updateHeaderCounts();
+}
+
+/* ============================================================
+   RECENTLY VIEWED
+============================================================ */
+function pushRecentlyViewed(id){
+  recentlyViewed = recentlyViewed.filter(x=>x!==id);
+  recentlyViewed.unshift(id);
+  recentlyViewed = recentlyViewed.slice(0,8);
+  saveJSON('pat_recent', recentlyViewed);
+}
+
+/* ============================================================
+   WISHLIST
+============================================================ */
+function toggleWishlist(id){
+  if(wishlist.has(id)){ wishlist.delete(id); toast('Removed from wishlist','♡'); }
+  else { wishlist.add(id); toast('Added to wishlist','♥'); }
+  saveJSON('pat_wishlist', [...wishlist]);
+  render();
+  if(document.getElementById('wishlistOverlay').classList.contains('show')) renderWishlistModal();
+  if(currentProductId) renderProductModal();
+}
+function openWishlist(){ renderWishlistModal(); document.getElementById('wishlistOverlay').classList.add('show'); }
+function closeWishlist(){ document.getElementById('wishlistOverlay').classList.remove('show'); }
+function renderWishlistModal(){
+  const modal = document.getElementById('wishlistModal');
+  const items = [...wishlist].map(id=>products.find(p=>p.id===id)).filter(Boolean);
+  if(!items.length){
+    modal.innerHTML = `<button class="modal-close" onclick="closeWishlist()">✕</button>
+      <h2 class="display" style="font-size:18px;margin-bottom:6px;">Your wishlist</h2>
+      <div class="cart-empty">Nothing saved yet. Tap the ♡ on any product to save it here.</div>`;
+    return;
+  }
+  const rows = items.map(p => `
+    <div class="cart-item">
+      <div class="ci-icon">${p.icon}</div>
+      <div>
+        <div class="ci-name">${p.name}</div>
+        <div class="ci-price">${fmt(p.price)}</div>
+      </div>
+      <button class="add-btn" style="margin-left:auto;" ${p.stock==='out'?'disabled':''} onclick="addToCart(${p.id},1); toast('Added to cart','🛒');">+</button>
+      <button class="ci-remove" onclick="toggleWishlist(${p.id})">Remove</button>
+    </div>`).join('');
+  modal.innerHTML = `
+    <button class="modal-close" onclick="closeWishlist()">✕</button>
+    <h2 class="display" style="font-size:18px;margin-bottom:6px;">Your wishlist</h2>
+    ${rows}`;
+}
+
+/* ============================================================
+   COMPARE
+============================================================ */
+function toggleCompare(id){
+  if(compareSet.has(id)){ compareSet.delete(id); }
+  else {
+    if(compareSet.size>=3){ toast('You can compare up to 3 items','⚠️'); return; }
+    compareSet.add(id);
+  }
+  saveJSON('pat_compare', [...compareSet]);
+  render();
+  renderCompareTray();
+}
+function clearCompare(){ compareSet.clear(); saveJSON('pat_compare', []); render(); renderCompareTray(); }
+function renderCompareTray(){
+  const tray = document.getElementById('compareTray');
+  if(!compareSet.size){ tray.classList.remove('show'); return; }
+  tray.classList.add('show');
+  const items = [...compareSet].map(id=>products.find(p=>p.id===id)).filter(Boolean);
+  document.getElementById('ctThumbs').innerHTML = items.map(p=>`<div class="ct-thumb">${p.icon}</div>`).join('');
+  document.getElementById('ctCount').textContent = `${items.length} selected`;
+}
+function openCompareModal(){
+  if(!compareSet.size){ toast('Add at least one product to compare','⚠️'); return; }
+  renderCompareModalContent();
+  document.getElementById('compareOverlay').classList.add('show');
+}
+function closeCompareModal(){ document.getElementById('compareOverlay').classList.remove('show'); }
+function renderCompareModalContent(){
+  const modal = document.getElementById('compareModal');
+  const items = [...compareSet].map(id=>products.find(p=>p.id===id)).filter(Boolean);
+  const cols = items.map(p => `
+    <div style="flex:1; min-width:200px; border:1px solid var(--border); border-radius:10px; padding:14px;">
+      <div style="text-align:center; font-size:40px; margin-bottom:8px;">${p.icon}</div>
+      <div style="font-weight:600; font-size:13px; margin-bottom:6px; min-height:34px;">${p.name}</div>
+      <div class="price" style="margin-bottom:6px;">${fmt(p.price)}</div>
+      <div class="rating-row">${starsHtml(p.rating)}<span class="rc">${p.rating.toFixed(1)}</span></div>
+      <ul class="pd-specs">
+        <li><b>Brand:</b> ${p.brand}</li>
+        <li><b>Category:</b> ${p.subcategory}</li>
+        ${p.specs.map(s=>`<li>${s}</li>`).join('')}
+        <li><b>Stock:</b> ${p.stockNote}</li>
+      </ul>
+      <button class="add-btn" style="width:100%; border-radius:7px;" ${p.stock==='out'?'disabled':''} onclick="addToCart(${p.id},1); toast('Added to cart','🛒');">Add to cart</button>
+    </div>`).join('');
+  modal.innerHTML = `
+    <button class="modal-close" onclick="closeCompareModal()">✕</button>
+    <h2 class="display" style="font-size:18px;margin-bottom:14px;">Compare products</h2>
+    <div style="display:flex; gap:14px; flex-wrap:wrap;">${cols}</div>
+  `;
+}
+
+/* ============================================================
+   PRODUCT MODAL
+============================================================ */
+function openProduct(id){
+  currentProductId = id;
+  activeGalleryIdx = 0;
+  activeTab = 'desc';
+  pickedStars = 5;
+  pushRecentlyViewed(id);
+  renderProductModal();
+  document.getElementById('productOverlay').classList.add('show');
+  renderRecentlyViewed();
+}
+function closeProduct(){ document.getElementById('productOverlay').classList.remove('show'); }
+
+function getReviewsFor(p){
+  const out = [];
+  const n = 3;
+  for(let i=0;i<n;i++){
+    const idx = (p.id * 3 + i) % REVIEW_POOL.length;
+    const r = REVIEW_POOL[idx];
+    const stars = Math.max(3, Math.min(5, Math.round(p.rating) + (i===1?-1:0)));
+    out.push({name:r.name, text:r.text, stars});
+  }
+  return out;
+}
+
+function renderProductModal(){
+  const p = products.find(x=>x.id===currentProductId);
+  const modal = document.getElementById('productModal');
+  const priceHtml = p.oldPrice ? `<span class="old">${fmt(p.oldPrice)}</span>${fmt(p.price)}` : fmt(p.price);
+  const thumbs = p.gallery.map((g,i) => `<div class="gthumb ${i===activeGalleryIdx?'active':''}" onclick="setGallery(${i})">${g}</div>`).join('');
+  const specs = p.specs.map(s=>`<li>${s}</li>`).join('');
+  const wished = wishlist.has(p.id);
+  const addSection = p.stock==='out'
+    ? `<div class="pd-actions-row"><button class="pd-icon-btn ${wished?'active':''}" onclick="toggleWishlist(${p.id})">${wished?'♥':'♡'}</button></div><button class="pd-notify" onclick="closeProduct(); openNotify(${p.id});">Notify me when back in stock</button>`
+    : `<div class="qty-row"><span style="font-size:12.5px;color:var(--slate);">Quantity</span><div class="qty-stepper"><button onclick="stepQty(-1)">-</button><span id="pdQty">1</span><button onclick="stepQty(1)">+</button></div></div>
+       <div class="pd-actions-row">
+         <button class="pd-add" onclick="addToCart(${p.id}, Number(document.getElementById('pdQty').textContent)); toast('Added to cart','🛒');">Add to cart — ${fmt(p.price)}</button>
+         <button class="pd-icon-btn ${wished?'active':''}" onclick="toggleWishlist(${p.id})">${wished?'♥':'♡'}</button>
+         <button class="pd-icon-btn ${compareSet.has(p.id)?'active':''}" onclick="toggleCompare(${p.id}); renderProductModal();">⇄</button>
+       </div>`;
+
+  const reviews = getReviewsFor(p);
+  const reviewsHtml = reviews.map(r=>`
+    <div class="review">
+      <div class="rev-top"><span class="rev-name">${r.name}</span>${starsHtml(r.stars)}</div>
+      <div class="rev-text">${r.text}</div>
+    </div>`).join('');
+
+  const related = products.filter(x=>x.category===p.category && x.id!==p.id).slice(0,4);
+  const relatedHtml = related.map(r=>`
+    <div class="related-card" onclick="openProduct(${r.id})">
+      <div class="rc-thumb">${r.icon}</div>
+      <div class="rc-name">${r.name}</div>
+      <div class="rc-price">${fmt(r.price)}</div>
+    </div>`).join('');
+
+  modal.innerHTML = `
+    <button class="modal-close" onclick="closeProduct()">✕</button>
+    <div class="pd-top">
+      <div>
+        <div class="pd-gallery-main" id="pdGalleryMain">${p.gallery[activeGalleryIdx]}</div>
+        <div class="pd-gallery-thumbs">${thumbs}</div>
+      </div>
+      <div>
+        <div class="pd-cat">${p.subcategory} · ${p.brand}</div>
+        <div class="pd-title">${p.name}</div>
+        <div class="pd-rating">${starsHtml(p.rating)}<span>${p.rating.toFixed(1)} · ${p.reviewCount} reviews</span></div>
+        <div class="pd-price">${priceHtml}</div>
+        <div class="stock ${stockClass(p)}" style="margin-bottom:10px;">● ${p.stockNote}</div>
+        ${addSection}
+      </div>
+    </div>
+    <div class="tabs">
+      <button class="tab-btn ${activeTab==='desc'?'active':''}" onclick="setTab('desc')">Description</button>
+      <button class="tab-btn ${activeTab==='specs'?'active':''}" onclick="setTab('specs')">Specifications</button>
+      <button class="tab-btn ${activeTab==='reviews'?'active':''}" onclick="setTab('reviews')">Reviews (${p.reviewCount})</button>
+    </div>
+    <div class="tab-panel ${activeTab==='desc'?'active':''}" id="tabDesc"><p class="pd-desc" style="margin-top:0;">${p.desc}</p></div>
+    <div class="tab-panel ${activeTab==='specs'?'active':''}" id="tabSpecs"><ul class="pd-specs">${specs}</ul></div>
+    <div class="tab-panel ${activeTab==='reviews'?'active':''}" id="tabReviews">
+      ${reviewsHtml}
+      <div class="review-form" style="margin-top:14px;">
+        <div style="font-size:12.5px;font-weight:600;margin-bottom:4px;">Leave a review</div>
+        <div class="star-pick" id="starPick">${[1,2,3,4,5].map(n=>`<span class="${n<=pickedStars?'on':''}" onclick="setPickedStars(${n})">★</span>`).join('')}</div>
+        <textarea id="reviewText" placeholder="What did you think of this product?"></textarea>
+        <button class="form-submit" onclick="submitReview(${p.id})">Submit review</button>
+      </div>
+    </div>
+    ${related.length ? `<h3 class="display" style="font-size:14px;margin:18px 0 4px 0;">You may also need</h3><div class="related-grid">${relatedHtml}</div>` : ''}
+  `;
+}
+function setTab(t){ activeTab = t; renderProductModal(); }
+function setPickedStars(n){ pickedStars = n; document.querySelectorAll('#starPick span').forEach((el,i)=>el.classList.toggle('on', i<n)); }
+function submitReview(id){
+  const text = document.getElementById('reviewText').value.trim();
+  if(!text){ toast('Write a few words first','⚠️'); return; }
+  const p = products.find(x=>x.id===id);
+  p.reviewCount += 1;
+  p.rating = Math.round(((p.rating*  (p.reviewCount-1) + pickedStars) / p.reviewCount) * 10) / 10;
+  toast('Thanks for your review!','⭐');
+  renderProductModal();
+  render();
+}
+function setGallery(i){ activeGalleryIdx = i; renderProductModal(); }
+function stepQty(delta){
+  const el = document.getElementById('pdQty');
+  let v = Number(el.textContent) + delta;
+  if(v<1) v=1;
+  el.textContent = v;
+}
+
+/* ============================================================
+   CART
+============================================================ */
+function addToCart(id, qty){
+  cart[id] = (cart[id]||0) + qty;
+  saveJSON('pat_cart', cart);
+  updateHeaderCounts();
+  flashCart();
+}
+function updateHeaderCounts(){
+  const total = Object.values(cart).reduce((a,b)=>a+b,0);
+  document.getElementById('cartCount').textContent = total;
+  const wc = document.getElementById('wishCount');
+  wc.textContent = wishlist.size; wc.style.display = wishlist.size ? 'flex' : 'none';
+  const cc = document.getElementById('compareCount');
+  cc.textContent = compareSet.size; cc.style.display = compareSet.size ? 'flex' : 'none';
+  renderCompareTray();
+}
+function flashCart(){
+  const pill = document.querySelector('.cart-pill');
+  pill.style.transform = 'scale(1.08)';
+  setTimeout(()=>{ pill.style.transform='scale(1)'; }, 150);
+}
+
+function openCart(){ renderCartModal(); document.getElementById('cartOverlay').classList.add('show'); }
+function closeCart(){ document.getElementById('cartOverlay').classList.remove('show'); }
+
+function cartEntries(){
+  return Object.entries(cart).filter(([,q])=>q>0).map(([id,qty])=>({p:products.find(x=>x.id==id), qty})).filter(e=>e.p);
+}
+function cartSubtotal(){ return cartEntries().reduce((sum,e)=>sum + e.p.price*e.qty, 0); }
+const FREE_SHIP_THRESHOLD = 5000;
+const PROMO_CODES = { 'PAT10': 0.10, 'WELCOME5': 0.05 };
+
+function applyPromo(){
+  const codeInput = document.getElementById('promoInput');
+  const code = codeInput.value.trim().toUpperCase();
+  const msgEl = document.getElementById('promoMsg');
+  if(!code){ return; }
+  if(PROMO_CODES[code]){
+    promoApplied = code;
+    msgEl.textContent = `"${code}" applied — ${PROMO_CODES[code]*100}% off`;
+    msgEl.className = 'promo-msg ok';
+  } else {
+    promoApplied = null;
+    msgEl.textContent = 'That code is not valid.';
+    msgEl.className = 'promo-msg err';
+  }
+  renderCartModal();
+}
+
+function renderCartModal(){
+  const entries = cartEntries();
+  const modal = document.getElementById('cartModal');
+  if(!entries.length){
+    modal.innerHTML = `<button class="modal-close" onclick="closeCart()">✕</button>
+      <h2 class="display" style="font-size:18px;margin-bottom:6px;">Your cart</h2>
+      <div class="cart-empty">Your cart is empty. Add a few parts to get started.</div>`;
+    return;
+  }
+  const subtotal = cartSubtotal();
+  const progress = Math.min(100, Math.round((subtotal / FREE_SHIP_THRESHOLD) * 100));
+  const remaining = Math.max(0, FREE_SHIP_THRESHOLD - subtotal);
+  const discount = promoApplied ? subtotal * PROMO_CODES[promoApplied] : 0;
+  const deliveryFee = subtotal >= FREE_SHIP_THRESHOLD ? 0 : 300;
+  const total = subtotal - discount + (deliveryFee);
+  const earnedPoints = Math.floor(total * 0.02 / 10);
+
+  const rows = entries.map(e => `
+    <div class="cart-item">
+      <div class="ci-icon">${e.p.icon}</div>
+      <div>
+        <div class="ci-name">${e.p.name}</div>
+        <div class="ci-price">${fmt(e.p.price)}</div>
+      </div>
+      <div class="ci-qty">
+        <button onclick="changeQty(${e.p.id}, -1)">-</button>
+        <span>${e.qty}</span>
+        <button onclick="changeQty(${e.p.id}, 1)">+</button>
+      </div>
+      <button class="ci-remove" onclick="removeFromCart(${e.p.id})">Remove</button>
+    </div>`).join('');
+
+  modal.innerHTML = `
+    <button class="modal-close" onclick="closeCart()">✕</button>
+    <h2 class="display" style="font-size:18px;margin-bottom:6px;">Your cart</h2>
+    ${remaining>0 ? `<div class="free-ship-bar"><div class="fill" style="width:${progress}%"></div></div><div class="free-ship-note">Add ${fmt(remaining)} more for free delivery</div>` : `<div class="free-ship-bar"><div class="fill" style="width:100%"></div></div><div class="free-ship-note">🎉 You've unlocked free delivery</div>`}
+    ${rows}
+    <div class="promo-row">
+      <input type="text" id="promoInput" placeholder="Promo code (try PAT10)">
+      <button onclick="applyPromo()">Apply</button>
+    </div>
+    <div class="promo-msg" id="promoMsg"></div>
+    <div class="cart-total-row"><span>Subtotal</span><span>${fmt(subtotal)}</span></div>
+    ${discount>0 ? `<div class="cart-total-row" style="color:var(--green);"><span>Discount (${promoApplied})</span><span>-${fmt(discount)}</span></div>` : ''}
+    <div class="cart-total-row"><span>Delivery</span><span>${deliveryFee===0?'Free':fmt(deliveryFee)}</span></div>
+    <div class="cart-total-row grand"><span>Total</span><span>${fmt(total)}</span></div>
+    <div class="points-note">You'll earn ~${earnedPoints} PAT Points on this order.</div>
+    <button class="checkout-btn" onclick="closeCart(); openCheckout();">Proceed to checkout</button>
+  `;
+}
+function changeQty(id, delta){
+  cart[id] = (cart[id]||0) + delta;
+  if(cart[id] <= 0) delete cart[id];
+  saveJSON('pat_cart', cart);
+  updateHeaderCounts();
+  renderCartModal();
+}
+function removeFromCart(id){
+  delete cart[id];
+  saveJSON('pat_cart', cart);
+  updateHeaderCounts();
+  renderCartModal();
+}
+
+/* ============================================================
+   CHECKOUT
+============================================================ */
+function openCheckout(){
+  paymentMethod = 'paybill';
+  deliveryMethod = 'pickup';
+  orderRef = 'PAT' + Math.floor(10000 + Math.random()*89999);
+  renderCheckoutModal();
+  document.getElementById('checkoutOverlay').classList.add('show');
+}
+function closeCheckout(){ document.getElementById('checkoutOverlay').classList.remove('show'); }
+function setPaymentMethod(m){ paymentMethod = m; renderCheckoutModal(); }
+function setDeliveryMethod(m){ deliveryMethod = m; renderCheckoutModal(); }
+
+function checkoutTotals(){
+  const subtotal = cartSubtotal();
+  const discount = promoApplied ? subtotal * PROMO_CODES[promoApplied] : 0;
+  const deliveryFee = (deliveryMethod==='pickup' || subtotal >= FREE_SHIP_THRESHOLD) ? 0 : 300;
+  const total = subtotal - discount + deliveryFee;
+  return {subtotal, discount, deliveryFee, total};
+}
+
+function paymentPanelHtml(total){
+  if(paymentMethod==='paybill'){
+    return `<div class="pm-panel">
+      <div class="pm-row"><span class="pm-label">Business No. (Paybill)</span><span>888300</span></div>
+      <div class="pm-row"><span class="pm-label">Account No.</span><span>${orderRef}</span></div>
+      <div class="pm-row"><span class="pm-label">Amount</span><span>${fmt(total)}</span></div>
+    </div>`;
+  }
+  if(paymentMethod==='till'){
+    return `<div class="pm-panel">
+      <div class="pm-row"><span class="pm-label">Buy Goods Till No.</span><span>445210</span></div>
+      <div class="pm-row"><span class="pm-label">Amount</span><span>${fmt(total)}</span></div>
+    </div>`;
+  }
+  return `<div class="pm-panel">
+    <div class="pm-row"><span class="pm-label">Send to number</span><span>0700 000 000</span></div>
+    <div class="pm-row"><span class="pm-label">Reference (use as note)</span><span>${orderRef}</span></div>
+    <div class="pm-row"><span class="pm-label">Amount</span><span>${fmt(total)}</span></div>
+  </div>`;
+}
+
+function renderCheckoutModal(){
+  const entries = cartEntries();
+  const modal = document.getElementById('checkoutModal');
+  const {subtotal, discount, deliveryFee, total} = checkoutTotals();
+  const lines = entries.map(e => `<div class="order-line"><span>${e.p.name} × ${e.qty}</span><span>${fmt(e.p.price*e.qty)}</span></div>`).join('');
+  modal.innerHTML = `
+    <button class="modal-close" onclick="closeCheckout()">✕</button>
+    <h2 class="display" style="font-size:18px;margin-bottom:10px;">Checkout</h2>
+    <div class="step-dots"><div class="sd on"></div><div class="sd on"></div><div class="sd"></div></div>
+    ${lines}
+    <div class="cart-total-row"><span>Subtotal</span><span>${fmt(subtotal)}</span></div>
+    ${discount>0 ? `<div class="cart-total-row" style="color:var(--green);"><span>Discount</span><span>-${fmt(discount)}</span></div>`:''}
+    <div class="cart-total-row grand"><span>Total</span><span>${fmt(total)}</span></div>
+
+    <div style="font-size:12.5px;font-weight:600;margin:14px 0 4px 0;">Delivery method</div>
+    <div class="delivery-opts">
+      <div class="delivery-opt ${deliveryMethod==='pickup'?'active':''}" onclick="setDeliveryMethod('pickup')"><b>CBD Pickup</b><span>Free · ready in ~2 hrs</span></div>
+      <div class="delivery-opt ${deliveryMethod==='delivery'?'active':''}" onclick="setDeliveryMethod('delivery')"><b>Delivery</b><span>${subtotal>=FREE_SHIP_THRESHOLD?'Free · 24–48 hrs':'KES 300 · 24–48 hrs'}</span></div>
+    </div>
+    ${deliveryMethod==='delivery' ? `<div class="form-field"><label>Delivery address</label><input type="text" id="ckAddress" placeholder="Estate, street, house/apartment no."></div>` : ''}
+    <div class="form-row2">
+      <div class="form-field"><label>Full name</label><input type="text" id="ckName" placeholder="Your name"></div>
+      <div class="form-field"><label>Phone</label><input type="text" id="ckPhone" placeholder="07xx xxx xxx"></div>
+    </div>
+
+    <div class="pm-tabs">
+      <button class="${paymentMethod==='paybill'?'active':''}" onclick="setPaymentMethod('paybill')">Paybill</button>
+      <button class="${paymentMethod==='till'?'active':''}" onclick="setPaymentMethod('till')">Buy Goods</button>
+      <button class="${paymentMethod==='phone'?'active':''}" onclick="setPaymentMethod('phone')">Send Money</button>
+    </div>
+    ${paymentPanelHtml(total)}
+    <button class="checkout-btn" onclick="confirmPayment()">I've completed the M-Pesa payment</button>
+  `;
+}
+
+function confirmPayment(){
+  const {total} = checkoutTotals();
+  const earnedPoints = Math.floor(total * 0.02 / 10);
+  const order = {
+    ref: orderRef,
+    items: cartEntries().map(e=>({name:e.p.name, qty:e.qty})),
+    total,
+    deliveryMethod,
+    placedAt: Date.now(),
+  };
+  orders.push(order);
+  saveJSON('pat_orders', orders);
+  points += earnedPoints;
+  saveJSON('pat_points', points);
+
+  const modal = document.getElementById('checkoutModal');
+  modal.innerHTML = `
+    <button class="modal-close" onclick="closeCheckout()">✕</button>
+    <div class="success-box">
+      <div class="tick">✅</div>
+      <h3>Order received</h3>
+      <p>Order ref <strong class="mono">${orderRef}</strong> is being confirmed. You'll get an SMS once payment is verified, and we'll be in touch about ${deliveryMethod==='pickup'?'CBD pickup':'delivery'}. You earned <strong>${earnedPoints} PAT Points</strong>.</p>
+      <button class="checkout-btn" onclick="closeCheckout(); openTrackOrder('${orderRef}');">Track this order</button>
+      <button class="checkout-btn" style="background:var(--panel); color:var(--ink); border:1px solid var(--border); margin-top:8px;" onclick="closeCheckout()">Done</button>
+    </div>`;
+  cart = {};
+  saveJSON('pat_cart', cart);
+  promoApplied = null;
+  updateHeaderCounts();
+}
+
+/* ============================================================
+   TRACK ORDER
+============================================================ */
+function openTrackOrder(prefill){
+  const modal = document.getElementById('trackModal');
+  modal.innerHTML = `
+    <button class="modal-close" onclick="closeTrackOrder()">✕</button>
+    <h2 class="display" style="font-size:18px;margin-bottom:6px;">Track your order</h2>
+    <p style="font-size:12.5px;color:var(--slate);margin-bottom:14px;">Enter the order reference from your confirmation, e.g. PAT48213.</p>
+    <div class="form-field"><label>Order reference</label><input type="text" id="trackRefInput" placeholder="PAT48213" value="${prefill||''}"></div>
+    <button class="form-submit" onclick="runTrackOrder()">Track order</button>
+    <div id="trackResult"></div>
+  `;
+  document.getElementById('trackOverlay').classList.add('show');
+  if(prefill) runTrackOrder();
+}
+function closeTrackOrder(){ document.getElementById('trackOverlay').classList.remove('show'); }
+function runTrackOrder(){
+  const ref = document.getElementById('trackRefInput').value.trim().toUpperCase();
+  const resultEl = document.getElementById('trackResult');
+  const order = orders.find(o=>o.ref===ref);
+  if(!order){
+    resultEl.innerHTML = `<div class="cart-empty" style="padding:20px 0;">No order found for "${ref}". Check the reference and try again.</div>`;
+    return;
+  }
+  const mins = (Date.now() - order.placedAt) / 60000;
+  const steps = order.deliveryMethod==='pickup'
+    ? ['Order placed','Payment confirmed','Preparing your order','Ready for CBD pickup']
+    : ['Order placed','Payment confirmed','Preparing your order','Out for delivery','Delivered'];
+  let currentStep = Math.min(steps.length-1, Math.floor(mins / 0.5));
+  resultEl.innerHTML = `
+    <div style="margin-top:14px; font-size:12.5px; color:var(--slate);">Order <strong class="mono">${order.ref}</strong> · ${fmt(order.total)}</div>
+    <div class="track-timeline">
+      ${steps.map((s,i)=>`
+        <div class="tt-step ${i<currentStep?'done':''} ${i===currentStep?'current':''}">
+          <div class="tt-dot">${i<currentStep?'✓':(i===currentStep?'●':'')}</div>
+          <div class="tt-label"><b>${s}</b>${i===currentStep?'<span>In progress</span>':''}</div>
+        </div>`).join('')}
+    </div>
+  `;
+}
+
+/* ============================================================
+   NOTIFY / RESTOCK
+============================================================ */
+function openNotify(productId){
+  const modal = document.getElementById('notifyModal');
+  const p = productId ? products.find(x=>x.id===productId) : null;
+  const productField = p
+    ? `<div class="form-field"><label>Product</label><input type="text" value="${p.name}" readonly></div>`
+    : `<div class="form-field"><label>Which product are you interested in?</label><input type="text" id="notifyProduct" placeholder="e.g. RTX 4060 GPU, 1TB NVMe SSD..." required></div>`;
+  modal.innerHTML = `
+    <button class="modal-close" onclick="closeNotify()">✕</button>
+    <h2 class="display" style="font-size:18px;margin-bottom:6px;">Get notified</h2>
+    <p style="font-size:12.5px;color:var(--slate);margin-bottom:16px;">Leave your details and we'll message you the moment this item is back in stock.</p>
+    <form id="notifyForm" onsubmit="submitNotify(event)">
+      ${productField}
+      <div class="form-field"><label>Email</label><input type="email" id="notifyEmail" placeholder="you@example.com" required></div>
+      <div class="form-field"><label>Name (optional)</label><input type="text" id="notifyName" placeholder="Your name"></div>
+      <div class="form-field"><label>Phone (optional)</label><input type="text" id="notifyPhone" placeholder="07xx xxx xxx"></div>
+      <button class="form-submit" type="submit">Notify me</button>
+    </form>
+  `;
+  document.getElementById('notifyOverlay').classList.add('show');
+}
+function closeNotify(){ document.getElementById('notifyOverlay').classList.remove('show'); }
+function submitNotify(e){
+  e.preventDefault();
+  const modal = document.getElementById('notifyModal');
+  modal.innerHTML = `
+    <button class="modal-close" onclick="closeNotify()">✕</button>
+    <div class="success-box">
+      <div class="tick">📩</div>
+      <h3>You're on the list</h3>
+      <p>We'll email you as soon as this is back in stock or available.</p>
+      <button class="checkout-btn" onclick="closeNotify()">Close</button>
+    </div>`;
+}
+
+/* ============================================================
+   NEWSLETTER + WHATSAPP
+============================================================ */
+document.getElementById('newsletterForm').addEventListener('submit', function(e){
+  e.preventDefault();
+  document.getElementById('newsletterRow').innerHTML = `<span class="confirm">✓ Thanks! You're subscribed to restock alerts & deals.</span>`;
+});
+function openWhatsApp(){
+  const msg = encodeURIComponent("Hi PAT.Enterprise, I'd like some help choosing a part.");
+  window.open(`https://wa.me/254700000000?text=${msg}`, '_blank');
+}
+
+/* close overlays when clicking backdrop, and on Escape */
+['productOverlay','cartOverlay','checkoutOverlay','notifyOverlay','wishlistOverlay','compareOverlay','trackOverlay'].forEach(id => {
+  document.getElementById(id).addEventListener('click', function(e){
+    if(e.target === this) this.classList.remove('show');
+  });
+});
+document.addEventListener('keydown', e => {
+  if(e.key==='Escape'){
+    document.querySelectorAll('.overlay.show').forEach(o=>o.classList.remove('show'));
+  }
+});
+
+/* ============================================================
+   INIT
+============================================================ */
+initTheme();
+renderTicker();
+render();
+</script>
+
+</body>
+</html>
