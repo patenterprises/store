@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>PAT.Enterprise — Computer Components, Nairobi</title>
-<meta name="description" content="Genuine computer components, networking gear and accessories in Nairobi. M-Pesa checkout, same-day CBD pickup, countrywide delivery.">
+<meta name="description" content="Genuine computer components, networking gear and accessories in Nairobi. M-Pesa or pay-on-delivery, same-day CBD pickup, countrywide delivery.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500;600&display=swap" rel="stylesheet">
 <style>
@@ -150,7 +150,8 @@
   .suggest-panel.show{ display:block; }
   .suggest-item{ display:flex; align-items:center; gap:10px; padding:9px 14px; cursor:pointer; color:#0B1220; }
   .suggest-item:hover{ background:#F3F5F9; }
-  .suggest-item .si-icon{ width:28px; height:28px; border-radius:6px; background:#EEF1F7; display:flex; align-items:center; justify-content:center; font-size:14px; flex:0 0 auto; }
+  .suggest-item .si-icon{ width:28px; height:28px; border-radius:6px; background:#EEF1F7; display:flex; align-items:center; justify-content:center; font-size:14px; flex:0 0 auto; overflow:hidden; }
+  .suggest-item .si-icon img{ width:100%; height:100%; object-fit:cover; }
   .suggest-item .si-name{ font-size:12.5px; flex:1; }
   .suggest-item .si-price{ font-family:'IBM Plex Mono'; font-size:11.5px; color:var(--amber-dark); }
   .suggest-empty{ padding:14px; font-size:12.5px; color:#8A93A8; text-align:center; }
@@ -372,8 +373,9 @@
   }
   .card .thumb-box{
     width:100%; height:100%; border-radius:8px; background:linear-gradient(135deg, var(--cyan-dim), rgba(255,138,30,0.10));
-    display:flex; align-items:center; justify-content:center; font-size:34px;
+    display:flex; align-items:center; justify-content:center; font-size:34px; overflow:hidden;
   }
+  .card .thumb-box img{ width:100%; height:100%; object-fit:cover; }
   .card .cat-label{ font-size:10.5px; color:var(--amber-dark); font-weight:700; letter-spacing:.05em; text-transform:uppercase; margin-bottom:4px; }
   .card .name{ font-size:13.5px; font-weight:600; line-height:1.35; margin-bottom:6px; min-height:36px; cursor:pointer; }
   .card .name:hover{ color:var(--amber-dark); }
@@ -410,7 +412,8 @@
   .rv-wrap h3{ font-family:'Space Grotesk'; font-size:14px; color:var(--slate); margin-bottom:12px; }
   .rv-track{ display:flex; gap:14px; overflow-x:auto; padding-bottom:8px; }
   .rv-card{ flex:0 0 150px; background:var(--panel); border:1px solid var(--border); border-radius:10px; padding:12px; cursor:pointer; }
-  .rv-card .rv-thumb{ height:70px; border-radius:7px; background:var(--cyan-dim); display:flex; align-items:center; justify-content:center; font-size:24px; margin-bottom:8px; }
+  .rv-card .rv-thumb{ height:70px; border-radius:7px; background:var(--cyan-dim); display:flex; align-items:center; justify-content:center; font-size:24px; margin-bottom:8px; overflow:hidden; }
+  .rv-card .rv-thumb img{ width:100%; height:100%; object-fit:cover; }
   .rv-card .rv-name{ font-size:11.5px; font-weight:600; line-height:1.3; min-height:30px; margin-bottom:4px; }
   .rv-card .rv-price{ font-family:'IBM Plex Mono'; font-size:12px; color:var(--amber-dark); }
 
@@ -423,7 +426,8 @@
   .strip-card h4{ font-family:'Space Grotesk'; font-size:14px; margin-bottom:12px; }
   .strip-item{ display:flex; align-items:center; gap:10px; margin-bottom:10px; font-size:12.5px; cursor:pointer; }
   .strip-item:hover .strip-name{ color:var(--amber-dark); }
-  .strip-item .sw{ width:36px; height:36px; border-radius:6px; background:var(--cyan-dim); flex:0 0 auto; display:flex; align-items:center; justify-content:center; font-size:16px;}
+  .strip-item .sw{ width:36px; height:36px; border-radius:6px; background:var(--cyan-dim); flex:0 0 auto; display:flex; align-items:center; justify-content:center; font-size:16px; overflow:hidden; }
+  .strip-item .sw img{ width:100%; height:100%; object-fit:cover; }
   .strip-item .sp{ color:var(--amber-dark); font-family:'IBM Plex Mono'; font-weight:600; font-size:12px; margin-left:auto; }
 
   /* ---------- testimonials ---------- */
@@ -452,6 +456,7 @@
   .footer-grid h4{ font-family:'Space Grotesk'; color:#fff; font-size:14px; margin-bottom:14px; }
   .footer-grid p, .footer-grid a{ font-size:12.5px; line-height:1.9; color:#B7C2DA; display:block; }
   .footer-grid a:hover{ color:var(--amber); }
+  .contact-line{ display:flex; align-items:center; gap:7px; }
   .social-row{ display:flex; gap:8px; margin-top:12px; }
   .social-row a{ width:32px; height:32px; border-radius:8px; background:rgba(255,255,255,0.06); display:flex; align-items:center; justify-content:center; font-size:14px; }
   .social-row a:hover{ background:var(--amber); }
@@ -474,7 +479,8 @@
   }
   .compare-tray.show{ transform:translateX(-50%) translateY(0); }
   .compare-tray .ct-thumbs{ display:flex; gap:6px; }
-  .compare-tray .ct-thumb{ width:34px; height:34px; border-radius:7px; background:rgba(255,255,255,.08); display:flex; align-items:center; justify-content:center; font-size:16px; }
+  .compare-tray .ct-thumb{ width:34px; height:34px; border-radius:7px; background:rgba(255,255,255,.08); display:flex; align-items:center; justify-content:center; font-size:16px; overflow:hidden; }
+  .compare-tray .ct-thumb img{ width:100%; height:100%; object-fit:cover; }
   .compare-tray button.ct-go{ background:var(--amber); border:none; color:#fff; padding:8px 14px; border-radius:7px; font-weight:600; cursor:pointer; font-size:12.5px; white-space:nowrap; }
   .compare-tray button.ct-clear{ background:none; border:none; color:#8FA0C4; cursor:pointer; font-size:12px; }
 
@@ -507,13 +513,15 @@
   .pd-top{ display:grid; grid-template-columns:1fr 1fr; gap:24px; }
   .pd-gallery-main{
     height:220px; border-radius:10px; background:linear-gradient(135deg, var(--cyan-dim), rgba(255,138,30,0.10));
-    display:flex; align-items:center; justify-content:center; font-size:80px; margin-bottom:10px;
+    display:flex; align-items:center; justify-content:center; font-size:80px; margin-bottom:10px; overflow:hidden;
   }
+  .pd-gallery-main img{ width:100%; height:100%; object-fit:cover; }
   .pd-gallery-thumbs{ display:flex; gap:8px; }
   .pd-gallery-thumbs .gthumb{
     width:52px; height:52px; border-radius:7px; background:var(--bg); display:flex; align-items:center;
-    justify-content:center; font-size:22px; cursor:pointer; border:2px solid transparent;
+    justify-content:center; font-size:22px; cursor:pointer; border:2px solid transparent; overflow:hidden;
   }
+  .pd-gallery-thumbs .gthumb img{ width:100%; height:100%; object-fit:cover; }
   .pd-gallery-thumbs .gthumb.active{ border-color:var(--amber); }
   .pd-cat{ font-size:11px; color:var(--amber-dark); font-weight:700; text-transform:uppercase; letter-spacing:.05em; }
   .pd-title{ font-family:'Space Grotesk'; font-size:20px; margin:6px 0 8px 0; }
@@ -551,13 +559,15 @@
   .star-pick span.on{ color:var(--amber); }
   .related-grid{ display:grid; grid-template-columns:repeat(4,1fr); gap:12px; margin-top:8px; }
   .related-card{ border:1px solid var(--border); border-radius:9px; padding:10px; cursor:pointer; }
-  .related-card .rc-thumb{ height:56px; border-radius:6px; background:var(--bg); display:flex; align-items:center; justify-content:center; font-size:22px; margin-bottom:6px; }
+  .related-card .rc-thumb{ height:56px; border-radius:6px; background:var(--bg); display:flex; align-items:center; justify-content:center; font-size:22px; margin-bottom:6px; overflow:hidden; }
+  .related-card .rc-thumb img{ width:100%; height:100%; object-fit:cover; }
   .related-card .rc-name{ font-size:11px; font-weight:600; line-height:1.3; margin-bottom:4px; min-height:28px; }
   .related-card .rc-price{ font-family:'IBM Plex Mono'; font-size:11.5px; color:var(--amber-dark); }
 
   /* cart drawer */
   .cart-item{ display:flex; align-items:center; gap:12px; padding:12px 0; border-bottom:1px solid var(--border); }
-  .cart-item .ci-icon{ width:46px; height:46px; border-radius:7px; background:var(--bg); display:flex; align-items:center; justify-content:center; font-size:20px; flex:0 0 auto; }
+  .cart-item .ci-icon{ width:46px; height:46px; border-radius:7px; background:var(--bg); display:flex; align-items:center; justify-content:center; font-size:20px; flex:0 0 auto; overflow:hidden; }
+  .cart-item .ci-icon img{ width:100%; height:100%; object-fit:cover; }
   .cart-item .ci-name{ font-size:13px; font-weight:600; margin-bottom:4px; }
   .cart-item .ci-price{ font-family:'IBM Plex Mono'; font-size:12.5px; color:var(--slate); }
   .cart-item .ci-qty{ display:flex; align-items:center; border:1px solid var(--border); border-radius:6px; overflow:hidden; margin-left:auto; }
@@ -584,11 +594,11 @@
   .step-dots{ display:flex; gap:6px; margin-bottom:16px; }
   .step-dots .sd{ flex:1; height:4px; border-radius:3px; background:var(--border); }
   .step-dots .sd.on{ background:var(--amber); }
-  .delivery-opts{ display:flex; gap:10px; margin:12px 0; }
-  .delivery-opt{ flex:1; border:1px solid var(--border); border-radius:9px; padding:12px; cursor:pointer; font-size:12.5px; }
-  .delivery-opt.active{ border-color:var(--amber); background:rgba(255,138,30,0.06); }
-  .delivery-opt b{ display:block; font-size:13px; margin-bottom:3px; }
-  .delivery-opt span{ color:var(--slate-light); font-size:11.5px; }
+  .delivery-opts, .paymode-opts{ display:flex; gap:10px; margin:12px 0; }
+  .delivery-opt, .paymode-opt{ flex:1; border:1px solid var(--border); border-radius:9px; padding:12px; cursor:pointer; font-size:12.5px; }
+  .delivery-opt.active, .paymode-opt.active{ border-color:var(--amber); background:rgba(255,138,30,0.06); }
+  .delivery-opt b, .paymode-opt b{ display:block; font-size:13px; margin-bottom:3px; }
+  .delivery-opt span, .paymode-opt span{ color:var(--slate-light); font-size:11.5px; }
   .pm-tabs{ display:flex; gap:8px; margin:16px 0; }
   .pm-tabs button{
     flex:1; padding:10px; border:1px solid var(--border); background:var(--panel); border-radius:7px; cursor:pointer;
@@ -611,6 +621,7 @@
     width:100%; border:1px solid var(--border); border-radius:6px; padding:10px 12px; font-size:13px; font-family:'Inter';
     background:var(--panel); color:var(--ink);
   }
+  .form-field textarea{ min-height:60px; }
   .form-row2{ display:grid; grid-template-columns:1fr 1fr; gap:10px; }
   .form-submit{ width:100%; background:var(--rail-950); color:#fff; border:none; border-radius:7px; padding:12px; font-weight:600; cursor:pointer; font-size:14px; margin-top:4px; }
   .form-submit:hover{ background:var(--amber); }
@@ -628,6 +639,26 @@
   .tt-label b{ display:block; font-size:13px; }
   .tt-label span{ font-size:11.5px; color:var(--slate-light); }
 
+  /* admin panel */
+  .admin-note{ background:var(--cyan-dim); border-radius:8px; padding:10px 12px; font-size:11.5px; color:var(--ink); margin-bottom:16px; }
+  .admin-add{ border:1px dashed var(--amber); border-radius:10px; padding:14px; margin-bottom:18px; }
+  .admin-add h4{ font-family:'Space Grotesk'; font-size:13px; margin-bottom:10px; }
+  .admin-grid-fields{ display:grid; grid-template-columns:1fr 1fr; gap:10px; margin-bottom:10px; }
+  .admin-grid-fields.wide{ grid-template-columns:1fr 1fr 1fr; }
+  .admin-grid-fields label{ font-size:11px; color:var(--slate); display:block; margin-bottom:4px; }
+  .admin-grid-fields input, .admin-grid-fields select, .admin-grid-fields textarea{
+    width:100%; border:1px solid var(--border); border-radius:6px; padding:7px 9px; font-size:12.5px; background:var(--panel); color:var(--ink); font-family:'Inter';
+  }
+  .admin-row{ display:flex; gap:12px; border:1px solid var(--border); border-radius:10px; padding:12px; margin-bottom:10px; align-items:flex-start; }
+  .admin-row .ar-thumb{ width:56px; height:56px; border-radius:8px; background:var(--bg); display:flex; align-items:center; justify-content:center; font-size:26px; flex:0 0 auto; overflow:hidden; }
+  .admin-row .ar-thumb img{ width:100%; height:100%; object-fit:cover; }
+  .admin-row .ar-fields{ flex:1; }
+  .admin-row .ar-actions{ display:flex; flex-direction:column; gap:6px; }
+  .admin-row .ar-actions button{ font-size:11.5px; padding:7px 10px; border-radius:6px; border:none; cursor:pointer; }
+  .btn-save{ background:var(--green); color:#fff; }
+  .btn-delete{ background:var(--red); color:#fff; }
+  .btn-add{ background:var(--amber); color:#fff; }
+
   @media (max-width:900px){
     .layout{ grid-template-columns:1fr; }
     .sidebar{ position:static; }
@@ -639,6 +670,8 @@
     .pd-top{ grid-template-columns:1fr; }
     .related-grid{ grid-template-columns:repeat(2,1fr); }
     .hero h1{ font-size:24px; }
+    .admin-row{ flex-direction:column; }
+    .admin-grid-fields, .admin-grid-fields.wide{ grid-template-columns:1fr 1fr; }
   }
 </style>
 </head>
@@ -651,8 +684,9 @@
     <div class="ticker-track" id="tickerTrack"></div>
   </div>
   <div class="topbar-right">
-    <span class="mpesa-chip">M-Pesa accepted</span>
+    <span class="mpesa-chip">M-Pesa or Pay on Delivery</span>
     <button class="link-btn" onclick="openTrackOrder()">Track order</button>
+    <button class="theme-toggle" onclick="openAdmin()" title="Store admin — edit catalog">⚙</button>
     <button class="theme-toggle" id="themeToggle" onclick="toggleTheme()" title="Toggle dark mode">◐</button>
   </div>
 </div>
@@ -691,7 +725,7 @@
     <div>
       <div class="hero-eyebrow"><span class="pulse"></span>LIVE · NAIROBI CBD PICKUP TODAY</div>
       <h1>Genuine components, wired straight into Nairobi.</h1>
-      <p>Motherboards, GPUs power gear, networking kit and the small cables that make everything actually work — stocked locally, paid for on M-Pesa, and in your hands in hours, not weeks.</p>
+      <p>Motherboards, GPUs power gear, networking kit and the small cables that make everything actually work — stocked locally, paid by M-Pesa or on delivery, and in your hands in hours, not weeks.</p>
       <div class="hero-ctas">
         <button class="primary" onclick="document.querySelector('.layout').scrollIntoView({behavior:'smooth'})">Shop components</button>
         <button class="ghost" onclick="selectNavCat('clearance')">View clearance</button>
@@ -702,7 +736,7 @@
       <div class="hp-row"><span class="hp-label">Catalog</span><span id="hpCatalog">24 parts online</span></div>
       <div class="hp-row"><span class="hp-label">CBD pickup</span><span>Ready in ~2 hrs</span></div>
       <div class="hp-row"><span class="hp-label">Countrywide delivery</span><span>24–48 hrs</span></div>
-      <div class="hp-row"><span class="hp-label">Checkout</span><span>M-Pesa Paybill / Till / Send Money</span></div>
+      <div class="hp-row"><span class="hp-label">Checkout</span><span>M-Pesa or Pay on Delivery</span></div>
       <div class="hp-row"><span class="hp-label">PAT Points</span><span>Earn 2% back on every order</span></div>
     </div>
   </div>
@@ -710,7 +744,7 @@
 
 <div class="trust-strip">
   <div class="trust-item"><span class="ti-ico">🛡️</span><div class="ti-text"><b>Genuine parts</b><span>Sourced, not grey-market</span></div></div>
-  <div class="trust-item"><span class="ti-ico">📱</span><div class="ti-text"><b>M-Pesa secured</b><span>Paybill, Till or Send Money</span></div></div>
+  <div class="trust-item"><span class="ti-ico">💵</span><div class="ti-text"><b>Pay on delivery</b><span>Or M-Pesa Paybill / Till</span></div></div>
   <div class="trust-item"><span class="ti-ico">🏬</span><div class="ti-text"><b>CBD pickup</b><span>Same-day, no delivery fee</span></div></div>
   <div class="trust-item"><span class="ti-ico">↩️</span><div class="ti-text"><b>7-day returns</b><span>On unopened, faulty items</span></div></div>
 </div>
@@ -791,7 +825,7 @@
 <div class="testi-wrap">
   <h3>What Nairobi is saying</h3>
   <div class="testi-grid">
-    <div class="testi"><div class="stars">★★★★★</div>Ordered a sound card in the morning, had it by 3pm same day. Paid on delivery via M-Pesa, no stress.<div class="who">— Wanjiru K.</div></div>
+    <div class="testi"><div class="stars">★★★★★</div>Ordered a sound card in the morning, had it by 3pm same day. Paid cash on delivery, no stress.<div class="who">— Wanjiru K.</div></div>
     <div class="testi"><div class="stars">★★★★★</div>Good prices on cables compared to River Road, and they actually pick up the phone.<div class="who">— Otieno M.</div></div>
     <div class="testi"><div class="stars">★★★★☆</div>SSD came well packed. Would've liked more brand options but the price was fair.<div class="who">— Faith N.</div></div>
     <div class="testi"><div class="stars">★★★★★</div>Helped me pick the right capture card for streaming on a budget. Solid support.<div class="who">— Brian O.</div></div>
@@ -812,10 +846,12 @@
   <div class="footer-grid">
     <div>
       <h4 class="display">PAT.Enterprise</h4>
-      <p>Computer components, networking gear, and accessories for Nairobi builders, gamers, and offices. M-Pesa accepted at checkout and on delivery.</p>
-      <p style="margin-top:10px;">📍 Nairobi CBD, Kenya &nbsp; · &nbsp; 📞 0700 000 000</p>
+      <p>Computer components, networking gear, and accessories for Nairobi builders, gamers, and offices. M-Pesa or pay-on-delivery accepted.</p>
+      <p style="margin-top:10px;">📍 Nairobi CBD, Kenya</p>
+      <a class="contact-line" href="https://wa.me/254700000000?text=Hi%20PAT.Enterprise%2C%20I%27d%20like%20some%20help." target="_blank" rel="noopener">📞 0700 000 000 <span style="font-size:10.5px; color:var(--cyan, #2FD0C9);">(chat on WhatsApp)</span></a>
+      <a class="contact-line" href="mailto:info@patenterprise.co.ke?subject=Enquiry%20from%20website">✉️ info@patenterprise.co.ke</a>
       <div class="social-row">
-        <a href="#" title="WhatsApp">📞</a>
+        <a href="https://wa.me/254700000000" target="_blank" rel="noopener" title="WhatsApp">📞</a>
         <a href="#" title="Instagram">📷</a>
         <a href="#" title="X / Twitter">🐦</a>
         <a href="#" title="Facebook">📘</a>
@@ -843,7 +879,7 @@
       <p>Sunday: Closed</p>
     </div>
   </div>
-  <div class="footer-bottom">© 2026 PAT.Enterprise. All rights reserved. Demo storefront — payments are simulated.</div>
+  <div class="footer-bottom">© 2026 PAT.Enterprise. All rights reserved. Demo storefront — M-Pesa payment is simulated; catalog edits save to this browser only.</div>
 </footer>
 
 <button class="wa-float" onclick="openWhatsApp()" title="Chat on WhatsApp">💬</button>
@@ -890,6 +926,11 @@
   <div class="modal small" id="trackModal"></div>
 </div>
 
+<!-- Admin modal -->
+<div class="overlay" id="adminOverlay">
+  <div class="modal wide" id="adminModal"></div>
+</div>
+
 <script>
 /* ============================================================
    DATA
@@ -921,10 +962,11 @@ const BRANDS = ['Corsair','TP-Link','Deep Cool','Sabrent','Kingston','Generic OE
 const TICKER_ITEMS = [
   'Nairobi CBD pickup ready in ~2 hrs',
   'Countrywide delivery in 24–48 hrs',
-  '38 orders confirmed via M-Pesa today',
+  '38 orders confirmed today',
   'Free delivery on orders above KES 5,000',
   'New: Z790 ATX Gaming Motherboard in stock',
   'PAT Points: earn 2% back on every order',
+  'Now accepting Pay on Delivery',
 ];
 
 const REVIEW_POOL = [
@@ -940,77 +982,77 @@ const REVIEW_POOL = [
   {name:'Cynthia L.', text:'Fast CBD pickup, saved me a delivery fee and the wait.'},
 ];
 
-const products = [
-  {id:1, name:'Sabrent 8-Channel PCIe Sound Card', category:'audio', subcategory:'Sound & Capture Cards', brand:'Sabrent', price:3150, oldPrice:3800, badge:'sale', stock:'in', stockNote:'In stock', icon:'🎛️', gallery:['🎛️','🎚️','📦','🔊'], rating:4.6, reviewCount:34,
+const DEFAULT_PRODUCTS = [
+  {id:1, name:'Sabrent 8-Channel PCIe Sound Card', category:'audio', subcategory:'Sound & Capture Cards', brand:'Sabrent', price:3150, oldPrice:3800, badge:'sale', stock:'in', stockNote:'In stock', icon:'🎛️', img:'', gallery:['🎛️','🎚️','📦','🔊'], rating:4.6, reviewCount:34,
     desc:'A PCIe sound card built for creators who need clean multichannel audio without relying on a laptop\'s onboard chip. Handles streaming, podcasting and studio monitoring with low-latency drivers.',
     specs:['8-channel output, 24-bit/192kHz DAC','PCIe x1 interface, low-profile bracket included','Dedicated headphone amp for high-impedance cans']},
-  {id:2, name:'USB 3.0 to HDMI Video Capture Card', category:'audio', subcategory:'Sound & Capture Cards', brand:'Generic OEM', price:4300, badge:'new', stock:'in', stockNote:'In stock', icon:'💽', gallery:['💽','🎥','🔌'], rating:4.3, reviewCount:51,
+  {id:2, name:'USB 3.0 to HDMI Video Capture Card', category:'audio', subcategory:'Sound & Capture Cards', brand:'Generic OEM', price:4300, badge:'new', stock:'in', stockNote:'In stock', icon:'💽', img:'', gallery:['💽','🎥','🔌'], rating:4.3, reviewCount:51,
     desc:'Plug-and-play capture card for streaming consoles, cameras or a second PC to OBS, Zoom or Discord at up to 1080p60.',
     specs:['HDMI in / USB-A 3.0 out, UVC compatible','1080p60 passthrough and capture','Works with OBS, Zoom, Discord out of the box']},
-  {id:3, name:'120mm RGB Case Fan, 3-Pack', category:'cooling', subcategory:'Cooling Fans', brand:'Corsair', price:2750, stock:'in', stockNote:'In stock', icon:'🌀', gallery:['🌀','💡','📦'], rating:4.7, reviewCount:88,
+  {id:3, name:'120mm RGB Case Fan, 3-Pack', category:'cooling', subcategory:'Cooling Fans', brand:'Corsair', price:2750, stock:'in', stockNote:'In stock', icon:'🌀', img:'', gallery:['🌀','💡','📦'], rating:4.7, reviewCount:88,
     desc:'Addressable RGB case fans for quiet, high static-pressure airflow. Sold as a 3-pack with a shared RGB hub.',
     specs:['120mm, up to 1800 RPM','Daisy-chainable ARGB hub included','Rubber corner dampeners for quiet operation']},
-  {id:4, name:'Dual-Band AX3000 Wi-Fi PCIe Card', category:'networking', subcategory:'Wireless Cards', brand:'TP-Link', price:3890, oldPrice:4500, badge:'sale', stock:'in', stockNote:'In stock', icon:'📡', gallery:['📡','📶','🔩'], rating:4.4, reviewCount:42,
+  {id:4, name:'Dual-Band AX3000 Wi-Fi PCIe Card', category:'networking', subcategory:'Wireless Cards', brand:'TP-Link', price:3890, oldPrice:4500, badge:'sale', stock:'in', stockNote:'In stock', icon:'📡', img:'', gallery:['📡','📶','🔩'], rating:4.4, reviewCount:42,
     desc:'Wi-Fi 6 PCIe card for desktop PCs that need fast, stable dual-band wireless plus Bluetooth 5.2.',
     specs:['Wi-Fi 6 (802.11ax), up to 2402Mbps','Bluetooth 5.2 built in','Includes low-profile bracket and antenna']},
-  {id:5, name:'USB-C to Dual HDMI 4K Adapter', category:'cables', subcategory:'Cables & Adapters', brand:'Generic OEM', price:1950, stock:'in', stockNote:'In stock', icon:'🔌', gallery:['🔌','🖥️'], rating:4.1, reviewCount:29,
+  {id:5, name:'USB-C to Dual HDMI 4K Adapter', category:'cables', subcategory:'Cables & Adapters', brand:'Generic OEM', price:1950, stock:'in', stockNote:'In stock', icon:'🔌', img:'', gallery:['🔌','🖥️'], rating:4.1, reviewCount:29,
     desc:'Drive two 4K monitors from a single USB-C laptop port. Great for compact multi-monitor desk setups.',
     specs:['Dual HDMI output, up to 4K@30Hz each','USB-C with DP Alt Mode required','Plug-and-play, no drivers needed']},
-  {id:6, name:'1TB NVMe M.2 Internal SSD', category:'storage', subcategory:'Storage Drives', brand:'Kingston', price:7800, stock:'low', stockNote:'4 left', icon:'🗄️', gallery:['🗄️','⚡','📦'], rating:4.8, reviewCount:156, badge:'best',
+  {id:6, name:'1TB NVMe M.2 Internal SSD', category:'storage', subcategory:'Storage Drives', brand:'Kingston', price:7800, stock:'low', stockNote:'4 left', icon:'🗄️', img:'', gallery:['🗄️','⚡','📦'], rating:4.8, reviewCount:156, badge:'best',
     desc:'Fast NVMe storage for a snappy OS drive or game library upgrade. Fits standard M.2 2280 slots.',
     specs:['1TB, PCIe Gen3 NVMe','Sequential read up to 3500MB/s','M.2 2280 form factor']},
-  {id:7, name:'Aluminium Laptop Cooling Pad, 6-Fan', category:'cooling', subcategory:'Cooling Fans', brand:'Deep Cool', price:2400, badge:'new', stock:'in', stockNote:'In stock', icon:'🧊', gallery:['🧊','💻'], rating:4.2, reviewCount:37,
+  {id:7, name:'Aluminium Laptop Cooling Pad, 6-Fan', category:'cooling', subcategory:'Cooling Fans', brand:'Deep Cool', price:2400, badge:'new', stock:'in', stockNote:'In stock', icon:'🧊', img:'', gallery:['🧊','💻'], rating:4.2, reviewCount:37,
     desc:'Six-fan aluminium cooling pad for laptops running hot under gaming or render workloads.',
     specs:['6 fans, adjustable speed','Aluminium mesh top for heat dissipation','Fits 12"–17" laptops']},
-  {id:8, name:'Braided HDMI 2.1 Cable, 2m', category:'cables', subcategory:'Cables & Adapters', brand:'Generic OEM', price:950, stock:'in', stockNote:'In stock', icon:'🧵', gallery:['🧵'], rating:4.5, reviewCount:63,
+  {id:8, name:'Braided HDMI 2.1 Cable, 2m', category:'cables', subcategory:'Cables & Adapters', brand:'Generic OEM', price:950, stock:'in', stockNote:'In stock', icon:'🧵', img:'', gallery:['🧵'], rating:4.5, reviewCount:63,
     desc:'Durable braided HDMI 2.1 cable rated for 4K/120Hz and 8K/60Hz signal, ideal for next-gen consoles and GPUs.',
     specs:['HDMI 2.1, 48Gbps bandwidth','Supports 4K@120Hz / 8K@60Hz','2 metres, braided jacket']},
-  {id:9, name:'650W 80+ Bronze PSU', category:'components', subcategory:'Power Supply Units', brand:'Corsair', price:5600, stock:'in', stockNote:'In stock', icon:'⚡', gallery:['⚡','🔋'], rating:4.6, reviewCount:71,
+  {id:9, name:'650W 80+ Bronze PSU', category:'components', subcategory:'Power Supply Units', brand:'Corsair', price:5600, stock:'in', stockNote:'In stock', icon:'⚡', img:'', gallery:['⚡','🔋'], rating:4.6, reviewCount:71,
     desc:'Reliable 650W power supply for mid-range gaming builds, with 80+ Bronze efficiency certification.',
     specs:['650W continuous, 80+ Bronze','Single +12V rail','120mm fan, quiet operation']},
-  {id:10, name:'USB External Sound Card Adapter', category:'audio', subcategory:'Sound & Capture Cards', brand:'Generic OEM', price:1150, oldPrice:1400, badge:'sale', stock:'in', stockNote:'In stock', icon:'🎚️', gallery:['🎚️','🎧'], rating:4.0, reviewCount:45,
+  {id:10, name:'USB External Sound Card Adapter', category:'audio', subcategory:'Sound & Capture Cards', brand:'Generic OEM', price:1150, oldPrice:1400, badge:'sale', stock:'in', stockNote:'In stock', icon:'🎚️', img:'', gallery:['🎚️','🎧'], rating:4.0, reviewCount:45,
     desc:'Compact USB audio adapter that adds a mic-in and headphone-out to any PC or laptop.',
     specs:['USB-A plug and play','3.5mm mic in + headphone out','No drivers required on Windows/Mac/Linux']},
-  {id:11, name:'Gigabit 8-Port Ethernet Switch', category:'networking', subcategory:'Networking Devices', brand:'TP-Link', price:3200, stock:'in', stockNote:'In stock', icon:'🖧', gallery:['🖧','🔌'], rating:4.3, reviewCount:26,
+  {id:11, name:'Gigabit 8-Port Ethernet Switch', category:'networking', subcategory:'Networking Devices', brand:'TP-Link', price:3200, stock:'in', stockNote:'In stock', icon:'🖧', img:'', gallery:['🖧','🔌'], rating:4.3, reviewCount:26,
     desc:'Unmanaged 8-port switch for expanding a home or small-office wired network.',
     specs:['8x Gigabit RJ45 ports','Plug and play, fanless design','Metal casing']},
-  {id:12, name:'18-Pin PCIe Cable for RTX 40-Series', category:'cables', subcategory:'Cables & Adapters', brand:'Corsair', price:1600, stock:'low', stockNote:'2 left', icon:'🔋', gallery:['🔋'], rating:4.4, reviewCount:18,
+  {id:12, name:'18-Pin PCIe Cable for RTX 40-Series', category:'cables', subcategory:'Cables & Adapters', brand:'Corsair', price:1600, stock:'low', stockNote:'2 left', icon:'🔋', img:'', gallery:['🔋'], rating:4.4, reviewCount:18,
     desc:'12VHPWR adapter cable for powering RTX 40-series GPUs from standard PCIe connectors.',
     specs:['2x 8-pin PCIe to 16-pin 12VHPWR','Rated for up to 450W','30cm length']},
-  {id:13, name:'B450M Micro-ATX Motherboard', category:'components', subcategory:'Motherboards', brand:'Generic OEM', price:8200, stock:'in', stockNote:'In stock', icon:'🧩', gallery:['🧩','🔧'], rating:4.5, reviewCount:40,
+  {id:13, name:'B450M Micro-ATX Motherboard', category:'components', subcategory:'Motherboards', brand:'Generic OEM', price:8200, stock:'in', stockNote:'In stock', icon:'🧩', img:'', gallery:['🧩','🔧'], rating:4.5, reviewCount:40,
     desc:'Budget-friendly Micro-ATX motherboard for AMD Ryzen builds, good for everyday and light gaming use.',
     specs:['AM4 socket, supports Ryzen up to 5000-series','2x DDR4 slots, up to 64GB','M.2 NVMe slot, 4x SATA III']},
-  {id:14, name:'Z790 ATX Gaming Motherboard', category:'components', subcategory:'Motherboards', brand:'Generic OEM', price:24500, badge:'new', stock:'in', stockNote:'In stock', icon:'🖥️', gallery:['🖥️','💡','🧩'], rating:4.9, reviewCount:22,
+  {id:14, name:'Z790 ATX Gaming Motherboard', category:'components', subcategory:'Motherboards', brand:'Generic OEM', price:24500, badge:'new', stock:'in', stockNote:'In stock', icon:'🖥️', img:'', gallery:['🖥️','💡','🧩'], rating:4.9, reviewCount:22,
     desc:'High-end ATX board for the latest Intel gaming and creator builds with strong VRM and connectivity.',
     specs:['LGA1700 socket, Intel Z790 chipset','DDR5 support, up to 128GB','Wi-Fi 6E and 2.5G LAN built in']},
-  {id:15, name:'Kingston 480GB Internal SSD', category:'storage', subcategory:'Storage Drives', brand:'Kingston', price:3900, stock:'in', stockNote:'In stock', icon:'🗄️', gallery:['🗄️','📦'], rating:4.7, reviewCount:132, badge:'best',
+  {id:15, name:'Kingston 480GB Internal SSD', category:'storage', subcategory:'Storage Drives', brand:'Kingston', price:3900, stock:'in', stockNote:'In stock', icon:'🗄️', img:'', gallery:['🗄️','📦'], rating:4.7, reviewCount:132, badge:'best',
     desc:'Reliable SATA SSD for a fast, affordable OS or secondary storage upgrade over a mechanical drive.',
     specs:['480GB, SATA III 2.5"','Sequential read up to 500MB/s','3-year warranty']},
-  {id:16, name:'Corsair RGB Case Fan Pack', category:'cooling', subcategory:'Cooling Fans', brand:'Corsair', price:2600, stock:'in', stockNote:'In stock', icon:'🌀', gallery:['🌀','💡'], rating:4.6, reviewCount:95,
+  {id:16, name:'Corsair RGB Case Fan Pack', category:'cooling', subcategory:'Cooling Fans', brand:'Corsair', price:2600, stock:'in', stockNote:'In stock', icon:'🌀', img:'', gallery:['🌀','💡'], rating:4.6, reviewCount:95,
     desc:'Twin-pack RGB case fans with smooth airflow and vivid lighting for build showcase cases.',
     specs:['120mm x2, ARGB header compatible','Fluid dynamic bearing for quiet running','Includes mounting screws']},
-  {id:17, name:'Braided USB-C Cable, 1.5m', category:'cables', subcategory:'Cables & Adapters', brand:'Generic OEM', price:650, stock:'in', stockNote:'In stock', icon:'🧵', gallery:['🧵'], rating:4.2, reviewCount:110,
+  {id:17, name:'Braided USB-C Cable, 1.5m', category:'cables', subcategory:'Cables & Adapters', brand:'Generic OEM', price:650, stock:'in', stockNote:'In stock', icon:'🧵', img:'', gallery:['🧵'], rating:4.2, reviewCount:110,
     desc:'Everyday braided USB-C charging and data cable, reinforced for daily use.',
     specs:['USB-C to USB-C, 60W PD support','Data transfer up to 480Mbps','1.5 metre braided cable']},
-  {id:18, name:'7.1 Channel USB Sound Card', category:'audio', subcategory:'Sound & Capture Cards', brand:'Generic OEM', price:2100, stock:'in', stockNote:'In stock', icon:'🎛️', gallery:['🎛️','🎧'], rating:4.1, reviewCount:58,
+  {id:18, name:'7.1 Channel USB Sound Card', category:'audio', subcategory:'Sound & Capture Cards', brand:'Generic OEM', price:2100, stock:'in', stockNote:'In stock', icon:'🎛️', img:'', gallery:['🎛️','🎧'], rating:4.1, reviewCount:58,
     desc:'Virtual 7.1 surround USB sound card for gaming headsets and desktop speaker setups.',
     specs:['Virtual 7.1 surround via USB','Plug and play, no external power','Compatible with Windows and Linux']},
-  {id:19, name:'Dual-Band Wi-Fi Router AC1200', category:'networking', subcategory:'Networking Devices', brand:'TP-Link', price:4500, stock:'in', stockNote:'In stock', icon:'🖧', gallery:['🖧','📶'], rating:4.5, reviewCount:143, badge:'best',
+  {id:19, name:'Dual-Band Wi-Fi Router AC1200', category:'networking', subcategory:'Networking Devices', brand:'TP-Link', price:4500, stock:'in', stockNote:'In stock', icon:'🖧', img:'', gallery:['🖧','📶'], rating:4.5, reviewCount:143, badge:'best',
     desc:'AC1200 dual-band router for reliable home Wi-Fi across a 2-3 bedroom apartment.',
     specs:['AC1200, 2.4GHz + 5GHz bands','4x Fast Ethernet LAN ports','WPA3 security support']},
-  {id:20, name:'4-Port USB 3.0 Hub', category:'cables', subcategory:'Cables & Adapters', brand:'Generic OEM', price:900, stock:'in', stockNote:'In stock', icon:'🔌', gallery:['🔌'], rating:4.0, reviewCount:67,
+  {id:20, name:'4-Port USB 3.0 Hub', category:'cables', subcategory:'Cables & Adapters', brand:'Generic OEM', price:900, stock:'in', stockNote:'In stock', icon:'🔌', img:'', gallery:['🔌'], rating:4.0, reviewCount:67,
     desc:'Compact 4-port USB hub for expanding limited ports on a laptop or thin desktop.',
     specs:['4x USB 3.0 ports, up to 5Gbps','Compact aluminium housing','No external power needed']},
-  {id:21, name:'2TB External HDD', category:'storage', subcategory:'Storage Drives', brand:'Generic OEM', price:6800, oldPrice:7900, badge:'sale', stock:'in', stockNote:'In stock', icon:'💾', gallery:['💾','📦'], rating:4.6, reviewCount:84,
+  {id:21, name:'2TB External HDD', category:'storage', subcategory:'Storage Drives', brand:'Generic OEM', price:6800, oldPrice:7900, badge:'sale', stock:'in', stockNote:'In stock', icon:'💾', img:'', gallery:['💾','📦'], rating:4.6, reviewCount:84,
     desc:'Portable 2TB external hard drive for backups, media libraries and transferring large files.',
     specs:['2TB capacity, USB 3.0','Compact portable design','Compatible with Windows and Mac']},
-  {id:22, name:'750W 80+ Gold Modular PSU', category:'components', subcategory:'Power Supply Units', brand:'Deep Cool', price:8900, stock:'in', stockNote:'In stock', icon:'⚡', gallery:['⚡','🔋','📦'], rating:4.7, reviewCount:33,
+  {id:22, name:'750W 80+ Gold Modular PSU', category:'components', subcategory:'Power Supply Units', brand:'Deep Cool', price:8900, stock:'in', stockNote:'In stock', icon:'⚡', img:'', gallery:['⚡','🔋','📦'], rating:4.7, reviewCount:33,
     desc:'Fully modular 750W power supply with Gold efficiency, suited to higher-end gaming rigs.',
     specs:['750W continuous, 80+ Gold','Fully modular cabling','135mm fan with hybrid silent mode']},
-  {id:23, name:'Wireless USB Wi-Fi Adapter AC600', category:'networking', subcategory:'Wireless Cards', brand:'TP-Link', price:1450, stock:'out', stockNote:'Out of stock', icon:'📶', gallery:['📶','🔌'], rating:3.9, reviewCount:12,
+  {id:23, name:'Wireless USB Wi-Fi Adapter AC600', category:'networking', subcategory:'Wireless Cards', brand:'TP-Link', price:1450, stock:'out', stockNote:'Out of stock', icon:'📶', img:'', gallery:['📶','🔌'], rating:3.9, reviewCount:12,
     desc:'Compact USB Wi-Fi adapter for adding wireless connectivity to a desktop PC without opening the case.',
     specs:['AC600, dual-band 2.4GHz/5GHz','Nano USB design','Supports Windows and Linux drivers']},
-  {id:24, name:'Tower CPU Air Cooler, 4-Heatpipe', category:'cooling', subcategory:'Cooling Fans', brand:'Deep Cool', price:3600, badge:'new', stock:'in', stockNote:'In stock', icon:'🧊', gallery:['🧊','🌀'], rating:4.5, reviewCount:44,
+  {id:24, name:'Tower CPU Air Cooler, 4-Heatpipe', category:'cooling', subcategory:'Cooling Fans', brand:'Deep Cool', price:3600, badge:'new', stock:'in', stockNote:'In stock', icon:'🧊', img:'', gallery:['🧊','🌀'], rating:4.5, reviewCount:44,
     desc:'Quiet 4-heatpipe tower cooler that keeps mid-range and gaming CPUs cool under sustained load.',
     specs:['4 direct-touch heatpipes','120mm PWM fan included','Compatible with Intel and AMD sockets']},
 ];
@@ -1019,20 +1061,24 @@ const products = [
    STATE + PERSISTENCE
 ============================================================ */
 const state = { navCat:'all', subCat:null, brands:new Set(), search:'', minPrice:null, maxPrice:null, minRating:0, inStockOnly:false, sort:'featured', view:'grid' };
+let products = loadJSON('pat_products', null) || JSON.parse(JSON.stringify(DEFAULT_PRODUCTS));
 let cart = loadJSON('pat_cart', {});
 let wishlist = new Set(loadJSON('pat_wishlist', []));
 let compareSet = new Set(loadJSON('pat_compare', []));
 let recentlyViewed = loadJSON('pat_recent', []);
 let orders = loadJSON('pat_orders', []);
 let points = loadJSON('pat_points', 0);
+let customReviews = loadJSON('pat_reviews', {}); // { productId: [{name,text,stars,date}] }
 let activeGalleryIdx = 0;
 let currentProductId = null;
 let activeTab = 'desc';
 let pickedStars = 5;
+let paymentMode = 'mpesa'; // 'mpesa' | 'pod'
 let paymentMethod = 'paybill';
 let deliveryMethod = 'pickup';
 let promoApplied = null;
 let orderRef = null;
+const ADMIN_PASSCODE = 'PAT2026';
 
 function loadJSON(key, fallback){
   try{ const v = localStorage.getItem(key); return v ? JSON.parse(v) : fallback; }catch(e){ return fallback; }
@@ -1040,7 +1086,15 @@ function loadJSON(key, fallback){
 function saveJSON(key, val){
   try{ localStorage.setItem(key, JSON.stringify(val)); }catch(e){}
 }
+function persistProducts(){ saveJSON('pat_products', products); }
 function fmt(n){ return 'KES ' + Math.round(n).toLocaleString(); }
+function escapeHtml(s){ return String(s==null?'':s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c])); }
+
+/* media (image or emoji) helper */
+function mediaHtml(p, fontSize){
+  if(p.img){ return `<img src="${escapeHtml(p.img)}" alt="${escapeHtml(p.name)}" onerror="this.parentElement.innerHTML='${p.icon||'📦'}';">`; }
+  return `<span style="font-size:${fontSize||'inherit'};">${p.icon||'📦'}</span>`;
+}
 
 /* ============================================================
    THEME
@@ -1197,8 +1251,8 @@ document.addEventListener('DOMContentLoaded', () => {
     const panel = document.getElementById('suggestPanel');
     if(!q){ panel.classList.remove('show'); return; }
     const matches = products.filter(p=>p.name.toLowerCase().includes(q)).slice(0,5);
-    if(!matches.length){ panel.innerHTML = `<div class="suggest-empty">No matches for "${q}"</div>`; panel.classList.add('show'); return; }
-    panel.innerHTML = matches.map(p=>`<div class="suggest-item" onclick="pickSuggestion(${p.id})"><div class="si-icon">${p.icon}</div><div class="si-name">${p.name}</div><div class="si-price">${fmt(p.price)}</div></div>`).join('');
+    if(!matches.length){ panel.innerHTML = `<div class="suggest-empty">No matches for "${escapeHtml(q)}"</div>`; panel.classList.add('show'); return; }
+    panel.innerHTML = matches.map(p=>`<div class="suggest-item" onclick="pickSuggestion(${p.id})"><div class="si-icon">${mediaHtml(p)}</div><div class="si-name">${p.name}</div><div class="si-price">${fmt(p.price)}</div></div>`).join('');
     panel.classList.add('show');
   });
   input.addEventListener('keydown', e => { if(e.key==='Enter') runSearch(); });
@@ -1313,7 +1367,7 @@ function renderGrid(){
       <div class="card">
         ${badgeHtml(p)}
         <button class="wish-btn ${wished?'active':''}" onclick="event.stopPropagation(); toggleWishlist(${p.id});" title="Wishlist">${wished?'♥':'♡'}</button>
-        <div class="thumb" onclick="openProduct(${p.id})"><div class="thumb-box">${p.icon}</div></div>
+        <div class="thumb" onclick="openProduct(${p.id})"><div class="thumb-box">${mediaHtml(p,'34px')}</div></div>
         <div class="cbody">
           <div class="cat-label">${p.subcategory}</div>
           <div class="name" onclick="openProduct(${p.id})">${p.name}</div>
@@ -1336,22 +1390,22 @@ function renderStrips(){
   const bestSellers = products.filter(p=>p.badge==='best').concat(products.slice().sort((a,b)=>b.reviewCount-a.reviewCount)).slice(0,3);
   const uniqueBest = [...new Map(bestSellers.map(p=>[p.id,p])).values()].slice(0,3);
   document.getElementById('topSellingStrip').innerHTML = uniqueBest.map(p=>`
-    <div class="strip-item" onclick="openProduct(${p.id})"><div class="sw">${p.icon}</div><span class="strip-name">${p.name}</span><span class="sp">${fmt(p.price)}</span></div>
+    <div class="strip-item" onclick="openProduct(${p.id})"><div class="sw">${mediaHtml(p,'16px')}</div><span class="strip-name">${p.name}</span><span class="sp">${fmt(p.price)}</span></div>
   `).join('');
   const onSale = products.filter(p=>p.badge==='sale').slice(0,3);
   document.getElementById('onSaleStrip').innerHTML = onSale.map(p=>`
-    <div class="strip-item" onclick="openProduct(${p.id})"><div class="sw">${p.icon}</div><span class="strip-name">${p.name}</span><span class="sp">${fmt(p.price)}</span></div>
+    <div class="strip-item" onclick="openProduct(${p.id})"><div class="sw">${mediaHtml(p,'16px')}</div><span class="strip-name">${p.name}</span><span class="sp">${fmt(p.price)}</span></div>
   `).join('');
 }
 
 function renderRecentlyViewed(){
   const wrap = document.getElementById('rvWrap');
-  if(!recentlyViewed.length){ wrap.style.display='none'; return; }
-  wrap.style.display='';
   const items = recentlyViewed.map(id=>products.find(p=>p.id===id)).filter(Boolean);
+  if(!items.length){ wrap.style.display='none'; return; }
+  wrap.style.display='';
   document.getElementById('rvTrack').innerHTML = items.map(p=>`
     <div class="rv-card" onclick="openProduct(${p.id})">
-      <div class="rv-thumb">${p.icon}</div>
+      <div class="rv-thumb">${mediaHtml(p,'24px')}</div>
       <div class="rv-name">${p.name}</div>
       <div class="rv-price">${fmt(p.price)}</div>
     </div>`).join('');
@@ -1369,6 +1423,8 @@ function render(){
   renderStrips();
   renderRecentlyViewed();
   updateHeaderCounts();
+  const hp = document.getElementById('hpCatalog');
+  if(hp) hp.textContent = products.length + ' parts online';
 }
 
 /* ============================================================
@@ -1405,7 +1461,7 @@ function renderWishlistModal(){
   }
   const rows = items.map(p => `
     <div class="cart-item">
-      <div class="ci-icon">${p.icon}</div>
+      <div class="ci-icon">${mediaHtml(p,'20px')}</div>
       <div>
         <div class="ci-name">${p.name}</div>
         <div class="ci-price">${fmt(p.price)}</div>
@@ -1438,7 +1494,7 @@ function renderCompareTray(){
   if(!compareSet.size){ tray.classList.remove('show'); return; }
   tray.classList.add('show');
   const items = [...compareSet].map(id=>products.find(p=>p.id===id)).filter(Boolean);
-  document.getElementById('ctThumbs').innerHTML = items.map(p=>`<div class="ct-thumb">${p.icon}</div>`).join('');
+  document.getElementById('ctThumbs').innerHTML = items.map(p=>`<div class="ct-thumb">${mediaHtml(p,'16px')}</div>`).join('');
   document.getElementById('ctCount').textContent = `${items.length} selected`;
 }
 function openCompareModal(){
@@ -1452,7 +1508,7 @@ function renderCompareModalContent(){
   const items = [...compareSet].map(id=>products.find(p=>p.id===id)).filter(Boolean);
   const cols = items.map(p => `
     <div style="flex:1; min-width:200px; border:1px solid var(--border); border-radius:10px; padding:14px;">
-      <div style="text-align:center; font-size:40px; margin-bottom:8px;">${p.icon}</div>
+      <div style="text-align:center; font-size:40px; margin-bottom:8px;">${mediaHtml(p,'40px')}</div>
       <div style="font-weight:600; font-size:13px; margin-bottom:6px; min-height:34px;">${p.name}</div>
       <div class="price" style="margin-bottom:6px;">${fmt(p.price)}</div>
       <div class="rating-row">${starsHtml(p.rating)}<span class="rc">${p.rating.toFixed(1)}</span></div>
@@ -1486,23 +1542,30 @@ function openProduct(id){
 }
 function closeProduct(){ document.getElementById('productOverlay').classList.remove('show'); }
 
-function getReviewsFor(p){
+function getSeedReviewsFor(p){
   const out = [];
   const n = 3;
   for(let i=0;i<n;i++){
     const idx = (p.id * 3 + i) % REVIEW_POOL.length;
     const r = REVIEW_POOL[idx];
     const stars = Math.max(3, Math.min(5, Math.round(p.rating) + (i===1?-1:0)));
-    out.push({name:r.name, text:r.text, stars});
+    out.push({name:r.name, text:r.text, stars, seeded:true});
   }
   return out;
+}
+function getAllReviewsFor(p){
+  const custom = (customReviews[p.id]||[]).slice().reverse();
+  return custom.concat(getSeedReviewsFor(p));
 }
 
 function renderProductModal(){
   const p = products.find(x=>x.id===currentProductId);
+  if(!p){ closeProduct(); return; }
   const modal = document.getElementById('productModal');
   const priceHtml = p.oldPrice ? `<span class="old">${fmt(p.oldPrice)}</span>${fmt(p.price)}` : fmt(p.price);
-  const thumbs = p.gallery.map((g,i) => `<div class="gthumb ${i===activeGalleryIdx?'active':''}" onclick="setGallery(${i})">${g}</div>`).join('');
+  const galleryImgs = p.img ? [p.img] : (p.gallery||[p.icon]);
+  const thumbs = galleryImgs.map((g,i) => `<div class="gthumb ${i===activeGalleryIdx?'active':''}" onclick="setGallery(${i})">${p.img ? `<img src="${escapeHtml(g)}" alt="">` : g}</div>`).join('');
+  const mainMedia = p.img ? `<img src="${escapeHtml(galleryImgs[activeGalleryIdx])}" alt="${escapeHtml(p.name)}">` : galleryImgs[activeGalleryIdx];
   const specs = p.specs.map(s=>`<li>${s}</li>`).join('');
   const wished = wishlist.has(p.id);
   const addSection = p.stock==='out'
@@ -1514,17 +1577,17 @@ function renderProductModal(){
          <button class="pd-icon-btn ${compareSet.has(p.id)?'active':''}" onclick="toggleCompare(${p.id}); renderProductModal();">⇄</button>
        </div>`;
 
-  const reviews = getReviewsFor(p);
+  const reviews = getAllReviewsFor(p);
   const reviewsHtml = reviews.map(r=>`
     <div class="review">
-      <div class="rev-top"><span class="rev-name">${r.name}</span>${starsHtml(r.stars)}</div>
-      <div class="rev-text">${r.text}</div>
+      <div class="rev-top"><span class="rev-name">${escapeHtml(r.name)}${r.date?` <span style="color:var(--slate-light); font-weight:400;">· ${r.date}</span>`:''}</span>${starsHtml(r.stars)}</div>
+      <div class="rev-text">${escapeHtml(r.text)}</div>
     </div>`).join('');
 
   const related = products.filter(x=>x.category===p.category && x.id!==p.id).slice(0,4);
   const relatedHtml = related.map(r=>`
     <div class="related-card" onclick="openProduct(${r.id})">
-      <div class="rc-thumb">${r.icon}</div>
+      <div class="rc-thumb">${mediaHtml(r,'22px')}</div>
       <div class="rc-name">${r.name}</div>
       <div class="rc-price">${fmt(r.price)}</div>
     </div>`).join('');
@@ -1533,7 +1596,7 @@ function renderProductModal(){
     <button class="modal-close" onclick="closeProduct()">✕</button>
     <div class="pd-top">
       <div>
-        <div class="pd-gallery-main" id="pdGalleryMain">${p.gallery[activeGalleryIdx]}</div>
+        <div class="pd-gallery-main" id="pdGalleryMain">${mainMedia}</div>
         <div class="pd-gallery-thumbs">${thumbs}</div>
       </div>
       <div>
@@ -1555,7 +1618,8 @@ function renderProductModal(){
     <div class="tab-panel ${activeTab==='reviews'?'active':''}" id="tabReviews">
       ${reviewsHtml}
       <div class="review-form" style="margin-top:14px;">
-        <div style="font-size:12.5px;font-weight:600;margin-bottom:4px;">Leave a review</div>
+        <div style="font-size:12.5px;font-weight:600;margin-bottom:4px;">Leave a review for this product</div>
+        <div class="form-field" style="margin-bottom:8px;"><input type="text" id="reviewName" placeholder="Your name"></div>
         <div class="star-pick" id="starPick">${[1,2,3,4,5].map(n=>`<span class="${n<=pickedStars?'on':''}" onclick="setPickedStars(${n})">★</span>`).join('')}</div>
         <textarea id="reviewText" placeholder="What did you think of this product?"></textarea>
         <button class="form-submit" onclick="submitReview(${p.id})">Submit review</button>
@@ -1568,10 +1632,16 @@ function setTab(t){ activeTab = t; renderProductModal(); }
 function setPickedStars(n){ pickedStars = n; document.querySelectorAll('#starPick span').forEach((el,i)=>el.classList.toggle('on', i<n)); }
 function submitReview(id){
   const text = document.getElementById('reviewText').value.trim();
+  const name = document.getElementById('reviewName').value.trim() || 'Anonymous';
   if(!text){ toast('Write a few words first','⚠️'); return; }
   const p = products.find(x=>x.id===id);
+  const dateStr = new Date().toLocaleDateString('en-KE', {day:'numeric', month:'short', year:'numeric'});
+  if(!customReviews[id]) customReviews[id] = [];
+  customReviews[id].push({name, text, stars:pickedStars, date:dateStr});
+  saveJSON('pat_reviews', customReviews);
   p.reviewCount += 1;
-  p.rating = Math.round(((p.rating*  (p.reviewCount-1) + pickedStars) / p.reviewCount) * 10) / 10;
+  p.rating = Math.round(((p.rating * (p.reviewCount-1) + pickedStars) / p.reviewCount) * 10) / 10;
+  persistProducts();
   toast('Thanks for your review!','⭐');
   renderProductModal();
   render();
@@ -1654,7 +1724,7 @@ function renderCartModal(){
 
   const rows = entries.map(e => `
     <div class="cart-item">
-      <div class="ci-icon">${e.p.icon}</div>
+      <div class="ci-icon">${mediaHtml(e.p,'20px')}</div>
       <div>
         <div class="ci-name">${e.p.name}</div>
         <div class="ci-price">${fmt(e.p.price)}</div>
@@ -1703,6 +1773,7 @@ function removeFromCart(id){
    CHECKOUT
 ============================================================ */
 function openCheckout(){
+  paymentMode = 'mpesa';
   paymentMethod = 'paybill';
   deliveryMethod = 'pickup';
   orderRef = 'PAT' + Math.floor(10000 + Math.random()*89999);
@@ -1710,6 +1781,7 @@ function openCheckout(){
   document.getElementById('checkoutOverlay').classList.add('show');
 }
 function closeCheckout(){ document.getElementById('checkoutOverlay').classList.remove('show'); }
+function setPaymentMode(m){ paymentMode = m; renderCheckoutModal(); }
 function setPaymentMethod(m){ paymentMethod = m; renderCheckoutModal(); }
 function setDeliveryMethod(m){ deliveryMethod = m; renderCheckoutModal(); }
 
@@ -1722,6 +1794,13 @@ function checkoutTotals(){
 }
 
 function paymentPanelHtml(total){
+  if(paymentMode==='pod'){
+    return `<div class="pm-panel">
+      <div class="pm-row"><span class="pm-label">Amount due on ${deliveryMethod==='pickup'?'pickup':'delivery'}</span><span>${fmt(total)}</span></div>
+      <div class="pm-row"><span class="pm-label">Accepted</span><span>Cash or M-Pesa</span></div>
+    </div>
+    <p style="font-size:11.5px; color:var(--slate); margin-top:8px;">Pay when your order arrives at CBD pickup or at your door. No payment needed now — we'll confirm your order by phone or WhatsApp first.</p>`;
+  }
   if(paymentMethod==='paybill'){
     return `<div class="pm-panel">
       <div class="pm-row"><span class="pm-label">Business No. (Paybill)</span><span>888300</span></div>
@@ -1766,25 +1845,97 @@ function renderCheckoutModal(){
       <div class="form-field"><label>Full name</label><input type="text" id="ckName" placeholder="Your name"></div>
       <div class="form-field"><label>Phone</label><input type="text" id="ckPhone" placeholder="07xx xxx xxx"></div>
     </div>
+    <div class="form-field"><label>Order notes (optional)</label><textarea id="ckNotes" placeholder="e.g. call before arriving, leave at gate, gift-wrap..."></textarea></div>
 
-    <div class="pm-tabs">
+    <div style="font-size:12.5px;font-weight:600;margin:14px 0 4px 0;">Payment</div>
+    <div class="paymode-opts">
+      <div class="paymode-opt ${paymentMode==='mpesa'?'active':''}" onclick="setPaymentMode('mpesa')"><b>Pay now — M-Pesa</b><span>Paybill, Till or Send Money</span></div>
+      <div class="paymode-opt ${paymentMode==='pod'?'active':''}" onclick="setPaymentMode('pod')"><b>Pay on delivery</b><span>Cash or M-Pesa on arrival</span></div>
+    </div>
+    ${paymentMode==='mpesa' ? `<div class="pm-tabs">
       <button class="${paymentMethod==='paybill'?'active':''}" onclick="setPaymentMethod('paybill')">Paybill</button>
       <button class="${paymentMethod==='till'?'active':''}" onclick="setPaymentMethod('till')">Buy Goods</button>
       <button class="${paymentMethod==='phone'?'active':''}" onclick="setPaymentMethod('phone')">Send Money</button>
-    </div>
+    </div>` : ''}
     ${paymentPanelHtml(total)}
-    <button class="checkout-btn" onclick="confirmPayment()">I've completed the M-Pesa payment</button>
+    <button class="checkout-btn" onclick="placeOrder()">${paymentMode==='pod' ? 'Place order — pay on delivery' : "I've completed the M-Pesa payment"}</button>
   `;
 }
 
-function confirmPayment(){
-  const {total} = checkoutTotals();
+function buildInvoiceHtml(order){
+  const itemRows = order.items.map(it=>`
+    <tr>
+      <td style="padding:8px; border-bottom:1px solid #E3E7EF;">${escapeHtml(it.name)}</td>
+      <td style="padding:8px; border-bottom:1px solid #E3E7EF; text-align:center;">${it.qty}</td>
+      <td style="padding:8px; border-bottom:1px solid #E3E7EF; text-align:right;">${fmt(it.price)}</td>
+      <td style="padding:8px; border-bottom:1px solid #E3E7EF; text-align:right;">${fmt(it.price*it.qty)}</td>
+    </tr>`).join('');
+  const dateStr = new Date(order.placedAt).toLocaleString('en-KE');
+  return `<!DOCTYPE html><html><head><meta charset="UTF-8"><title>Invoice ${order.ref}</title>
+  <style>
+    body{ font-family: Arial, sans-serif; color:#0B1220; padding:36px; max-width:720px; margin:0 auto; }
+    h1{ font-size:20px; margin-bottom:2px; }
+    .muted{ color:#4B5568; font-size:12.5px; }
+    table{ width:100%; border-collapse:collapse; margin-top:18px; font-size:13px; }
+    th{ text-align:left; padding:8px; border-bottom:2px solid #0B1220; font-size:12px; text-transform:uppercase; letter-spacing:.04em; }
+    .totals{ margin-top:14px; width:280px; margin-left:auto; font-size:13px; }
+    .totals div{ display:flex; justify-content:space-between; padding:4px 0; }
+    .totals .grand{ font-weight:700; font-size:15px; border-top:1px solid #0B1220; padding-top:8px; margin-top:4px; }
+    .box{ background:#F3F5F9; border-radius:8px; padding:12px 14px; margin-top:16px; font-size:12.5px; }
+    @media print{ .no-print{ display:none; } }
+  </style>
+  </head><body>
+    <h1>PAT.Enterprise — Invoice</h1>
+    <div class="muted">Nairobi CBD, Kenya · 0700 000 000 · info@patenterprise.co.ke</div>
+    <div class="box">
+      <div><strong>Invoice / Order ref:</strong> ${order.ref}</div>
+      <div><strong>Date:</strong> ${dateStr}</div>
+      <div><strong>Customer:</strong> ${escapeHtml(order.customerName||'—')} · ${escapeHtml(order.customerPhone||'—')}</div>
+      ${order.deliveryMethod==='delivery' ? `<div><strong>Delivery address:</strong> ${escapeHtml(order.address||'—')}</div>` : `<div><strong>Fulfilment:</strong> Nairobi CBD pickup</div>`}
+      <div><strong>Payment:</strong> ${order.paymentMode==='pod' ? 'Pay on delivery (cash or M-Pesa)' : 'M-Pesa — ' + (order.paymentMethod||'')}</div>
+      ${order.notes ? `<div><strong>Order notes:</strong> ${escapeHtml(order.notes)}</div>` : ''}
+    </div>
+    <table>
+      <thead><tr><th>Item</th><th style="text-align:center;">Qty</th><th style="text-align:right;">Unit price</th><th style="text-align:right;">Line total</th></tr></thead>
+      <tbody>${itemRows}</tbody>
+    </table>
+    <div class="totals">
+      <div><span>Subtotal</span><span>${fmt(order.subtotal)}</span></div>
+      ${order.discount ? `<div><span>Discount</span><span>-${fmt(order.discount)}</span></div>` : ''}
+      <div><span>Delivery</span><span>${order.deliveryFee ? fmt(order.deliveryFee) : 'Free'}</span></div>
+      <div class="grand"><span>Total</span><span>${fmt(order.total)}</span></div>
+    </div>
+    <p class="muted" style="margin-top:24px;">Thank you for shopping with PAT.Enterprise. This invoice was generated automatically at checkout.</p>
+    <button class="no-print" onclick="window.print()" style="margin-top:10px; padding:10px 16px; border:none; background:#FF8A1E; color:#fff; border-radius:6px; font-weight:600; cursor:pointer;">Print / Save as PDF</button>
+  </body></html>`;
+}
+
+function downloadInvoice(ref){
+  const order = orders.find(o=>o.ref===ref);
+  if(!order){ toast('Invoice not found','⚠️'); return; }
+  const html = buildInvoiceHtml(order);
+  const blob = new Blob([html], {type:'text/html'});
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url; a.download = `invoice-${order.ref}.html`;
+  document.body.appendChild(a); a.click(); document.body.removeChild(a);
+  setTimeout(()=>URL.revokeObjectURL(url), 4000);
+}
+
+function placeOrder(){
+  const {subtotal, discount, deliveryFee, total} = checkoutTotals();
   const earnedPoints = Math.floor(total * 0.02 / 10);
+  const name = (document.getElementById('ckName')||{}).value || '';
+  const phone = (document.getElementById('ckPhone')||{}).value || '';
+  const address = (document.getElementById('ckAddress')||{}).value || '';
+  const notes = (document.getElementById('ckNotes')||{}).value || '';
   const order = {
     ref: orderRef,
-    items: cartEntries().map(e=>({name:e.p.name, qty:e.qty})),
-    total,
-    deliveryMethod,
+    items: cartEntries().map(e=>({name:e.p.name, qty:e.qty, price:e.p.price})),
+    subtotal, discount, deliveryFee, total,
+    deliveryMethod, address,
+    paymentMode, paymentMethod: paymentMode==='mpesa' ? paymentMethod : null,
+    customerName: name, customerPhone: phone, notes,
     placedAt: Date.now(),
   };
   orders.push(order);
@@ -1793,13 +1944,17 @@ function confirmPayment(){
   saveJSON('pat_points', points);
 
   const modal = document.getElementById('checkoutModal');
+  const payLine = paymentMode==='pod'
+    ? `Pay ${fmt(total)} in cash or M-Pesa when your order arrives.`
+    : `You'll get an SMS once your M-Pesa payment is verified.`;
   modal.innerHTML = `
     <button class="modal-close" onclick="closeCheckout()">✕</button>
     <div class="success-box">
       <div class="tick">✅</div>
       <h3>Order received</h3>
-      <p>Order ref <strong class="mono">${orderRef}</strong> is being confirmed. You'll get an SMS once payment is verified, and we'll be in touch about ${deliveryMethod==='pickup'?'CBD pickup':'delivery'}. You earned <strong>${earnedPoints} PAT Points</strong>.</p>
-      <button class="checkout-btn" onclick="closeCheckout(); openTrackOrder('${orderRef}');">Track this order</button>
+      <p>Order ref <strong class="mono">${orderRef}</strong> is confirmed for ${deliveryMethod==='pickup'?'CBD pickup':'delivery'}. ${payLine} You earned <strong>${earnedPoints} PAT Points</strong>.</p>
+      <button class="checkout-btn" onclick="downloadInvoice('${orderRef}')">Download invoice</button>
+      <button class="checkout-btn" style="background:var(--panel); color:var(--ink); border:1px solid var(--border); margin-top:8px;" onclick="closeCheckout(); openTrackOrder('${orderRef}');">Track this order</button>
       <button class="checkout-btn" style="background:var(--panel); color:var(--ink); border:1px solid var(--border); margin-top:8px;" onclick="closeCheckout()">Done</button>
     </div>`;
   cart = {};
@@ -1839,7 +1994,7 @@ function runTrackOrder(){
     : ['Order placed','Payment confirmed','Preparing your order','Out for delivery','Delivered'];
   let currentStep = Math.min(steps.length-1, Math.floor(mins / 0.5));
   resultEl.innerHTML = `
-    <div style="margin-top:14px; font-size:12.5px; color:var(--slate);">Order <strong class="mono">${order.ref}</strong> · ${fmt(order.total)}</div>
+    <div style="margin-top:14px; font-size:12.5px; color:var(--slate);">Order <strong class="mono">${order.ref}</strong> · ${fmt(order.total)} · ${order.paymentMode==='pod'?'Pay on delivery':'M-Pesa'}</div>
     <div class="track-timeline">
       ${steps.map((s,i)=>`
         <div class="tt-step ${i<currentStep?'done':''} ${i===currentStep?'current':''}">
@@ -1847,6 +2002,7 @@ function runTrackOrder(){
           <div class="tt-label"><b>${s}</b>${i===currentStep?'<span>In progress</span>':''}</div>
         </div>`).join('')}
     </div>
+    <button class="checkout-btn" onclick="downloadInvoice('${order.ref}')">Download invoice</button>
   `;
 }
 
@@ -1888,6 +2044,157 @@ function submitNotify(e){
 }
 
 /* ============================================================
+   ADMIN — catalog editor (client-side, saves to this browser)
+============================================================ */
+let adminUnlocked = false;
+function openAdmin(){
+  if(!adminUnlocked){
+    const code = prompt('Enter the store admin passcode to edit the catalog:');
+    if(code === null) return;
+    if(code !== ADMIN_PASSCODE){ toast('Incorrect passcode','⚠️'); return; }
+    adminUnlocked = true;
+  }
+  renderAdminModal();
+  document.getElementById('adminOverlay').classList.add('show');
+}
+function closeAdmin(){ document.getElementById('adminOverlay').classList.remove('show'); }
+
+function categoryOptionsHtml(selected){
+  return NAV_CATS.filter(c=>c.key!=='all' && c.key!=='clearance').map(c=>`<option value="${c.key}" ${c.key===selected?'selected':''}>${c.label}</option>`).join('');
+}
+function subcatOptionsHtml(selected){
+  return SUBCATS.map(s=>`<option value="${s.name}" ${s.name===selected?'selected':''}>${s.name}</option>`).join('');
+}
+function stockOptionsHtml(selected){
+  return ['in','low','out'].map(s=>`<option value="${s}" ${s===selected?'selected':''}>${s==='in'?'In stock':s==='low'?'Low stock':'Out of stock'}</option>`).join('');
+}
+
+function renderAdminModal(){
+  const modal = document.getElementById('adminModal');
+  const rows = products.map(p => `
+    <div class="admin-row" id="admin-row-${p.id}">
+      <div class="ar-thumb">${mediaHtml(p,'26px')}</div>
+      <div class="ar-fields">
+        <div class="admin-grid-fields wide">
+          <div><label>Name</label><input type="text" id="a-name-${p.id}" value="${escapeHtml(p.name)}"></div>
+          <div><label>Price (KES)</label><input type="number" id="a-price-${p.id}" value="${p.price}"></div>
+          <div><label>Old price (optional)</label><input type="number" id="a-oldprice-${p.id}" value="${p.oldPrice||''}"></div>
+        </div>
+        <div class="admin-grid-fields wide">
+          <div><label>Category</label><select id="a-cat-${p.id}">${categoryOptionsHtml(p.category)}</select></div>
+          <div><label>Subcategory</label><select id="a-subcat-${p.id}">${subcatOptionsHtml(p.subcategory)}</select></div>
+          <div><label>Stock status</label><select id="a-stock-${p.id}">${stockOptionsHtml(p.stock)}</select></div>
+        </div>
+        <div class="admin-grid-fields wide">
+          <div><label>Stock note</label><input type="text" id="a-stocknote-${p.id}" value="${escapeHtml(p.stockNote)}"></div>
+          <div><label>Image URL (optional — blank keeps icon)</label><input type="text" id="a-img-${p.id}" value="${escapeHtml(p.img||'')}" placeholder="https://..."></div>
+          <div><label>Emoji icon</label><input type="text" id="a-icon-${p.id}" value="${escapeHtml(p.icon||'')}" placeholder="📦"></div>
+        </div>
+        <div class="admin-grid-fields">
+          <div style="grid-column:1/-1;"><label>Description</label><textarea id="a-desc-${p.id}">${escapeHtml(p.desc)}</textarea></div>
+        </div>
+      </div>
+      <div class="ar-actions">
+        <button class="btn-save" onclick="saveAdminProduct(${p.id})">Save</button>
+        <button class="btn-delete" onclick="deleteAdminProduct(${p.id})">Delete</button>
+      </div>
+    </div>`).join('');
+
+  modal.innerHTML = `
+    <button class="modal-close" onclick="closeAdmin()">✕</button>
+    <h2 class="display" style="font-size:18px;margin-bottom:6px;">Store admin — edit catalog</h2>
+    <div class="admin-note">Changes save to this browser's storage. To publish real changes for every visitor, this static file would need a real backend/database — for now, edits here are visible only on this device.</div>
+    <div class="admin-add">
+      <h4>Add a new product</h4>
+      <div class="admin-grid-fields wide">
+        <div><label>Name</label><input type="text" id="new-name" placeholder="Product name"></div>
+        <div><label>Price (KES)</label><input type="number" id="new-price" placeholder="0"></div>
+        <div><label>Old price (optional)</label><input type="number" id="new-oldprice" placeholder=""></div>
+      </div>
+      <div class="admin-grid-fields wide">
+        <div><label>Category</label><select id="new-cat">${categoryOptionsHtml('components')}</select></div>
+        <div><label>Subcategory</label><select id="new-subcat">${subcatOptionsHtml('Motherboards')}</select></div>
+        <div><label>Brand</label><input type="text" id="new-brand" placeholder="e.g. Generic OEM"></div>
+      </div>
+      <div class="admin-grid-fields wide">
+        <div><label>Image URL (optional)</label><input type="text" id="new-img" placeholder="https://..."></div>
+        <div><label>Emoji icon</label><input type="text" id="new-icon" placeholder="📦"></div>
+        <div><label>Stock status</label><select id="new-stock">${stockOptionsHtml('in')}</select></div>
+      </div>
+      <div class="admin-grid-fields">
+        <div style="grid-column:1/-1;"><label>Description</label><textarea id="new-desc" placeholder="Short product description"></textarea></div>
+      </div>
+      <button class="btn-add" onclick="addAdminProduct()">Add product</button>
+    </div>
+    ${rows}
+  `;
+}
+
+function saveAdminProduct(id){
+  const p = products.find(x=>x.id===id);
+  if(!p) return;
+  const name = document.getElementById(`a-name-${id}`).value.trim();
+  const price = Number(document.getElementById(`a-price-${id}`).value);
+  if(!name || !price || price<=0){ toast('Name and a valid price are required','⚠️'); return; }
+  const oldPriceVal = document.getElementById(`a-oldprice-${id}`).value;
+  p.name = name;
+  p.price = price;
+  p.oldPrice = oldPriceVal ? Number(oldPriceVal) : null;
+  p.badge = p.oldPrice ? 'sale' : (p.badge==='sale' ? null : p.badge);
+  p.category = document.getElementById(`a-cat-${id}`).value;
+  p.subcategory = document.getElementById(`a-subcat-${id}`).value;
+  p.stock = document.getElementById(`a-stock-${id}`).value;
+  p.stockNote = document.getElementById(`a-stocknote-${id}`).value.trim() || (p.stock==='in'?'In stock':p.stock==='low'?'Low stock':'Out of stock');
+  p.img = document.getElementById(`a-img-${id}`).value.trim();
+  p.icon = document.getElementById(`a-icon-${id}`).value.trim() || '📦';
+  p.desc = document.getElementById(`a-desc-${id}`).value.trim();
+  if(!p.gallery || !p.gallery.length) p.gallery = [p.icon];
+  persistProducts();
+  render();
+  renderAdminModal();
+  toast('Product saved','✓');
+}
+
+function deleteAdminProduct(id){
+  if(!confirm('Delete this product? This cannot be undone.')) return;
+  products = products.filter(p=>p.id!==id);
+  persistProducts();
+  render();
+  renderAdminModal();
+  toast('Product deleted','🗑️');
+}
+
+function addAdminProduct(){
+  const name = document.getElementById('new-name').value.trim();
+  const price = Number(document.getElementById('new-price').value);
+  if(!name || !price || price<=0){ toast('Name and a valid price are required','⚠️'); return; }
+  const oldPriceVal = document.getElementById('new-oldprice').value;
+  const icon = document.getElementById('new-icon').value.trim() || '📦';
+  const newId = products.length ? Math.max(...products.map(p=>p.id)) + 1 : 1;
+  const p = {
+    id: newId, name, price,
+    oldPrice: oldPriceVal ? Number(oldPriceVal) : null,
+    badge: oldPriceVal ? 'sale' : 'new',
+    category: document.getElementById('new-cat').value,
+    subcategory: document.getElementById('new-subcat').value,
+    brand: document.getElementById('new-brand').value.trim() || 'Generic OEM',
+    stock: document.getElementById('new-stock').value,
+    stockNote: document.getElementById('new-stock').value==='in' ? 'In stock' : document.getElementById('new-stock').value==='low' ? 'Low stock' : 'Out of stock',
+    icon, img: document.getElementById('new-img').value.trim(),
+    gallery: [icon],
+    rating: 4.5, reviewCount: 0,
+    desc: document.getElementById('new-desc').value.trim() || 'New product.',
+    specs: [],
+  };
+  products.push(p);
+  persistProducts();
+  render();
+  renderAdminModal();
+  toast('Product added','✓');
+  ['new-name','new-price','new-oldprice','new-brand','new-img','new-icon','new-desc'].forEach(id=>{ const el=document.getElementById(id); if(el) el.value=''; });
+}
+
+/* ============================================================
    NEWSLETTER + WHATSAPP
 ============================================================ */
 document.getElementById('newsletterForm').addEventListener('submit', function(e){
@@ -1900,7 +2207,7 @@ function openWhatsApp(){
 }
 
 /* close overlays when clicking backdrop, and on Escape */
-['productOverlay','cartOverlay','checkoutOverlay','notifyOverlay','wishlistOverlay','compareOverlay','trackOverlay'].forEach(id => {
+['productOverlay','cartOverlay','checkoutOverlay','notifyOverlay','wishlistOverlay','compareOverlay','trackOverlay','adminOverlay'].forEach(id => {
   document.getElementById(id).addEventListener('click', function(e){
     if(e.target === this) this.classList.remove('show');
   });
@@ -1918,6 +2225,9 @@ initTheme();
 renderTicker();
 render();
 </script>
+
+</body>
+</html>
 
 </body>
 </html>
