@@ -1008,6 +1008,28 @@ function persistPickups(){ saveJSON('pat_pickups', pickupLocations); }
 let manualDocs = loadJSON('pat_manual_docs', []);
 function persistManualDocs(){ saveJSON('pat_manual_docs', manualDocs); }
 
+/* Receipts — auto-generated the first time an order is marked paid; kept as a permanent history */
+let receipts = loadJSON('pat_receipts', []);
+function persistReceipts(){ saveJSON('pat_receipts', receipts); }
+function generateReceiptForOrder(order){
+  if(receipts.some(r=>r.orderRef===order.ref)) return; // already receipted once — don't duplicate
+  const ref = 'RCT' + Math.floor(10000 + Math.random()*89999);
+  const receipt = {
+    ref, docType:'receipt', orderRef: order.ref,
+    items: order.items.map(it=>({name:it.name, sku:it.sku, productId:it.productId, qty:it.qty, price:it.price})),
+    subtotal: order.subtotal, discount: order.discount, deliveryFee: order.deliveryFee, feePending:false, total: order.total,
+    deliveryMethod: order.deliveryMethod, deliveryZone: order.deliveryZone, address: order.address,
+    pickupLocationName: order.pickupLocationName,
+    paymentMode: order.paymentMode, paymentMethod: order.paymentMethod,
+    customerName: order.customerName, customerPhone: order.customerPhone,
+    paid: true,
+    placedAt: Date.now(),
+  };
+  receipts.push(receipt);
+  persistReceipts();
+  toast(`Receipt ${ref} generated for order ${order.ref}`,'🧾');
+}
+
 const LOW_STOCK_THRESHOLD = 3;
 const CBD_DELIVERY_FEE = 250;
 const ORDER_STATUSES_PICKUP = [
@@ -1136,6 +1158,7 @@ let pickupLocationId = null;
 let promoApplied = null;
 let orderRef = null;
 let checkoutOverride = null; // { productId: qty } — set by "Buy now" for a single-item checkout that bypasses the saved cart
+let checkoutForm = { name:'', phone:'', address:'', notes:'' }; // keeps typed fields alive across re-renders (delivery/payment toggles, etc.)
 const ADMIN_PASSCODE = 'PAT2026';
 
 function loadJSON(key, fallback){
@@ -1877,6 +1900,7 @@ function openCheckout(){
   deliveryMethod = 'pickup';
   deliveryZone = 'cbd';
   pickupLocationId = pickupLocations.length ? pickupLocations[0].id : null;
+  checkoutForm = { name:'', phone:'', address:'', notes:'' };
   orderRef = 'PAT' + Math.floor(10000 + Math.random()*89999);
   renderCheckoutModal();
   document.getElementById('checkoutOverlay').classList.add('show');
@@ -1961,14 +1985,14 @@ function renderCheckoutModal(){
         <div class="delivery-opt ${deliveryZone==='cbd'?'active':''}" onclick="setDeliveryZone('cbd')"><b>Around CBD</b><span>Flat ${fmt(CBD_DELIVERY_FEE)}</span></div>
         <div class="delivery-opt ${deliveryZone==='outside'?'active':''}" onclick="setDeliveryZone('outside')"><b>Outside CBD</b><span>Fee based on location</span></div>
       </div>
-      <div class="form-field"><label>Delivery address / area</label><input type="text" id="ckAddress" placeholder="Estate, street, house/apartment no., or town if outside CBD"></div>
+      <div class="form-field"><label>Delivery address / area</label><input type="text" id="ckAddress" placeholder="Estate, street, house/apartment no., or town if outside CBD" value="${escapeHtml(checkoutForm.address)}" oninput="checkoutForm.address=this.value"></div>
       ${deliveryZone==='outside' ? `<div class="free-ship-note">Delivery outside the CBD is priced by location — we'll confirm the exact fee with you by phone or WhatsApp before dispatch, and it'll be added to your invoice.</div>` : ''}
     `}
     <div class="form-row2">
-      <div class="form-field"><label>Full name</label><input type="text" id="ckName" placeholder="Your name"></div>
-      <div class="form-field"><label>Phone</label><input type="text" id="ckPhone" placeholder="07xx xxx xxx"></div>
+      <div class="form-field"><label>Full name</label><input type="text" id="ckName" placeholder="Your name" value="${escapeHtml(checkoutForm.name)}" oninput="checkoutForm.name=this.value"></div>
+      <div class="form-field"><label>Phone</label><input type="text" id="ckPhone" placeholder="07xx xxx xxx" value="${escapeHtml(checkoutForm.phone)}" oninput="checkoutForm.phone=this.value"></div>
     </div>
-    <div class="form-field"><label>Order notes (optional)</label><textarea id="ckNotes" placeholder="e.g. call before arriving, leave at gate, gift-wrap..."></textarea></div>
+    <div class="form-field"><label>Order notes (optional)</label><textarea id="ckNotes" placeholder="e.g. call before arriving, leave at gate, gift-wrap..." oninput="checkoutForm.notes=this.value">${escapeHtml(checkoutForm.notes)}</textarea></div>
 
     <div style="font-size:12.5px;font-weight:600;margin:14px 0 4px 0;">Payment</div>
     <div class="paymode-opts">
@@ -1986,7 +2010,7 @@ function renderCheckoutModal(){
 }
 
 function buildInvoiceHtml(doc){
-  const docLabel = doc.docType==='quotation' ? 'Quotation' : 'Invoice';
+  const docLabel = doc.docType==='quotation' ? 'Quotation' : doc.docType==='receipt' ? 'Receipt' : 'Invoice';
   const itemRows = doc.items.map(it=>`
     <tr>
       <td style="padding:8px; border-bottom:1px solid #E3E7EF;">${escapeHtml(it.name)}${it.sku?` <span style="color:#8A93A8;">(${escapeHtml(it.sku)})</span>`:''}</td>
@@ -2014,6 +2038,7 @@ function buildInvoiceHtml(doc){
     <div class="muted">Nairobi CBD, Kenya · 0769 826 085 · pat.enterprises11@gmail.com</div>
     <div class="box">
       <div><strong>${docLabel} ref:</strong> ${doc.ref} ${doc.paid!==undefined ? `<span class="stamp" style="background:${doc.paid?'#DFF5E8':'#FDEDEA'};color:${doc.paid?'#1FA463':'#E1523D'};">${doc.paid?'PAID':'UNPAID'}</span>` : ''}</div>
+      ${doc.orderRef ? `<div><strong>For order:</strong> ${doc.orderRef}</div>` : ''}
       <div><strong>Date:</strong> ${dateStr}</div>
       <div><strong>Customer:</strong> ${escapeHtml(doc.customerName||'—')} · ${escapeHtml(doc.customerPhone||'—')}</div>
       ${doc.deliveryMethod ? (doc.deliveryMethod==='delivery' ? `<div><strong>Delivery address:</strong> ${escapeHtml(doc.address||'—')}${doc.deliveryZone==='outside'?' (outside CBD)':' (CBD)'}</div>` : `<div><strong>Fulfilment:</strong> Nairobi CBD pickup${doc.pickupLocationName?' — '+escapeHtml(doc.pickupLocationName):''}</div>`) : (doc.address ? `<div><strong>Address:</strong> ${escapeHtml(doc.address)}</div>` : '')}
@@ -2036,7 +2061,7 @@ function buildInvoiceHtml(doc){
 }
 
 function findAnyDoc(ref){
-  return orders.find(o=>o.ref===ref) || manualDocs.find(d=>d.ref===ref);
+  return orders.find(o=>o.ref===ref) || manualDocs.find(d=>d.ref===ref) || receipts.find(r=>r.ref===ref);
 }
 function downloadInvoice(ref){
   const doc = findAnyDoc(ref);
@@ -2054,10 +2079,10 @@ function placeOrder(){
   const entries = checkoutEntries();
   if(!entries.length){ toast('Your cart is empty','⚠️'); return; }
   const {subtotal, discount, deliveryFee, feePending, total} = checkoutTotals();
-  const name = (document.getElementById('ckName')||{}).value || '';
-  const phone = (document.getElementById('ckPhone')||{}).value || '';
-  const address = (document.getElementById('ckAddress')||{}).value || '';
-  const notes = (document.getElementById('ckNotes')||{}).value || '';
+  const name = checkoutForm.name.trim();
+  const phone = checkoutForm.phone.trim();
+  const address = checkoutForm.address.trim();
+  const notes = checkoutForm.notes.trim();
   const pickupLoc = pickupLocations.find(l=>l.id===pickupLocationId);
   const order = {
     ref: orderRef,
@@ -2199,7 +2224,7 @@ function submitNotify(e){
 ============================================================ */
 let adminUnlocked = false;
 let adminTab = 'products';
-let invoiceBuilder = { type:'invoice', items:[] }; // items: [{productId, name, sku, price, qty}]
+let invoiceBuilder = { type:'invoice', items:[], customerName:'', customerPhone:'', address:'', editingRef:null }; // items: [{productId, name, sku, price, qty}]
 
 function openAdmin(){
   if(!adminUnlocked){
@@ -2227,6 +2252,7 @@ function renderAdminModal(){
     {key:'products', label:'Products'},
     {key:'orders', label:'Orders'},
     {key:'invoices', label:'Invoices & Quotations'},
+    {key:'receipts', label:'Receipts'},
     {key:'categories', label:'Categories'},
     {key:'coupons', label:'Coupons'},
     {key:'pickups', label:'Pickup locations'},
@@ -2237,6 +2263,7 @@ function renderAdminModal(){
   if(adminTab==='products') body = renderAdminProductsTab();
   else if(adminTab==='orders') body = renderAdminOrdersTab();
   else if(adminTab==='invoices') body = renderAdminInvoicesTab();
+  else if(adminTab==='receipts') body = renderAdminReceiptsTab();
   else if(adminTab==='categories') body = renderAdminCategoriesTab();
   else if(adminTab==='coupons') body = renderAdminCouponsTab();
   else if(adminTab==='pickups') body = renderAdminPickupsTab();
@@ -2390,41 +2417,120 @@ function renderAdminOrdersTab(){
   if(!sorted.length) return `<div class="admin-note">No orders placed yet.</div>`;
   const rows = sorted.map(o=>{
     const steps = statusListFor(o);
-    const itemsSummary = o.items.map(it=>`${it.name} ×${it.qty}`).join(', ');
+    const itemRows = o.items.map((it,idx)=>`
+      <div class="cart-item">
+        <div class="ci-name" style="flex:1;">${escapeHtml(it.name)} ${it.sku?`<span class="sku-tag">${it.sku}</span>`:''}</div>
+        <input type="number" min="1" value="${it.qty}" style="width:56px;border:1px solid var(--border);border-radius:6px;padding:6px;" onchange="orderSetItemQty('${o.ref}', ${idx}, this.value)">
+        <div class="ci-price" style="margin-left:10px;">${fmt(it.price*it.qty)}</div>
+        <button class="ci-remove" onclick="orderRemoveItem('${o.ref}', ${idx})">Remove</button>
+      </div>`).join('');
     return `
     <div class="admin-row" style="flex-direction:column; align-items:stretch;">
       <div style="display:flex;justify-content:space-between;flex-wrap:wrap;gap:8px;">
-        <div><strong class="mono">${o.ref}</strong> · ${new Date(o.placedAt).toLocaleString('en-KE')}<br>
-          <span style="font-size:12px;color:var(--slate);">${escapeHtml(o.customerName||'—')} · ${escapeHtml(o.customerPhone||'—')}</span></div>
+        <div><strong class="mono">${o.ref}</strong> · ${new Date(o.placedAt).toLocaleString('en-KE')}</div>
         <div style="text-align:right;"><div class="mono" style="font-weight:700;">${fmt(o.total)}</div>
           <div style="font-size:11px;color:var(--slate);">${o.paymentMode==='pod'?'Pay on delivery':'M-Pesa · '+(o.paymentMethod||'')}</div></div>
       </div>
-      <div style="font-size:12px;color:var(--slate);margin:6px 0;">${escapeHtml(itemsSummary)} — ${o.deliveryMethod==='pickup' ? ('Pickup'+(o.pickupLocationName?': '+escapeHtml(o.pickupLocationName):'')) : ('Delivery to '+escapeHtml(o.address||'—')+(o.deliveryZone==='outside'?' (outside CBD)':' (CBD)'))}</div>
+      <div class="admin-grid-fields wide" style="margin-top:8px;">
+        <div><label>Customer name</label><input type="text" id="ord-name-${o.ref}" value="${escapeHtml(o.customerName||'')}" oninput="orderSyncField('${o.ref}','customerName',this.value)"></div>
+        <div><label>Phone</label><input type="text" id="ord-phone-${o.ref}" value="${escapeHtml(o.customerPhone||'')}" oninput="orderSyncField('${o.ref}','customerPhone',this.value)"></div>
+        <div><label>Fulfilment</label><input type="text" value="${o.deliveryMethod==='pickup' ? ('Pickup'+(o.pickupLocationName?': '+escapeHtml(o.pickupLocationName):'')) : ('Delivery ('+(o.deliveryZone==='outside'?'outside CBD':'CBD')+')')}" disabled></div>
+      </div>
       <div class="admin-grid-fields wide">
+        <div style="grid-column:1/-1;"><label>Address</label><input type="text" id="ord-address-${o.ref}" value="${escapeHtml(o.address||'')}" oninput="orderSyncField('${o.ref}','address',this.value)" ${o.deliveryMethod!=='delivery'?'disabled':''}></div>
+      </div>
+      <div class="admin-grid-fields">
+        <div style="grid-column:1/-1;"><label>Order notes</label><textarea id="ord-notes-${o.ref}" oninput="orderSyncField('${o.ref}','notes',this.value)">${escapeHtml(o.notes||'')}</textarea></div>
+      </div>
+      <div style="font-size:11.5px;font-weight:600;margin:8px 0 4px 0;color:var(--slate);">Items</div>
+      ${itemRows}
+      <div class="promo-row" style="margin-top:8px;">
+        <input type="text" id="ord-additem-${o.ref}" placeholder="Add item — product number (SKU) or name">
+        <button onclick="orderAddItemBySku('${o.ref}')">Add item</button>
+      </div>
+      <div class="admin-grid-fields wide" style="margin-top:10px;">
         <div><label>Status</label><select id="ord-status-${o.ref}">${steps.map(s=>`<option value="${s.key}" ${s.key===o.status?'selected':''}>${s.label}</option>`).join('')}</select></div>
         <div><label>Payment</label><select id="ord-paid-${o.ref}"><option value="0" ${!o.paid?'selected':''}>Unpaid</option><option value="1" ${o.paid?'selected':''}>Paid</option></select></div>
         <div><label>Delivery fee (KES)${o.feePending?' — pending, please confirm':''}</label><input type="number" id="ord-fee-${o.ref}" value="${o.deliveryFee||0}" ${o.deliveryMethod!=='delivery'?'disabled':''}></div>
       </div>
-      <div class="ar-actions" style="flex-direction:row;">
-        <button class="btn-save" onclick="saveAdminOrder('${o.ref}')">Update order</button>
+      <div class="ar-actions" style="flex-direction:row;flex-wrap:wrap;">
+        <button class="btn-save" onclick="saveAdminOrder('${o.ref}')">Save changes</button>
         <button class="btn-add" style="background:var(--rail-950);color:#fff;" onclick="downloadInvoice('${o.ref}')">Download invoice</button>
+        <button class="btn-delete" onclick="deleteAdminOrder('${o.ref}')">Delete order</button>
       </div>
     </div>`;
   }).join('');
   return rows;
 }
+function orderSyncField(ref, field, value){
+  const o = orders.find(x=>x.ref===ref);
+  if(!o) return;
+  o[field] = value; // kept live on the order object so item add/remove re-renders don't wipe unsaved typing; persisted on "Save changes"
+}
+function orderAddItemBySku(ref){
+  const o = orders.find(x=>x.ref===ref);
+  if(!o) return;
+  const input = document.getElementById(`ord-additem-${ref}`);
+  const q = input.value.trim().toLowerCase();
+  if(!q) return;
+  const exact = products.filter(p=>p.sku.toLowerCase()===q);
+  const matches = exact.length ? exact : products.filter(p=>p.sku.toLowerCase().includes(q) || p.name.toLowerCase().includes(q));
+  if(!matches.length){ toast('No product matches that SKU/name','⚠️'); return; }
+  if(matches.length>1){ toast(`${matches.length} matches — use the exact product number (SKU)`,'⚠️'); return; }
+  const p = matches[0];
+  const existing = o.items.find(it=>it.productId===p.id);
+  if(existing) existing.qty += 1;
+  else o.items.push({name:p.name, sku:p.sku, productId:p.id, qty:1, price:p.price});
+  renderAdminModal();
+}
+function orderSetItemQty(ref, idx, qty){
+  const o = orders.find(x=>x.ref===ref);
+  if(!o || !o.items[idx]) return;
+  o.items[idx].qty = Math.max(1, Math.round(Number(qty)||1));
+  renderAdminModal();
+}
+function orderRemoveItem(ref, idx){
+  const o = orders.find(x=>x.ref===ref);
+  if(!o) return;
+  if(o.items.length<=1){ toast('An order needs at least one item — delete the order instead','⚠️'); return; }
+  o.items.splice(idx,1);
+  renderAdminModal();
+}
+function deleteAdminOrder(ref){
+  if(!confirm('Delete this order? This cannot be undone (stock already deducted for it will not be restored automatically).')) return;
+  orders = orders.filter(o=>o.ref!==ref);
+  saveJSON('pat_orders', orders);
+  renderAdminModal();
+  toast('Order deleted','🗑️');
+}
 function saveAdminOrder(ref){
   const o = orders.find(x=>x.ref===ref);
   if(!o) return;
+  o.customerName = document.getElementById(`ord-name-${ref}`).value.trim();
+  o.customerPhone = document.getElementById(`ord-phone-${ref}`).value.trim();
+  if(o.deliveryMethod==='delivery'){
+    o.address = document.getElementById(`ord-address-${ref}`).value.trim();
+  }
+  o.notes = document.getElementById(`ord-notes-${ref}`).value.trim();
+
+  const subtotal = o.items.reduce((s,it)=>s+it.price*it.qty,0);
+  const discount = Math.min(o.discount||0, subtotal);
+  o.subtotal = subtotal;
+  o.discount = discount;
+
+  const wasPaid = !!o.paid;
   o.status = document.getElementById(`ord-status-${ref}`).value;
   o.paid = document.getElementById(`ord-paid-${ref}`).value === '1';
+
   if(o.deliveryMethod==='delivery'){
     const newFee = Math.max(0, Number(document.getElementById(`ord-fee-${ref}`).value)||0);
     o.deliveryFee = newFee;
     o.feePending = false;
-    o.total = o.subtotal - o.discount + o.deliveryFee;
   }
+  o.total = subtotal - discount + (o.deliveryFee||0);
+
   saveJSON('pat_orders', orders);
+  if(!wasPaid && o.paid){ generateReceiptForOrder(o); }
   renderAdminModal();
   toast('Order updated','✓');
 }
@@ -2478,14 +2584,15 @@ function renderAdminInvoicesTab(){
         <div style="font-size:12px;color:var(--slate);margin-top:4px;">${escapeHtml(d.customerName||'—')} · ${escapeHtml(d.customerPhone||'—')} · ${fmt(d.total)}</div>
       </div>
       <div class="ar-actions">
-        <button class="btn-save" onclick="downloadInvoice('${d.ref}')">Download</button>
+        <button class="btn-save" onclick="editManualDoc('${d.ref}')">Edit</button>
+        <button class="btn-add" style="background:var(--rail-950);color:#fff;" onclick="downloadInvoice('${d.ref}')">Download</button>
         <button class="btn-delete" onclick="deleteManualDoc('${d.ref}')">Delete</button>
       </div>
     </div>`).join('');
 
   return `
     <div class="admin-add">
-      <h4>Create an invoice or quotation</h4>
+      <h4>${invoiceBuilder.editingRef ? `Editing ${invoiceBuilder.editingRef}` : 'Create an invoice or quotation'}</h4>
       <div class="admin-grid-fields wide">
         <div style="grid-column:1/-1;">
           <label>Search products by name or product number (SKU)</label>
@@ -2500,36 +2607,71 @@ function renderAdminInvoicesTab(){
           <option value="invoice" ${invoiceBuilder.type==='invoice'?'selected':''}>Invoice</option>
           <option value="quotation" ${invoiceBuilder.type==='quotation'?'selected':''}>Quotation</option>
         </select></div>
-        <div><label>Customer name</label><input type="text" id="inv-name" placeholder="Customer name"></div>
-        <div><label>Customer phone</label><input type="text" id="inv-phone" placeholder="07xx xxx xxx"></div>
+        <div><label>Customer name</label><input type="text" id="inv-name" placeholder="Customer name" value="${escapeHtml(invoiceBuilder.customerName||'')}" oninput="invoiceBuilder.customerName=this.value"></div>
+        <div><label>Customer phone</label><input type="text" id="inv-phone" placeholder="07xx xxx xxx" value="${escapeHtml(invoiceBuilder.customerPhone||'')}" oninput="invoiceBuilder.customerPhone=this.value"></div>
       </div>
       <div class="admin-grid-fields wide">
-        <div style="grid-column:1/-1;"><label>Address / notes (optional)</label><input type="text" id="inv-address" placeholder="Address or notes"></div>
+        <div style="grid-column:1/-1;"><label>Address / notes (optional)</label><input type="text" id="inv-address" placeholder="Address or notes" value="${escapeHtml(invoiceBuilder.address||'')}" oninput="invoiceBuilder.address=this.value"></div>
       </div>
-      <button class="btn-add" onclick="generateManualDoc()">Generate ${invoiceBuilder.type==='quotation'?'quotation':'invoice'}</button>
+      <button class="btn-add" onclick="generateManualDoc()">${invoiceBuilder.editingRef ? 'Update' : 'Generate'} ${invoiceBuilder.type==='quotation'?'quotation':'invoice'}</button>
+      ${invoiceBuilder.editingRef ? `<button class="btn-delete" style="margin-left:8px;" onclick="cancelEditManualDoc()">Cancel edit</button>` : ''}
     </div>
     <h4 style="margin:16px 0 8px 0;">Previously generated documents</h4>
     ${docsList || '<div class="admin-note">None yet.</div>'}
   `;
 }
+function editManualDoc(ref){
+  const d = manualDocs.find(x=>x.ref===ref);
+  if(!d) return;
+  invoiceBuilder = {
+    type: d.docType,
+    items: d.items.map(i=>({productId:i.productId, name:i.name, sku:i.sku, price:i.price, qty:i.qty})),
+    customerName: d.customerName||'', customerPhone: d.customerPhone||'', address: d.address||'',
+    editingRef: d.ref,
+  };
+  renderAdminModal();
+}
+function cancelEditManualDoc(){
+  invoiceBuilder = { type:'invoice', items:[], customerName:'', customerPhone:'', address:'', editingRef:null };
+  renderAdminModal();
+}
 function generateManualDoc(){
   if(!invoiceBuilder.items.length){ toast('Add at least one product first','⚠️'); return; }
   const subtotal = invoiceBuilder.items.reduce((s,i)=>s+i.price*i.qty,0);
   const type = invoiceBuilder.type;
+  const name = (document.getElementById('inv-name')||{}).value || '';
+  const phone = (document.getElementById('inv-phone')||{}).value || '';
+  const address = (document.getElementById('inv-address')||{}).value || '';
+  const items = invoiceBuilder.items.map(i=>({name:i.name, sku:i.sku, productId:i.productId, qty:i.qty, price:i.price}));
+
+  if(invoiceBuilder.editingRef){
+    const d = manualDocs.find(x=>x.ref===invoiceBuilder.editingRef);
+    if(d){
+      d.docType = type;
+      d.items = items;
+      d.subtotal = subtotal;
+      d.total = subtotal - (d.discount||0);
+      d.customerName = name; d.customerPhone = phone; d.address = address;
+      persistManualDocs();
+      const ref = d.ref;
+      invoiceBuilder = { type:'invoice', items:[], customerName:'', customerPhone:'', address:'', editingRef:null };
+      renderAdminModal();
+      toast(`${type==='quotation'?'Quotation':'Invoice'} ${ref} updated`,'✓');
+      return;
+    }
+  }
+
   const ref = (type==='quotation'?'QUO':'INV') + Math.floor(10000 + Math.random()*89999);
   const doc = {
     ref, docType: type,
-    items: invoiceBuilder.items.map(i=>({name:i.name, sku:i.sku, productId:i.productId, qty:i.qty, price:i.price})),
-    subtotal, discount:0, total: subtotal,
-    customerName: (document.getElementById('inv-name')||{}).value || '',
-    customerPhone: (document.getElementById('inv-phone')||{}).value || '',
-    address: (document.getElementById('inv-address')||{}).value || '',
+    items, subtotal, discount:0, total: subtotal,
+    customerName: name, customerPhone: phone, address,
     paid: type==='invoice' ? false : undefined,
     placedAt: Date.now(),
   };
   manualDocs.push(doc);
   persistManualDocs();
-  invoiceBuilder = { type:'invoice', items:[] };
+  invoiceBuilder = { type:'invoice', items:[], customerName:'', customerPhone:'', address:'', editingRef:null };
   renderAdminModal();
   toast(`${type==='quotation'?'Quotation':'Invoice'} ${ref} created`,'✓');
   downloadInvoice(ref);
@@ -2540,6 +2682,22 @@ function deleteManualDoc(ref){
   persistManualDocs();
   renderAdminModal();
   toast('Document deleted','🗑️');
+}
+
+/* ---------------- RECEIPTS TAB ---------------- */
+function renderAdminReceiptsTab(){
+  const sorted = receipts.slice().sort((a,b)=>b.placedAt-a.placedAt);
+  if(!sorted.length) return `<div class="admin-note">No receipts yet — a receipt is generated automatically the first time you mark an order as Paid in the Orders tab.</div>`;
+  return sorted.map(r=>`
+    <div class="admin-row">
+      <div class="ar-fields">
+        <strong class="mono">${r.ref}</strong> <span class="badge best" style="position:static;display:inline-block;margin-left:6px;">RECEIPT</span>
+        <div style="font-size:12px;color:var(--slate);margin-top:4px;">For order <span class="mono">${r.orderRef}</span> · ${escapeHtml(r.customerName||'—')} · ${fmt(r.total)} · ${new Date(r.placedAt).toLocaleString('en-KE')}</div>
+      </div>
+      <div class="ar-actions">
+        <button class="btn-save" onclick="downloadInvoice('${r.ref}')">Download</button>
+      </div>
+    </div>`).join('');
 }
 
 /* ---------------- CATEGORIES TAB ---------------- */
@@ -2843,5 +3001,4 @@ render();
 </script>
 
 </body>
-</html>
 </html>
