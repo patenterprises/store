@@ -464,7 +464,7 @@
   @media (max-width:900px){ .footer-grid{ grid-template-columns:1fr 1fr; } }
 
   /* ---------- floating whatsapp ---------- */
-  .wa-float{
+  .wa-float{ display:flex; align-items:center; justify-content:center;
     position:fixed; bottom:22px; right:22px; z-index:80; width:56px; height:56px; border-radius:50%;
     background:#25D366; display:flex; align-items:center; justify-content:center; font-size:26px; color:#fff;
     box-shadow:0 10px 26px rgba(0,0,0,.28); cursor:pointer; border:none;
@@ -542,6 +542,8 @@
   .pd-add{ flex:1; background:var(--rail-950); color:#fff; border:none; border-radius:7px; padding:12px; font-weight:600; cursor:pointer; font-size:14px; }
   .pd-add:hover{ background:var(--amber); }
   .pd-add:disabled{ background:var(--border); color:var(--slate-light); cursor:not-allowed; }
+  .pd-buynow{ width:100%; background:none; border:1.5px solid var(--amber); color:var(--amber-dark); border-radius:7px; padding:11px; font-weight:700; cursor:pointer; font-size:13.5px; margin-top:8px; }
+  .pd-buynow:hover{ background:rgba(255,138,30,0.08); }
   .pd-notify{ width:100%; background:var(--panel); color:var(--amber-dark); border:1px solid var(--amber); border-radius:7px; padding:12px; font-weight:600; cursor:pointer; font-size:14px; margin-top:8px; }
 
   .tabs{ display:flex; gap:4px; border-bottom:1px solid var(--border); margin:18px 0 14px 0; }
@@ -588,7 +590,6 @@
   .checkout-btn{ width:100%; background:var(--amber); color:#fff; border:none; border-radius:7px; padding:13px; font-weight:700; cursor:pointer; font-size:14px; margin-top:6px; }
   .checkout-btn:hover{ background:var(--amber-dark); }
   .checkout-btn:disabled{ background:var(--border); color:var(--slate-light); cursor:not-allowed; }
-  .points-note{ font-size:11.5px; color:var(--slate); background:var(--cyan-dim); border-radius:7px; padding:8px 10px; margin-top:10px; }
 
   /* checkout modal */
   .step-dots{ display:flex; gap:6px; margin-bottom:16px; }
@@ -641,6 +642,12 @@
 
   /* admin panel */
   .admin-note{ background:var(--cyan-dim); border-radius:8px; padding:10px 12px; font-size:11.5px; color:var(--ink); margin-bottom:16px; }
+  .admin-tabs{ display:flex; gap:4px; flex-wrap:wrap; border-bottom:1px solid var(--border); margin-bottom:16px; padding-bottom:0; }
+  .admin-tab-btn{ background:none; border:none; padding:9px 12px; font-size:12.5px; font-weight:600; color:var(--slate); cursor:pointer; border-bottom:2px solid transparent; white-space:nowrap; }
+  .admin-tab-btn.active{ color:var(--amber-dark); border-bottom-color:var(--amber); }
+  .admin-tab-btn:hover{ color:var(--ink); }
+  .restock-flag{ display:inline-block; background:rgba(225,82,61,0.12); color:var(--red); font-size:10.5px; font-weight:700; padding:2px 8px; border-radius:20px; margin-left:8px; }
+  .sku-tag{ font-family:'IBM Plex Mono'; font-size:11px; color:var(--slate-light); }
   .admin-add{ border:1px dashed var(--amber); border-radius:10px; padding:14px; margin-bottom:18px; }
   .admin-add h4{ font-family:'Space Grotesk'; font-size:13px; margin-bottom:10px; }
   .admin-grid-fields{ display:grid; grid-template-columns:1fr 1fr; gap:10px; margin-bottom:10px; }
@@ -736,8 +743,8 @@
       <div class="hp-row"><span class="hp-label">Catalog</span><span id="hpCatalog">24 parts online</span></div>
       <div class="hp-row"><span class="hp-label">CBD pickup</span><span>Ready in ~2 hrs</span></div>
       <div class="hp-row"><span class="hp-label">Countrywide delivery</span><span>24–48 hrs</span></div>
+      <div class="hp-row"><span class="hp-label">Delivery fee</span><span>KES 250 flat (CBD) · by location outside</span></div>
       <div class="hp-row"><span class="hp-label">Checkout</span><span>M-Pesa or Pay on Delivery</span></div>
-      <div class="hp-row"><span class="hp-label">PAT Points</span><span>Earn 2% back on every order</span></div>
     </div>
   </div>
 </div>
@@ -848,10 +855,10 @@
       <h4 class="display">PAT.Enterprise</h4>
       <p>Computer components, networking gear, and accessories for Nairobi builders, gamers, and offices. M-Pesa or pay-on-delivery accepted.</p>
       <p style="margin-top:10px;">📍 Nairobi CBD, Kenya</p>
-      <a class="contact-line" href="https://wa.me/254700000000?text=Hi%20PAT.Enterprise%2C%20I%27d%20like%20some%20help." target="_blank" rel="noopener">📞 0700 000 000 <span style="font-size:10.5px; color:var(--cyan, #2FD0C9);">(chat on WhatsApp)</span></a>
-      <a class="contact-line" href="mailto:info@patenterprise.co.ke?subject=Enquiry%20from%20website">✉️ info@patenterprise.co.ke</a>
+      <a class="contact-line" href="https://wa.me/254769826085?text=Hi%20PAT.Enterprise%2C%20I%27d%20like%20some%20help." target="_blank" rel="noopener">📞 0769 826 085 <span style="font-size:10.5px; color:var(--cyan, #2FD0C9);">(chat on WhatsApp)</span></a>
+      <a class="contact-line" href="mailto:pat.enterprises11@gmail.com?subject=Enquiry%20from%20website">✉️ pat.enterprises11@gmail.com</a>
       <div class="social-row">
-        <a href="https://wa.me/254700000000" target="_blank" rel="noopener" title="WhatsApp">📞</a>
+        <a href="https://wa.me/254769826085" target="_blank" rel="noopener" title="WhatsApp">📞</a>
         <a href="#" title="Instagram">📷</a>
         <a href="#" title="X / Twitter">🐦</a>
         <a href="#" title="Facebook">📘</a>
@@ -882,7 +889,11 @@
   <div class="footer-bottom">© 2026 PAT.Enterprise. All rights reserved. Demo storefront — M-Pesa payment is simulated; catalog edits save to this browser only.</div>
 </footer>
 
-<button class="wa-float" onclick="openWhatsApp()" title="Chat on WhatsApp">💬</button>
+<button class="wa-float" onclick="openWhatsApp()" title="Chat on WhatsApp">
+  <svg viewBox="0 0 32 32" width="26" height="26" fill="#fff" aria-hidden="true">
+    <path d="M16.02 3C9.4 3 4 8.37 4 15c0 2.36.63 4.57 1.73 6.48L4 29l7.72-1.68A11.9 11.9 0 0 0 16.02 27C22.64 27 28 21.63 28 15S22.64 3 16.02 3Zm0 21.7c-1.98 0-3.83-.54-5.42-1.48l-.39-.23-4.58 1 1.02-4.47-.25-.4A9.6 9.6 0 0 1 6.3 15c0-5.36 4.37-9.7 9.72-9.7 5.36 0 9.7 4.34 9.7 9.7 0 5.36-4.34 9.7-9.7 9.7Zm5.34-7.27c-.29-.15-1.73-.85-2-.95-.27-.1-.46-.15-.66.15-.2.29-.76.95-.93 1.15-.17.19-.34.22-.63.07-.29-.15-1.22-.45-2.32-1.43-.86-.76-1.44-1.71-1.6-2-.17-.29-.02-.45.13-.6.13-.13.29-.34.44-.51.15-.17.19-.29.29-.49.1-.19.05-.36-.02-.51-.07-.15-.66-1.6-.91-2.19-.24-.58-.48-.5-.66-.51h-.56c-.19 0-.51.07-.78.36-.27.29-1.02 1-1.02 2.44s1.05 2.83 1.2 3.02c.15.19 2.06 3.15 5 4.42.7.3 1.24.48 1.67.62.7.22 1.34.19 1.84.11.56-.08 1.73-.71 1.98-1.39.24-.68.24-1.27.17-1.39-.07-.12-.26-.19-.55-.34Z"/>
+  </svg>
+</button>
 
 <div class="compare-tray" id="compareTray">
   <div class="ct-thumbs" id="ctThumbs"></div>
@@ -935,7 +946,7 @@
 /* ============================================================
    DATA
 ============================================================ */
-const NAV_CATS = [
+const DEFAULT_NAV_CATS = [
   {key:'all', label:'All Products'},
   {key:'components', label:'Computer Components'},
   {key:'networking', label:'Networking'},
@@ -946,7 +957,7 @@ const NAV_CATS = [
   {key:'clearance', label:'Clearance'},
 ];
 
-const SUBCATS = [
+const DEFAULT_SUBCATS = [
   {name:'Motherboards', cat:'components'},
   {name:'Power Supply Units', cat:'components'},
   {name:'Networking Devices', cat:'networking'},
@@ -957,17 +968,62 @@ const SUBCATS = [
   {name:'Cooling Fans', cat:'cooling'},
 ];
 
+/* navCats / subCats are mutable (editable from the admin panel) — the DEFAULT_ arrays above are only the seed values */
+let navCats = loadJSON('pat_navcats', null) || JSON.parse(JSON.stringify(DEFAULT_NAV_CATS));
+let subCats = loadJSON('pat_subcats', null) || JSON.parse(JSON.stringify(DEFAULT_SUBCATS));
+function persistCats(){ saveJSON('pat_navcats', navCats); saveJSON('pat_subcats', subCats); }
+
 const BRANDS = ['Corsair','TP-Link','Deep Cool','Sabrent','Kingston','Generic OEM'];
 
 const TICKER_ITEMS = [
   'Nairobi CBD pickup ready in ~2 hrs',
   'Countrywide delivery in 24–48 hrs',
-  '38 orders confirmed today',
-  'Free delivery on orders above KES 5,000',
+  'CBD delivery flat KES 250',
   'New: Z790 ATX Gaming Motherboard in stock',
-  'PAT Points: earn 2% back on every order',
   'Now accepting Pay on Delivery',
 ];
+
+/* Default coupon codes — editable/removable from the admin Coupons tab */
+const DEFAULT_COUPONS = [
+  {code:'PAT10', type:'percent', value:10, active:true},
+  {code:'WELCOME5', type:'percent', value:5, active:true},
+];
+let coupons = loadJSON('pat_coupons', null) || JSON.parse(JSON.stringify(DEFAULT_COUPONS));
+function persistCoupons(){ saveJSON('pat_coupons', coupons); }
+function findCoupon(code){ return coupons.find(c => c.active && c.code===String(code||'').toUpperCase()); }
+function couponDiscount(coupon, subtotal){
+  if(!coupon) return 0;
+  if(coupon.type==='percent') return subtotal * (coupon.value/100);
+  return Math.min(coupon.value, subtotal);
+}
+
+/* Pickup locations — shown at checkout and on the customer tracking page */
+const DEFAULT_PICKUPS = [
+  {id:1, name:'Imenti House, Shop 15', address:'Tom Mboya Street, Nairobi CBD'},
+];
+let pickupLocations = loadJSON('pat_pickups', null) || JSON.parse(JSON.stringify(DEFAULT_PICKUPS));
+function persistPickups(){ saveJSON('pat_pickups', pickupLocations); }
+
+/* Manually created invoices / quotations (admin tool, separate from customer-placed orders) */
+let manualDocs = loadJSON('pat_manual_docs', []);
+function persistManualDocs(){ saveJSON('pat_manual_docs', manualDocs); }
+
+const LOW_STOCK_THRESHOLD = 3;
+const CBD_DELIVERY_FEE = 250;
+const ORDER_STATUSES_PICKUP = [
+  {key:'placed', label:'Order placed'},
+  {key:'payment_confirmed', label:'Payment confirmed'},
+  {key:'preparing', label:'Preparing your order'},
+  {key:'ready_pickup', label:'Ready for CBD pickup'},
+];
+const ORDER_STATUSES_DELIVERY = [
+  {key:'placed', label:'Order placed'},
+  {key:'payment_confirmed', label:'Payment confirmed'},
+  {key:'preparing', label:'Preparing your order'},
+  {key:'out_for_delivery', label:'Out for delivery'},
+  {key:'delivered', label:'Delivered'},
+];
+function statusListFor(order){ return order.deliveryMethod==='pickup' ? ORDER_STATUSES_PICKUP : ORDER_STATUSES_DELIVERY; }
 
 const REVIEW_POOL = [
   {name:'Wanjiru K.', text:'Arrived fast and exactly as described. Would buy again.'},
@@ -1067,7 +1123,6 @@ let wishlist = new Set(loadJSON('pat_wishlist', []));
 let compareSet = new Set(loadJSON('pat_compare', []));
 let recentlyViewed = loadJSON('pat_recent', []);
 let orders = loadJSON('pat_orders', []);
-let points = loadJSON('pat_points', 0);
 let customReviews = loadJSON('pat_reviews', {}); // { productId: [{name,text,stars,date}] }
 let activeGalleryIdx = 0;
 let currentProductId = null;
@@ -1076,8 +1131,11 @@ let pickedStars = 5;
 let paymentMode = 'mpesa'; // 'mpesa' | 'pod'
 let paymentMethod = 'paybill';
 let deliveryMethod = 'pickup';
+let deliveryZone = 'cbd'; // 'cbd' | 'outside'
+let pickupLocationId = null;
 let promoApplied = null;
 let orderRef = null;
+let checkoutOverride = null; // { productId: qty } — set by "Buy now" for a single-item checkout that bypasses the saved cart
 const ADMIN_PASSCODE = 'PAT2026';
 
 function loadJSON(key, fallback){
@@ -1087,12 +1145,36 @@ function saveJSON(key, val){
   try{ localStorage.setItem(key, JSON.stringify(val)); }catch(e){}
 }
 function persistProducts(){ saveJSON('pat_products', products); }
+
+/* ---------------- product field migration: SKU, image slots, stock quantity ---------------- */
+function syncStockFields(p){
+  const q = Math.max(0, Math.round(Number(p.stockQty)||0));
+  p.stockQty = q;
+  if(q<=0){ p.stock='out'; p.stockNote='Out of stock'; }
+  else if(q<=LOW_STOCK_THRESHOLD){ p.stock='low'; p.stockNote = q+' left — low stock'; }
+  else { p.stock='in'; p.stockNote='In stock'; }
+}
+function ensureProductFields(p){
+  if(!p.sku) p.sku = 'PAT-' + String(p.id).padStart(4,'0');
+  if(!Array.isArray(p.images)) p.images = [];
+  p.images = p.images.slice(0,4);
+  while(p.images.length<4) p.images.push('');
+  if(typeof p.stockQty !== 'number'){
+    p.stockQty = p.stock==='out' ? 0 : (p.stock==='low' ? LOW_STOCK_THRESHOLD : 20);
+  }
+  syncStockFields(p);
+  return p;
+}
+products.forEach(ensureProductFields);
+if(!pickupLocationId && pickupLocations.length) pickupLocationId = pickupLocations[0].id;
 function fmt(n){ return 'KES ' + Math.round(n).toLocaleString(); }
 function escapeHtml(s){ return String(s==null?'':s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c])); }
 
 /* media (image or emoji) helper */
+function productImages(p){ return (p.images||[]).filter(Boolean); }
 function mediaHtml(p, fontSize){
-  if(p.img){ return `<img src="${escapeHtml(p.img)}" alt="${escapeHtml(p.name)}" onerror="this.parentElement.innerHTML='${p.icon||'📦'}';">`; }
+  const imgs = productImages(p);
+  if(imgs.length){ return `<img src="${escapeHtml(imgs[0])}" alt="${escapeHtml(p.name)}" onerror="this.parentElement.innerHTML='${p.icon||'📦'}';">`; }
   return `<span style="font-size:${fontSize||'inherit'};">${p.icon||'📦'}</span>`;
 }
 
@@ -1139,8 +1221,8 @@ function renderTicker(){
 ============================================================ */
 function renderNav(){
   const nav = document.getElementById('navCategories');
-  nav.innerHTML = NAV_CATS.map(c => {
-    const subs = SUBCATS.filter(s=>s.cat===c.key);
+  nav.innerHTML = navCats.map(c => {
+    const subs = subCats.filter(s=>s.cat===c.key);
     const mega = subs.length ? `<div class="mega">${subs.map(s=>{
       const cnt = products.filter(p=>p.subcategory===s.name).length;
       return `<a onclick="selectSubCat('${s.name}','${s.cat}')">${s.name}<span class="mc">${cnt}</span></a>`;
@@ -1156,7 +1238,7 @@ function renderSidebarCats(){
     return p.category===state.navCat;
   });
   const ul = document.getElementById('sidebarCats');
-  ul.innerHTML = SUBCATS.map(s => {
+  ul.innerHTML = subCats.map(s => {
     const count = base.filter(p=>p.subcategory===s.name).length;
     const active = state.subCat===s.name ? 'active' : '';
     return `<li><a class="${active}" onclick="selectSubCat('${s.name}','${s.cat}')">${s.name} <span class="count">${count}</span></a></li>`;
@@ -1269,7 +1351,7 @@ function pickSuggestion(id){
 function renderActiveFilters(){
   const chips = [];
   if(state.navCat!=='all'){
-    const label = NAV_CATS.find(c=>c.key===state.navCat).label;
+    const label = navCats.find(c=>c.key===state.navCat).label;
     chips.push({text:label, onClear:"selectNavCat('all')"});
   }
   if(state.subCat) chips.push({text:state.subCat, onClear:"state.subCat=null; render();"});
@@ -1293,7 +1375,7 @@ function renderBreadcrumb(){
   const parts = [`<div class="seg"><a onclick="resetToHome()">Home</a></div>`];
   parts.push(`<div class="wire"></div><div class="seg"><span class="dot"></span><a onclick="resetToHome()">Shop</a></div>`);
   if(state.navCat!=='all'){
-    const label = NAV_CATS.find(c=>c.key===state.navCat).label;
+    const label = navCats.find(c=>c.key===state.navCat).label;
     const isLast = !state.subCat;
     parts.push(`<div class="wire"></div><div class="seg"><span class="dot ${isLast?'active':''}"></span>${isLast?`<span>${label}</span>`:`<a onclick="selectNavCat('${state.navCat}')">${label}</a>`}</div>`);
   }
@@ -1345,7 +1427,7 @@ function renderGrid(){
   const list = getFiltered();
   const grid = document.getElementById('productGrid');
   grid.classList.toggle('list-view', state.view==='list');
-  const title = state.subCat ? state.subCat : (state.search ? `Results for "${state.search}"` : NAV_CATS.find(c=>c.key===state.navCat).label);
+  const title = state.subCat ? state.subCat : (state.search ? `Results for "${state.search}"` : navCats.find(c=>c.key===state.navCat).label);
   document.getElementById('contentTitle').textContent = title;
   document.getElementById('resultCount').textContent = `Showing ${list.length} of ${products.length} results`;
 
@@ -1563,9 +1645,12 @@ function renderProductModal(){
   if(!p){ closeProduct(); return; }
   const modal = document.getElementById('productModal');
   const priceHtml = p.oldPrice ? `<span class="old">${fmt(p.oldPrice)}</span>${fmt(p.price)}` : fmt(p.price);
-  const galleryImgs = p.img ? [p.img] : (p.gallery||[p.icon]);
-  const thumbs = galleryImgs.map((g,i) => `<div class="gthumb ${i===activeGalleryIdx?'active':''}" onclick="setGallery(${i})">${p.img ? `<img src="${escapeHtml(g)}" alt="">` : g}</div>`).join('');
-  const mainMedia = p.img ? `<img src="${escapeHtml(galleryImgs[activeGalleryIdx])}" alt="${escapeHtml(p.name)}">` : galleryImgs[activeGalleryIdx];
+  const realImages = productImages(p);
+  const usingRealImages = realImages.length>0;
+  const galleryImgs = usingRealImages ? realImages : (p.gallery||[p.icon]);
+  const safeIdx = Math.min(activeGalleryIdx, galleryImgs.length-1);
+  const thumbs = galleryImgs.map((g,i) => `<div class="gthumb ${i===safeIdx?'active':''}" onclick="setGallery(${i})">${usingRealImages ? `<img src="${escapeHtml(g)}" alt="">` : g}</div>`).join('');
+  const mainMedia = usingRealImages ? `<img src="${escapeHtml(galleryImgs[safeIdx])}" alt="${escapeHtml(p.name)}">` : galleryImgs[safeIdx];
   const specs = p.specs.map(s=>`<li>${s}</li>`).join('');
   const wished = wishlist.has(p.id);
   const addSection = p.stock==='out'
@@ -1575,7 +1660,8 @@ function renderProductModal(){
          <button class="pd-add" onclick="addToCart(${p.id}, Number(document.getElementById('pdQty').textContent)); toast('Added to cart','🛒');">Add to cart — ${fmt(p.price)}</button>
          <button class="pd-icon-btn ${wished?'active':''}" onclick="toggleWishlist(${p.id})">${wished?'♥':'♡'}</button>
          <button class="pd-icon-btn ${compareSet.has(p.id)?'active':''}" onclick="toggleCompare(${p.id}); renderProductModal();">⇄</button>
-       </div>`;
+       </div>
+       <button class="pd-buynow" onclick="buyNow(${p.id}, Number(document.getElementById('pdQty').textContent));">Buy now</button>`;
 
   const reviews = getAllReviewsFor(p);
   const reviewsHtml = reviews.map(r=>`
@@ -1600,7 +1686,7 @@ function renderProductModal(){
         <div class="pd-gallery-thumbs">${thumbs}</div>
       </div>
       <div>
-        <div class="pd-cat">${p.subcategory} · ${p.brand}</div>
+        <div class="pd-cat">${p.subcategory} · ${p.brand} · <span class="mono">${p.sku}</span></div>
         <div class="pd-title">${p.name}</div>
         <div class="pd-rating">${starsHtml(p.rating)}<span>${p.rating.toFixed(1)} · ${p.reviewCount} reviews</span></div>
         <div class="pd-price">${priceHtml}</div>
@@ -1681,21 +1767,38 @@ function flashCart(){
 function openCart(){ renderCartModal(); document.getElementById('cartOverlay').classList.add('show'); }
 function closeCart(){ document.getElementById('cartOverlay').classList.remove('show'); }
 
+/* "Buy now" — checks out a single product immediately without touching the saved cart */
+function buyNow(id, qty){
+  const p = products.find(x=>x.id===id);
+  if(!p || p.stock==='out') return;
+  checkoutOverride = { [id]: Math.max(1, qty||1) };
+  closeProduct();
+  openCheckout();
+}
+
 function cartEntries(){
   return Object.entries(cart).filter(([,q])=>q>0).map(([id,qty])=>({p:products.find(x=>x.id==id), qty})).filter(e=>e.p);
 }
 function cartSubtotal(){ return cartEntries().reduce((sum,e)=>sum + e.p.price*e.qty, 0); }
-const FREE_SHIP_THRESHOLD = 5000;
-const PROMO_CODES = { 'PAT10': 0.10, 'WELCOME5': 0.05 };
+/* checkoutEntries() is what checkout/placeOrder actually charges for: the saved cart, unless a "Buy now" override is active */
+function checkoutEntries(){
+  if(checkoutOverride){
+    return Object.entries(checkoutOverride).filter(([,q])=>q>0).map(([id,qty])=>({p:products.find(x=>x.id==id), qty})).filter(e=>e.p);
+  }
+  return cartEntries();
+}
+function checkoutSubtotal(){ return checkoutEntries().reduce((sum,e)=>sum + e.p.price*e.qty, 0); }
 
 function applyPromo(){
   const codeInput = document.getElementById('promoInput');
   const code = codeInput.value.trim().toUpperCase();
   const msgEl = document.getElementById('promoMsg');
   if(!code){ return; }
-  if(PROMO_CODES[code]){
+  const coupon = findCoupon(code);
+  if(coupon){
     promoApplied = code;
-    msgEl.textContent = `"${code}" applied — ${PROMO_CODES[code]*100}% off`;
+    const desc = coupon.type==='percent' ? `${coupon.value}% off` : `${fmt(coupon.value)} off`;
+    msgEl.textContent = `"${code}" applied — ${desc}`;
     msgEl.className = 'promo-msg ok';
   } else {
     promoApplied = null;
@@ -1715,12 +1818,9 @@ function renderCartModal(){
     return;
   }
   const subtotal = cartSubtotal();
-  const progress = Math.min(100, Math.round((subtotal / FREE_SHIP_THRESHOLD) * 100));
-  const remaining = Math.max(0, FREE_SHIP_THRESHOLD - subtotal);
-  const discount = promoApplied ? subtotal * PROMO_CODES[promoApplied] : 0;
-  const deliveryFee = subtotal >= FREE_SHIP_THRESHOLD ? 0 : 300;
-  const total = subtotal - discount + (deliveryFee);
-  const earnedPoints = Math.floor(total * 0.02 / 10);
+  const coupon = promoApplied ? findCoupon(promoApplied) : null;
+  const discount = couponDiscount(coupon, subtotal);
+  const total = subtotal - discount;
 
   const rows = entries.map(e => `
     <div class="cart-item">
@@ -1740,19 +1840,17 @@ function renderCartModal(){
   modal.innerHTML = `
     <button class="modal-close" onclick="closeCart()">✕</button>
     <h2 class="display" style="font-size:18px;margin-bottom:6px;">Your cart</h2>
-    ${remaining>0 ? `<div class="free-ship-bar"><div class="fill" style="width:${progress}%"></div></div><div class="free-ship-note">Add ${fmt(remaining)} more for free delivery</div>` : `<div class="free-ship-bar"><div class="fill" style="width:100%"></div></div><div class="free-ship-note">🎉 You've unlocked free delivery</div>`}
+    <div class="free-ship-note">🚚 CBD delivery is a flat ${fmt(CBD_DELIVERY_FEE)}. Outside CBD, the delivery fee is confirmed based on your location at checkout. CBD pickup is always free.</div>
     ${rows}
     <div class="promo-row">
-      <input type="text" id="promoInput" placeholder="Promo code (try PAT10)">
+      <input type="text" id="promoInput" placeholder="Coupon code">
       <button onclick="applyPromo()">Apply</button>
     </div>
     <div class="promo-msg" id="promoMsg"></div>
     <div class="cart-total-row"><span>Subtotal</span><span>${fmt(subtotal)}</span></div>
     ${discount>0 ? `<div class="cart-total-row" style="color:var(--green);"><span>Discount (${promoApplied})</span><span>-${fmt(discount)}</span></div>` : ''}
-    <div class="cart-total-row"><span>Delivery</span><span>${deliveryFee===0?'Free':fmt(deliveryFee)}</span></div>
-    <div class="cart-total-row grand"><span>Total</span><span>${fmt(total)}</span></div>
-    <div class="points-note">You'll earn ~${earnedPoints} PAT Points on this order.</div>
-    <button class="checkout-btn" onclick="closeCart(); openCheckout();">Proceed to checkout</button>
+    <div class="cart-total-row grand"><span>Total (before delivery)</span><span>${fmt(total)}</span></div>
+    <button class="checkout-btn" onclick="checkoutOverride=null; closeCart(); openCheckout();">Proceed to checkout</button>
   `;
 }
 function changeQty(id, delta){
@@ -1773,24 +1871,35 @@ function removeFromCart(id){
    CHECKOUT
 ============================================================ */
 function openCheckout(){
+  if(!checkoutEntries().length){ toast('Your cart is empty','⚠️'); return; }
   paymentMode = 'mpesa';
   paymentMethod = 'paybill';
   deliveryMethod = 'pickup';
+  deliveryZone = 'cbd';
+  pickupLocationId = pickupLocations.length ? pickupLocations[0].id : null;
   orderRef = 'PAT' + Math.floor(10000 + Math.random()*89999);
   renderCheckoutModal();
   document.getElementById('checkoutOverlay').classList.add('show');
 }
-function closeCheckout(){ document.getElementById('checkoutOverlay').classList.remove('show'); }
+function closeCheckout(){ document.getElementById('checkoutOverlay').classList.remove('show'); checkoutOverride = null; }
 function setPaymentMode(m){ paymentMode = m; renderCheckoutModal(); }
 function setPaymentMethod(m){ paymentMethod = m; renderCheckoutModal(); }
 function setDeliveryMethod(m){ deliveryMethod = m; renderCheckoutModal(); }
+function setDeliveryZone(z){ deliveryZone = z; renderCheckoutModal(); }
+function setPickupLocation(id){ pickupLocationId = Number(id); renderCheckoutModal(); }
 
 function checkoutTotals(){
-  const subtotal = cartSubtotal();
-  const discount = promoApplied ? subtotal * PROMO_CODES[promoApplied] : 0;
-  const deliveryFee = (deliveryMethod==='pickup' || subtotal >= FREE_SHIP_THRESHOLD) ? 0 : 300;
+  const subtotal = checkoutSubtotal();
+  const coupon = promoApplied ? findCoupon(promoApplied) : null;
+  const discount = couponDiscount(coupon, subtotal);
+  let deliveryFee = 0;
+  let feePending = false;
+  if(deliveryMethod==='delivery'){
+    if(deliveryZone==='cbd'){ deliveryFee = CBD_DELIVERY_FEE; }
+    else { deliveryFee = 0; feePending = true; }
+  }
   const total = subtotal - discount + deliveryFee;
-  return {subtotal, discount, deliveryFee, total};
+  return {subtotal, discount, deliveryFee, feePending, total};
 }
 
 function paymentPanelHtml(total){
@@ -1815,17 +1924,22 @@ function paymentPanelHtml(total){
     </div>`;
   }
   return `<div class="pm-panel">
-    <div class="pm-row"><span class="pm-label">Send to number</span><span>0700 000 000</span></div>
+    <div class="pm-row"><span class="pm-label">Send to number</span><span>0769 826 085</span></div>
     <div class="pm-row"><span class="pm-label">Reference (use as note)</span><span>${orderRef}</span></div>
     <div class="pm-row"><span class="pm-label">Amount</span><span>${fmt(total)}</span></div>
   </div>`;
 }
 
 function renderCheckoutModal(){
-  const entries = cartEntries();
+  const entries = checkoutEntries();
   const modal = document.getElementById('checkoutModal');
-  const {subtotal, discount, deliveryFee, total} = checkoutTotals();
-  const lines = entries.map(e => `<div class="order-line"><span>${e.p.name} × ${e.qty}</span><span>${fmt(e.p.price*e.qty)}</span></div>`).join('');
+  const {subtotal, discount, deliveryFee, feePending, total} = checkoutTotals();
+  const lines = entries.map(e => `<div class="order-line"><span>${e.p.name} <span class="mono" style="color:var(--slate-light);">(${e.p.sku})</span> × ${e.qty}</span><span>${fmt(e.p.price*e.qty)}</span></div>`).join('');
+
+  const pickupHtml = pickupLocations.length > 1
+    ? `<div class="form-field"><label>Pickup location</label><select id="ckPickupLoc" onchange="setPickupLocation(this.value)">${pickupLocations.map(loc=>`<option value="${loc.id}" ${loc.id===pickupLocationId?'selected':''}>${escapeHtml(loc.name)}</option>`).join('')}</select></div>`
+    : (pickupLocations.length===1 ? `<div class="free-ship-note">📍 Pickup at: <strong>${escapeHtml(pickupLocations[0].name)}</strong> — ${escapeHtml(pickupLocations[0].address||'')}</div>` : `<div class="free-ship-note">No pickup location has been set up yet — please choose delivery, or contact us on WhatsApp.</div>`);
+
   modal.innerHTML = `
     <button class="modal-close" onclick="closeCheckout()">✕</button>
     <h2 class="display" style="font-size:18px;margin-bottom:10px;">Checkout</h2>
@@ -1833,14 +1947,23 @@ function renderCheckoutModal(){
     ${lines}
     <div class="cart-total-row"><span>Subtotal</span><span>${fmt(subtotal)}</span></div>
     ${discount>0 ? `<div class="cart-total-row" style="color:var(--green);"><span>Discount</span><span>-${fmt(discount)}</span></div>`:''}
-    <div class="cart-total-row grand"><span>Total</span><span>${fmt(total)}</span></div>
+    <div class="cart-total-row"><span>Delivery</span><span>${deliveryMethod==='pickup' ? 'Free' : (feePending ? 'To be confirmed' : fmt(deliveryFee))}</span></div>
+    <div class="cart-total-row grand"><span>Total${feePending?' (excl. delivery)':''}</span><span>${fmt(total)}</span></div>
 
     <div style="font-size:12.5px;font-weight:600;margin:14px 0 4px 0;">Delivery method</div>
     <div class="delivery-opts">
       <div class="delivery-opt ${deliveryMethod==='pickup'?'active':''}" onclick="setDeliveryMethod('pickup')"><b>CBD Pickup</b><span>Free · ready in ~2 hrs</span></div>
-      <div class="delivery-opt ${deliveryMethod==='delivery'?'active':''}" onclick="setDeliveryMethod('delivery')"><b>Delivery</b><span>${subtotal>=FREE_SHIP_THRESHOLD?'Free · 24–48 hrs':'KES 300 · 24–48 hrs'}</span></div>
+      <div class="delivery-opt ${deliveryMethod==='delivery'?'active':''}" onclick="setDeliveryMethod('delivery')"><b>Delivery</b><span>KES ${CBD_DELIVERY_FEE} CBD · TBD outside</span></div>
     </div>
-    ${deliveryMethod==='delivery' ? `<div class="form-field"><label>Delivery address</label><input type="text" id="ckAddress" placeholder="Estate, street, house/apartment no."></div>` : ''}
+    ${deliveryMethod==='pickup' ? pickupHtml : `
+      <div style="font-size:12.5px;font-weight:600;margin:10px 0 4px 0;">Delivery area</div>
+      <div class="delivery-opts">
+        <div class="delivery-opt ${deliveryZone==='cbd'?'active':''}" onclick="setDeliveryZone('cbd')"><b>Around CBD</b><span>Flat ${fmt(CBD_DELIVERY_FEE)}</span></div>
+        <div class="delivery-opt ${deliveryZone==='outside'?'active':''}" onclick="setDeliveryZone('outside')"><b>Outside CBD</b><span>Fee based on location</span></div>
+      </div>
+      <div class="form-field"><label>Delivery address / area</label><input type="text" id="ckAddress" placeholder="Estate, street, house/apartment no., or town if outside CBD"></div>
+      ${deliveryZone==='outside' ? `<div class="free-ship-note">Delivery outside the CBD is priced by location — we'll confirm the exact fee with you by phone or WhatsApp before dispatch, and it'll be added to your invoice.</div>` : ''}
+    `}
     <div class="form-row2">
       <div class="form-field"><label>Full name</label><input type="text" id="ckName" placeholder="Your name"></div>
       <div class="form-field"><label>Phone</label><input type="text" id="ckPhone" placeholder="07xx xxx xxx"></div>
@@ -1862,16 +1985,17 @@ function renderCheckoutModal(){
   `;
 }
 
-function buildInvoiceHtml(order){
-  const itemRows = order.items.map(it=>`
+function buildInvoiceHtml(doc){
+  const docLabel = doc.docType==='quotation' ? 'Quotation' : 'Invoice';
+  const itemRows = doc.items.map(it=>`
     <tr>
-      <td style="padding:8px; border-bottom:1px solid #E3E7EF;">${escapeHtml(it.name)}</td>
+      <td style="padding:8px; border-bottom:1px solid #E3E7EF;">${escapeHtml(it.name)}${it.sku?` <span style="color:#8A93A8;">(${escapeHtml(it.sku)})</span>`:''}</td>
       <td style="padding:8px; border-bottom:1px solid #E3E7EF; text-align:center;">${it.qty}</td>
       <td style="padding:8px; border-bottom:1px solid #E3E7EF; text-align:right;">${fmt(it.price)}</td>
       <td style="padding:8px; border-bottom:1px solid #E3E7EF; text-align:right;">${fmt(it.price*it.qty)}</td>
     </tr>`).join('');
-  const dateStr = new Date(order.placedAt).toLocaleString('en-KE');
-  return `<!DOCTYPE html><html><head><meta charset="UTF-8"><title>Invoice ${order.ref}</title>
+  const dateStr = new Date(doc.placedAt).toLocaleString('en-KE');
+  return `<!DOCTYPE html><html><head><meta charset="UTF-8"><title>${docLabel} ${doc.ref}</title>
   <style>
     body{ font-family: Arial, sans-serif; color:#0B1220; padding:36px; max-width:720px; margin:0 auto; }
     h1{ font-size:20px; margin-bottom:2px; }
@@ -1882,66 +2006,80 @@ function buildInvoiceHtml(order){
     .totals div{ display:flex; justify-content:space-between; padding:4px 0; }
     .totals .grand{ font-weight:700; font-size:15px; border-top:1px solid #0B1220; padding-top:8px; margin-top:4px; }
     .box{ background:#F3F5F9; border-radius:8px; padding:12px 14px; margin-top:16px; font-size:12.5px; }
+    .stamp{ display:inline-block; padding:3px 10px; border-radius:20px; font-weight:700; font-size:11px; text-transform:uppercase; }
     @media print{ .no-print{ display:none; } }
   </style>
   </head><body>
-    <h1>PAT.Enterprise — Invoice</h1>
-    <div class="muted">Nairobi CBD, Kenya · 0700 000 000 · info@patenterprise.co.ke</div>
+    <h1>PAT.Enterprise — ${docLabel}</h1>
+    <div class="muted">Nairobi CBD, Kenya · 0769 826 085 · pat.enterprises11@gmail.com</div>
     <div class="box">
-      <div><strong>Invoice / Order ref:</strong> ${order.ref}</div>
+      <div><strong>${docLabel} ref:</strong> ${doc.ref} ${doc.paid!==undefined ? `<span class="stamp" style="background:${doc.paid?'#DFF5E8':'#FDEDEA'};color:${doc.paid?'#1FA463':'#E1523D'};">${doc.paid?'PAID':'UNPAID'}</span>` : ''}</div>
       <div><strong>Date:</strong> ${dateStr}</div>
-      <div><strong>Customer:</strong> ${escapeHtml(order.customerName||'—')} · ${escapeHtml(order.customerPhone||'—')}</div>
-      ${order.deliveryMethod==='delivery' ? `<div><strong>Delivery address:</strong> ${escapeHtml(order.address||'—')}</div>` : `<div><strong>Fulfilment:</strong> Nairobi CBD pickup</div>`}
-      <div><strong>Payment:</strong> ${order.paymentMode==='pod' ? 'Pay on delivery (cash or M-Pesa)' : 'M-Pesa — ' + (order.paymentMethod||'')}</div>
-      ${order.notes ? `<div><strong>Order notes:</strong> ${escapeHtml(order.notes)}</div>` : ''}
+      <div><strong>Customer:</strong> ${escapeHtml(doc.customerName||'—')} · ${escapeHtml(doc.customerPhone||'—')}</div>
+      ${doc.deliveryMethod ? (doc.deliveryMethod==='delivery' ? `<div><strong>Delivery address:</strong> ${escapeHtml(doc.address||'—')}${doc.deliveryZone==='outside'?' (outside CBD)':' (CBD)'}</div>` : `<div><strong>Fulfilment:</strong> Nairobi CBD pickup${doc.pickupLocationName?' — '+escapeHtml(doc.pickupLocationName):''}</div>`) : (doc.address ? `<div><strong>Address:</strong> ${escapeHtml(doc.address)}</div>` : '')}
+      ${doc.paymentMode ? `<div><strong>Payment:</strong> ${doc.paymentMode==='pod' ? 'Pay on delivery (cash or M-Pesa)' : 'M-Pesa — ' + (doc.paymentMethod||'')}</div>` : ''}
+      ${doc.notes ? `<div><strong>Notes:</strong> ${escapeHtml(doc.notes)}</div>` : ''}
     </div>
     <table>
       <thead><tr><th>Item</th><th style="text-align:center;">Qty</th><th style="text-align:right;">Unit price</th><th style="text-align:right;">Line total</th></tr></thead>
       <tbody>${itemRows}</tbody>
     </table>
     <div class="totals">
-      <div><span>Subtotal</span><span>${fmt(order.subtotal)}</span></div>
-      ${order.discount ? `<div><span>Discount</span><span>-${fmt(order.discount)}</span></div>` : ''}
-      <div><span>Delivery</span><span>${order.deliveryFee ? fmt(order.deliveryFee) : 'Free'}</span></div>
-      <div class="grand"><span>Total</span><span>${fmt(order.total)}</span></div>
+      <div><span>Subtotal</span><span>${fmt(doc.subtotal)}</span></div>
+      ${doc.discount ? `<div><span>Discount</span><span>-${fmt(doc.discount)}</span></div>` : ''}
+      ${doc.deliveryMethod ? `<div><span>Delivery</span><span>${doc.feePending ? 'To be confirmed' : (doc.deliveryFee ? fmt(doc.deliveryFee) : 'Free')}</span></div>` : ''}
+      <div class="grand"><span>Total${doc.feePending?' (excl. delivery)':''}</span><span>${fmt(doc.total)}</span></div>
     </div>
-    <p class="muted" style="margin-top:24px;">Thank you for shopping with PAT.Enterprise. This invoice was generated automatically at checkout.</p>
+    <p class="muted" style="margin-top:24px;">Thank you for choosing PAT.Enterprise.</p>
     <button class="no-print" onclick="window.print()" style="margin-top:10px; padding:10px 16px; border:none; background:#FF8A1E; color:#fff; border-radius:6px; font-weight:600; cursor:pointer;">Print / Save as PDF</button>
   </body></html>`;
 }
 
+function findAnyDoc(ref){
+  return orders.find(o=>o.ref===ref) || manualDocs.find(d=>d.ref===ref);
+}
 function downloadInvoice(ref){
-  const order = orders.find(o=>o.ref===ref);
-  if(!order){ toast('Invoice not found','⚠️'); return; }
-  const html = buildInvoiceHtml(order);
+  const doc = findAnyDoc(ref);
+  if(!doc){ toast('Invoice not found','⚠️'); return; }
+  const html = buildInvoiceHtml(doc);
   const blob = new Blob([html], {type:'text/html'});
   const url = URL.createObjectURL(blob);
   const a = document.createElement('a');
-  a.href = url; a.download = `invoice-${order.ref}.html`;
+  a.href = url; a.download = `${doc.docType||'invoice'}-${doc.ref}.html`;
   document.body.appendChild(a); a.click(); document.body.removeChild(a);
   setTimeout(()=>URL.revokeObjectURL(url), 4000);
 }
 
 function placeOrder(){
-  const {subtotal, discount, deliveryFee, total} = checkoutTotals();
-  const earnedPoints = Math.floor(total * 0.02 / 10);
+  const entries = checkoutEntries();
+  if(!entries.length){ toast('Your cart is empty','⚠️'); return; }
+  const {subtotal, discount, deliveryFee, feePending, total} = checkoutTotals();
   const name = (document.getElementById('ckName')||{}).value || '';
   const phone = (document.getElementById('ckPhone')||{}).value || '';
   const address = (document.getElementById('ckAddress')||{}).value || '';
   const notes = (document.getElementById('ckNotes')||{}).value || '';
+  const pickupLoc = pickupLocations.find(l=>l.id===pickupLocationId);
   const order = {
     ref: orderRef,
-    items: cartEntries().map(e=>({name:e.p.name, qty:e.qty, price:e.p.price})),
-    subtotal, discount, deliveryFee, total,
-    deliveryMethod, address,
+    docType: 'invoice',
+    items: entries.map(e=>({name:e.p.name, sku:e.p.sku, productId:e.p.id, qty:e.qty, price:e.p.price})),
+    subtotal, discount, deliveryFee, feePending, total,
+    deliveryMethod, deliveryZone: deliveryMethod==='delivery' ? deliveryZone : null, address,
+    pickupLocationName: deliveryMethod==='pickup' ? (pickupLoc ? pickupLoc.name : null) : null,
     paymentMode, paymentMethod: paymentMode==='mpesa' ? paymentMethod : null,
     customerName: name, customerPhone: phone, notes,
+    status: 'placed', paid: false,
     placedAt: Date.now(),
   };
   orders.push(order);
   saveJSON('pat_orders', orders);
-  points += earnedPoints;
-  saveJSON('pat_points', points);
+
+  // decrement stock for whatever was actually bought
+  entries.forEach(e=>{
+    const p = products.find(x=>x.id===e.p.id);
+    if(p){ p.stockQty = Math.max(0, (p.stockQty||0) - e.qty); syncStockFields(p); }
+  });
+  persistProducts();
 
   const modal = document.getElementById('checkoutModal');
   const payLine = paymentMode==='pod'
@@ -1952,15 +2090,20 @@ function placeOrder(){
     <div class="success-box">
       <div class="tick">✅</div>
       <h3>Order received</h3>
-      <p>Order ref <strong class="mono">${orderRef}</strong> is confirmed for ${deliveryMethod==='pickup'?'CBD pickup':'delivery'}. ${payLine} You earned <strong>${earnedPoints} PAT Points</strong>.</p>
+      <p>Order ref <strong class="mono">${orderRef}</strong> is confirmed for ${deliveryMethod==='pickup'?'CBD pickup':'delivery'}. ${payLine}</p>
       <button class="checkout-btn" onclick="downloadInvoice('${orderRef}')">Download invoice</button>
       <button class="checkout-btn" style="background:var(--panel); color:var(--ink); border:1px solid var(--border); margin-top:8px;" onclick="closeCheckout(); openTrackOrder('${orderRef}');">Track this order</button>
       <button class="checkout-btn" style="background:var(--panel); color:var(--ink); border:1px solid var(--border); margin-top:8px;" onclick="closeCheckout()">Done</button>
     </div>`;
-  cart = {};
-  saveJSON('pat_cart', cart);
+  if(checkoutOverride){
+    checkoutOverride = null;
+  } else {
+    cart = {};
+    saveJSON('pat_cart', cart);
+  }
   promoApplied = null;
   updateHeaderCounts();
+  render();
 }
 
 /* ============================================================
@@ -1988,18 +2131,26 @@ function runTrackOrder(){
     resultEl.innerHTML = `<div class="cart-empty" style="padding:20px 0;">No order found for "${ref}". Check the reference and try again.</div>`;
     return;
   }
-  const mins = (Date.now() - order.placedAt) / 60000;
-  const steps = order.deliveryMethod==='pickup'
-    ? ['Order placed','Payment confirmed','Preparing your order','Ready for CBD pickup']
-    : ['Order placed','Payment confirmed','Preparing your order','Out for delivery','Delivered'];
-  let currentStep = Math.min(steps.length-1, Math.floor(mins / 0.5));
+  const steps = statusListFor(order);
+  let currentStep = Math.max(0, steps.findIndex(s=>s.key===order.status));
+  if(currentStep < 0) currentStep = 0;
+  const itemsHtml = order.items.map(it=>`<div class="order-line"><span>${escapeHtml(it.name)} <span class="mono" style="color:var(--slate-light);">(${escapeHtml(it.sku||'')})</span> × ${it.qty}</span><span>${fmt(it.price*it.qty)}</span></div>`).join('');
+  const fulfilHtml = order.deliveryMethod==='pickup'
+    ? `Pickup${order.pickupLocationName ? ' at <strong>'+escapeHtml(order.pickupLocationName)+'</strong>' : ''}`
+    : `Delivery to ${escapeHtml(order.address||'—')}${order.feePending ? ' (delivery fee to be confirmed)' : ''}`;
   resultEl.innerHTML = `
-    <div style="margin-top:14px; font-size:12.5px; color:var(--slate);">Order <strong class="mono">${order.ref}</strong> · ${fmt(order.total)} · ${order.paymentMode==='pod'?'Pay on delivery':'M-Pesa'}</div>
+    <div style="margin-top:14px; font-size:12.5px; color:var(--slate);">Order <strong class="mono">${order.ref}</strong> · ${order.paid ? '<span style="color:var(--green);font-weight:600;">Paid</span>' : '<span style="color:var(--red);font-weight:600;">Unpaid</span>'} · ${order.paymentMode==='pod'?'Pay on delivery':'M-Pesa'} · ${fulfilHtml}</div>
+    <div style="margin:10px 0;">${itemsHtml}
+      <div class="cart-total-row"><span>Subtotal</span><span>${fmt(order.subtotal)}</span></div>
+      ${order.discount ? `<div class="cart-total-row" style="color:var(--green);"><span>Discount</span><span>-${fmt(order.discount)}</span></div>` : ''}
+      <div class="cart-total-row"><span>Delivery</span><span>${order.deliveryMethod==='pickup'?'Free':(order.feePending?'To be confirmed':fmt(order.deliveryFee))}</span></div>
+      <div class="cart-total-row grand"><span>Total</span><span>${fmt(order.total)}</span></div>
+    </div>
     <div class="track-timeline">
       ${steps.map((s,i)=>`
         <div class="tt-step ${i<currentStep?'done':''} ${i===currentStep?'current':''}">
           <div class="tt-dot">${i<currentStep?'✓':(i===currentStep?'●':'')}</div>
-          <div class="tt-label"><b>${s}</b>${i===currentStep?'<span>In progress</span>':''}</div>
+          <div class="tt-label"><b>${s.label}</b>${i===currentStep?'<span>In progress</span>':''}</div>
         </div>`).join('')}
     </div>
     <button class="checkout-btn" onclick="downloadInvoice('${order.ref}')">Download invoice</button>
@@ -2047,6 +2198,9 @@ function submitNotify(e){
    ADMIN — catalog editor (client-side, saves to this browser)
 ============================================================ */
 let adminUnlocked = false;
+let adminTab = 'products';
+let invoiceBuilder = { type:'invoice', items:[] }; // items: [{productId, name, sku, price, qty}]
+
 function openAdmin(){
   if(!adminUnlocked){
     const code = prompt('Enter the store admin passcode to edit the catalog:');
@@ -2058,23 +2212,52 @@ function openAdmin(){
   document.getElementById('adminOverlay').classList.add('show');
 }
 function closeAdmin(){ document.getElementById('adminOverlay').classList.remove('show'); }
+function setAdminTab(t){ adminTab = t; renderAdminModal(); }
 
 function categoryOptionsHtml(selected){
-  return NAV_CATS.filter(c=>c.key!=='all' && c.key!=='clearance').map(c=>`<option value="${c.key}" ${c.key===selected?'selected':''}>${c.label}</option>`).join('');
+  return navCats.filter(c=>c.key!=='all' && c.key!=='clearance').map(c=>`<option value="${c.key}" ${c.key===selected?'selected':''}>${c.label}</option>`).join('');
 }
 function subcatOptionsHtml(selected){
-  return SUBCATS.map(s=>`<option value="${s.name}" ${s.name===selected?'selected':''}>${s.name}</option>`).join('');
-}
-function stockOptionsHtml(selected){
-  return ['in','low','out'].map(s=>`<option value="${s}" ${s===selected?'selected':''}>${s==='in'?'In stock':s==='low'?'Low stock':'Out of stock'}</option>`).join('');
+  return subCats.map(s=>`<option value="${s.name}" ${s.name===selected?'selected':''}>${s.name}</option>`).join('');
 }
 
 function renderAdminModal(){
   const modal = document.getElementById('adminModal');
+  const tabs = [
+    {key:'products', label:'Products'},
+    {key:'orders', label:'Orders'},
+    {key:'invoices', label:'Invoices & Quotations'},
+    {key:'categories', label:'Categories'},
+    {key:'coupons', label:'Coupons'},
+    {key:'pickups', label:'Pickup locations'},
+    {key:'pricing', label:'Bulk pricing'},
+  ];
+  const restockCount = products.filter(p=>p.stock!=='in').length;
+  let body = '';
+  if(adminTab==='products') body = renderAdminProductsTab();
+  else if(adminTab==='orders') body = renderAdminOrdersTab();
+  else if(adminTab==='invoices') body = renderAdminInvoicesTab();
+  else if(adminTab==='categories') body = renderAdminCategoriesTab();
+  else if(adminTab==='coupons') body = renderAdminCouponsTab();
+  else if(adminTab==='pickups') body = renderAdminPickupsTab();
+  else if(adminTab==='pricing') body = renderAdminPricingTab();
+
+  modal.innerHTML = `
+    <button class="modal-close" onclick="closeAdmin()">✕</button>
+    <h2 class="display" style="font-size:18px;margin-bottom:6px;">Store admin</h2>
+    <div class="admin-note">Changes here save to this browser's storage. For changes to be visible to every customer on every device, this static site would eventually need a real server + database backend — for now this admin panel runs entirely on this device.${restockCount ? ` ⚠️ ${restockCount} product(s) need restocking.` : ''}</div>
+    <div class="admin-tabs">${tabs.map(t=>`<button class="admin-tab-btn ${adminTab===t.key?'active':''}" onclick="setAdminTab('${t.key}')">${t.label}</button>`).join('')}</div>
+    <div id="adminTabBody">${body}</div>
+  `;
+}
+
+/* ---------------- PRODUCTS TAB ---------------- */
+function renderAdminProductsTab(){
   const rows = products.map(p => `
     <div class="admin-row" id="admin-row-${p.id}">
       <div class="ar-thumb">${mediaHtml(p,'26px')}</div>
       <div class="ar-fields">
+        <div style="font-size:11px;margin-bottom:8px;"><span class="sku-tag">${p.sku}</span>${p.stock!=='in' ? `<span class="restock-flag">${p.stock==='out'?'RESTOCK — OUT':'RESTOCK — LOW'}</span>` : ''}</div>
         <div class="admin-grid-fields wide">
           <div><label>Name</label><input type="text" id="a-name-${p.id}" value="${escapeHtml(p.name)}"></div>
           <div><label>Price (KES)</label><input type="number" id="a-price-${p.id}" value="${p.price}"></div>
@@ -2083,12 +2266,16 @@ function renderAdminModal(){
         <div class="admin-grid-fields wide">
           <div><label>Category</label><select id="a-cat-${p.id}">${categoryOptionsHtml(p.category)}</select></div>
           <div><label>Subcategory</label><select id="a-subcat-${p.id}">${subcatOptionsHtml(p.subcategory)}</select></div>
-          <div><label>Stock status</label><select id="a-stock-${p.id}">${stockOptionsHtml(p.stock)}</select></div>
+          <div><label>Stock quantity (restock flag at ≤${LOW_STOCK_THRESHOLD})</label><input type="number" id="a-stockqty-${p.id}" value="${p.stockQty}" min="0"></div>
         </div>
         <div class="admin-grid-fields wide">
-          <div><label>Stock note</label><input type="text" id="a-stocknote-${p.id}" value="${escapeHtml(p.stockNote)}"></div>
-          <div><label>Image URL (optional — blank keeps icon)</label><input type="text" id="a-img-${p.id}" value="${escapeHtml(p.img||'')}" placeholder="https://..."></div>
-          <div><label>Emoji icon</label><input type="text" id="a-icon-${p.id}" value="${escapeHtml(p.icon||'')}" placeholder="📦"></div>
+          <div><label>Image 1</label><input type="text" id="a-img1-${p.id}" value="${escapeHtml(p.images[0]||'')}" placeholder="https://..."></div>
+          <div><label>Image 2</label><input type="text" id="a-img2-${p.id}" value="${escapeHtml(p.images[1]||'')}" placeholder="https://..."></div>
+          <div><label>Image 3</label><input type="text" id="a-img3-${p.id}" value="${escapeHtml(p.images[2]||'')}" placeholder="https://..."></div>
+        </div>
+        <div class="admin-grid-fields wide">
+          <div><label>Image 4</label><input type="text" id="a-img4-${p.id}" value="${escapeHtml(p.images[3]||'')}" placeholder="https://..."></div>
+          <div><label>Emoji icon (fallback)</label><input type="text" id="a-icon-${p.id}" value="${escapeHtml(p.icon||'')}" placeholder="📦"></div>
         </div>
         <div class="admin-grid-fields">
           <div style="grid-column:1/-1;"><label>Description</label><textarea id="a-desc-${p.id}">${escapeHtml(p.desc)}</textarea></div>
@@ -2100,10 +2287,7 @@ function renderAdminModal(){
       </div>
     </div>`).join('');
 
-  modal.innerHTML = `
-    <button class="modal-close" onclick="closeAdmin()">✕</button>
-    <h2 class="display" style="font-size:18px;margin-bottom:6px;">Store admin — edit catalog</h2>
-    <div class="admin-note">Changes save to this browser's storage. To publish real changes for every visitor, this static file would need a real backend/database — for now, edits here are visible only on this device.</div>
+  return `
     <div class="admin-add">
       <h4>Add a new product</h4>
       <div class="admin-grid-fields wide">
@@ -2113,13 +2297,18 @@ function renderAdminModal(){
       </div>
       <div class="admin-grid-fields wide">
         <div><label>Category</label><select id="new-cat">${categoryOptionsHtml('components')}</select></div>
-        <div><label>Subcategory</label><select id="new-subcat">${subcatOptionsHtml('Motherboards')}</select></div>
+        <div><label>Subcategory</label><select id="new-subcat">${subcatOptionsHtml(subCats[0]?subCats[0].name:'')}</select></div>
         <div><label>Brand</label><input type="text" id="new-brand" placeholder="e.g. Generic OEM"></div>
       </div>
       <div class="admin-grid-fields wide">
-        <div><label>Image URL (optional)</label><input type="text" id="new-img" placeholder="https://..."></div>
-        <div><label>Emoji icon</label><input type="text" id="new-icon" placeholder="📦"></div>
-        <div><label>Stock status</label><select id="new-stock">${stockOptionsHtml('in')}</select></div>
+        <div><label>Stock quantity</label><input type="number" id="new-stockqty" placeholder="20" min="0"></div>
+        <div><label>Emoji icon (fallback)</label><input type="text" id="new-icon" placeholder="📦"></div>
+      </div>
+      <div class="admin-grid-fields wide">
+        <div><label>Image 1</label><input type="text" id="new-img1" placeholder="https://..."></div>
+        <div><label>Image 2</label><input type="text" id="new-img2" placeholder="https://..."></div>
+        <div><label>Image 3</label><input type="text" id="new-img3" placeholder="https://..."></div>
+        <div><label>Image 4</label><input type="text" id="new-img4" placeholder="https://..."></div>
       </div>
       <div class="admin-grid-fields">
         <div style="grid-column:1/-1;"><label>Description</label><textarea id="new-desc" placeholder="Short product description"></textarea></div>
@@ -2143,9 +2332,9 @@ function saveAdminProduct(id){
   p.badge = p.oldPrice ? 'sale' : (p.badge==='sale' ? null : p.badge);
   p.category = document.getElementById(`a-cat-${id}`).value;
   p.subcategory = document.getElementById(`a-subcat-${id}`).value;
-  p.stock = document.getElementById(`a-stock-${id}`).value;
-  p.stockNote = document.getElementById(`a-stocknote-${id}`).value.trim() || (p.stock==='in'?'In stock':p.stock==='low'?'Low stock':'Out of stock');
-  p.img = document.getElementById(`a-img-${id}`).value.trim();
+  p.stockQty = Math.max(0, Math.round(Number(document.getElementById(`a-stockqty-${id}`).value)||0));
+  syncStockFields(p);
+  p.images = [1,2,3,4].map(n=>document.getElementById(`a-img${n}-${id}`).value.trim());
   p.icon = document.getElementById(`a-icon-${id}`).value.trim() || '📦';
   p.desc = document.getElementById(`a-desc-${id}`).value.trim();
   if(!p.gallery || !p.gallery.length) p.gallery = [p.icon];
@@ -2178,20 +2367,447 @@ function addAdminProduct(){
     category: document.getElementById('new-cat').value,
     subcategory: document.getElementById('new-subcat').value,
     brand: document.getElementById('new-brand').value.trim() || 'Generic OEM',
-    stock: document.getElementById('new-stock').value,
-    stockNote: document.getElementById('new-stock').value==='in' ? 'In stock' : document.getElementById('new-stock').value==='low' ? 'Low stock' : 'Out of stock',
-    icon, img: document.getElementById('new-img').value.trim(),
+    stockQty: Math.max(0, Math.round(Number(document.getElementById('new-stockqty').value)||20)),
+    icon,
+    images: [1,2,3,4].map(n=>document.getElementById(`new-img${n}`).value.trim()),
     gallery: [icon],
     rating: 4.5, reviewCount: 0,
     desc: document.getElementById('new-desc').value.trim() || 'New product.',
     specs: [],
   };
+  ensureProductFields(p);
   products.push(p);
   persistProducts();
   render();
   renderAdminModal();
-  toast('Product added','✓');
-  ['new-name','new-price','new-oldprice','new-brand','new-img','new-icon','new-desc'].forEach(id=>{ const el=document.getElementById(id); if(el) el.value=''; });
+  toast('Product added — SKU ' + p.sku,'✓');
+  ['new-name','new-price','new-oldprice','new-brand','new-stockqty','new-icon','new-img1','new-img2','new-img3','new-img4','new-desc'].forEach(id=>{ const el=document.getElementById(id); if(el) el.value=''; });
+}
+
+/* ---------------- ORDERS TAB ---------------- */
+function renderAdminOrdersTab(){
+  const sorted = orders.slice().sort((a,b)=>b.placedAt-a.placedAt);
+  if(!sorted.length) return `<div class="admin-note">No orders placed yet.</div>`;
+  const rows = sorted.map(o=>{
+    const steps = statusListFor(o);
+    const itemsSummary = o.items.map(it=>`${it.name} ×${it.qty}`).join(', ');
+    return `
+    <div class="admin-row" style="flex-direction:column; align-items:stretch;">
+      <div style="display:flex;justify-content:space-between;flex-wrap:wrap;gap:8px;">
+        <div><strong class="mono">${o.ref}</strong> · ${new Date(o.placedAt).toLocaleString('en-KE')}<br>
+          <span style="font-size:12px;color:var(--slate);">${escapeHtml(o.customerName||'—')} · ${escapeHtml(o.customerPhone||'—')}</span></div>
+        <div style="text-align:right;"><div class="mono" style="font-weight:700;">${fmt(o.total)}</div>
+          <div style="font-size:11px;color:var(--slate);">${o.paymentMode==='pod'?'Pay on delivery':'M-Pesa · '+(o.paymentMethod||'')}</div></div>
+      </div>
+      <div style="font-size:12px;color:var(--slate);margin:6px 0;">${escapeHtml(itemsSummary)} — ${o.deliveryMethod==='pickup' ? ('Pickup'+(o.pickupLocationName?': '+escapeHtml(o.pickupLocationName):'')) : ('Delivery to '+escapeHtml(o.address||'—')+(o.deliveryZone==='outside'?' (outside CBD)':' (CBD)'))}</div>
+      <div class="admin-grid-fields wide">
+        <div><label>Status</label><select id="ord-status-${o.ref}">${steps.map(s=>`<option value="${s.key}" ${s.key===o.status?'selected':''}>${s.label}</option>`).join('')}</select></div>
+        <div><label>Payment</label><select id="ord-paid-${o.ref}"><option value="0" ${!o.paid?'selected':''}>Unpaid</option><option value="1" ${o.paid?'selected':''}>Paid</option></select></div>
+        <div><label>Delivery fee (KES)${o.feePending?' — pending, please confirm':''}</label><input type="number" id="ord-fee-${o.ref}" value="${o.deliveryFee||0}" ${o.deliveryMethod!=='delivery'?'disabled':''}></div>
+      </div>
+      <div class="ar-actions" style="flex-direction:row;">
+        <button class="btn-save" onclick="saveAdminOrder('${o.ref}')">Update order</button>
+        <button class="btn-add" style="background:var(--rail-950);color:#fff;" onclick="downloadInvoice('${o.ref}')">Download invoice</button>
+      </div>
+    </div>`;
+  }).join('');
+  return rows;
+}
+function saveAdminOrder(ref){
+  const o = orders.find(x=>x.ref===ref);
+  if(!o) return;
+  o.status = document.getElementById(`ord-status-${ref}`).value;
+  o.paid = document.getElementById(`ord-paid-${ref}`).value === '1';
+  if(o.deliveryMethod==='delivery'){
+    const newFee = Math.max(0, Number(document.getElementById(`ord-fee-${ref}`).value)||0);
+    o.deliveryFee = newFee;
+    o.feePending = false;
+    o.total = o.subtotal - o.discount + o.deliveryFee;
+  }
+  saveJSON('pat_orders', orders);
+  renderAdminModal();
+  toast('Order updated','✓');
+}
+
+/* ---------------- INVOICES & QUOTATIONS TAB ---------------- */
+function invoiceSearchResultsHtml(){
+  const q = (document.getElementById('inv-search') ? document.getElementById('inv-search').value : '').trim().toLowerCase();
+  if(!q) return '';
+  const matches = products.filter(p => p.sku.toLowerCase().includes(q) || p.name.toLowerCase().includes(q)).slice(0,8);
+  if(!matches.length) return `<div class="suggest-empty">No product matches "${escapeHtml(q)}"</div>`;
+  return matches.map(p=>`<div class="suggest-item" onclick="addToInvoiceBuilder(${p.id})"><div class="si-icon">${mediaHtml(p)}</div><div class="si-name">${escapeHtml(p.name)} <span class="sku-tag">${p.sku}</span></div><div class="si-price">${fmt(p.price)}</div></div>`).join('');
+}
+function onInvoiceSearchInput(){
+  const panel = document.getElementById('invSearchResults');
+  if(panel) panel.innerHTML = invoiceSearchResultsHtml();
+}
+function addToInvoiceBuilder(productId){
+  const p = products.find(x=>x.id===productId);
+  if(!p) return;
+  const existing = invoiceBuilder.items.find(i=>i.productId===productId);
+  if(existing) existing.qty += 1;
+  else invoiceBuilder.items.push({productId:p.id, name:p.name, sku:p.sku, price:p.price, qty:1});
+  renderAdminModal();
+}
+function setInvoiceItemQty(productId, qty){
+  const it = invoiceBuilder.items.find(i=>i.productId===productId);
+  if(!it) return;
+  it.qty = Math.max(1, Math.round(Number(qty)||1));
+  renderAdminModal();
+}
+function removeInvoiceItem(productId){
+  invoiceBuilder.items = invoiceBuilder.items.filter(i=>i.productId!==productId);
+  renderAdminModal();
+}
+function setInvoiceType(t){ invoiceBuilder.type = t; renderAdminModal(); }
+
+function renderAdminInvoicesTab(){
+  const subtotal = invoiceBuilder.items.reduce((s,i)=>s+i.price*i.qty,0);
+  const itemRows = invoiceBuilder.items.map(i=>`
+    <div class="cart-item">
+      <div class="ci-name" style="flex:1;">${escapeHtml(i.name)} <span class="sku-tag">${i.sku}</span></div>
+      <input type="number" min="1" value="${i.qty}" style="width:56px;border:1px solid var(--border);border-radius:6px;padding:6px;" onchange="setInvoiceItemQty(${i.productId}, this.value)">
+      <div class="ci-price" style="margin-left:10px;">${fmt(i.price*i.qty)}</div>
+      <button class="ci-remove" onclick="removeInvoiceItem(${i.productId})">Remove</button>
+    </div>`).join('');
+
+  const docsList = manualDocs.slice().sort((a,b)=>b.placedAt-a.placedAt).map(d=>`
+    <div class="admin-row">
+      <div class="ar-fields">
+        <strong class="mono">${d.ref}</strong> <span class="badge ${d.docType==='quotation'?'new':'best'}" style="position:static;display:inline-block;margin-left:6px;">${d.docType.toUpperCase()}</span>
+        <div style="font-size:12px;color:var(--slate);margin-top:4px;">${escapeHtml(d.customerName||'—')} · ${escapeHtml(d.customerPhone||'—')} · ${fmt(d.total)}</div>
+      </div>
+      <div class="ar-actions">
+        <button class="btn-save" onclick="downloadInvoice('${d.ref}')">Download</button>
+        <button class="btn-delete" onclick="deleteManualDoc('${d.ref}')">Delete</button>
+      </div>
+    </div>`).join('');
+
+  return `
+    <div class="admin-add">
+      <h4>Create an invoice or quotation</h4>
+      <div class="admin-grid-fields wide">
+        <div style="grid-column:1/-1;">
+          <label>Search products by name or product number (SKU)</label>
+          <input type="text" id="inv-search" placeholder="e.g. PAT-0006 or NVMe SSD" oninput="onInvoiceSearchInput()">
+          <div id="invSearchResults" style="position:relative;">${invoiceSearchResultsHtml()}</div>
+        </div>
+      </div>
+      ${invoiceBuilder.items.length ? itemRows : `<div class="cart-empty" style="padding:16px 0;">No items added yet — search above and click a result to add it.</div>`}
+      <div class="cart-total-row grand"><span>Subtotal</span><span>${fmt(subtotal)}</span></div>
+      <div class="admin-grid-fields wide" style="margin-top:10px;">
+        <div><label>Document type</label><select id="inv-type" onchange="setInvoiceType(this.value)">
+          <option value="invoice" ${invoiceBuilder.type==='invoice'?'selected':''}>Invoice</option>
+          <option value="quotation" ${invoiceBuilder.type==='quotation'?'selected':''}>Quotation</option>
+        </select></div>
+        <div><label>Customer name</label><input type="text" id="inv-name" placeholder="Customer name"></div>
+        <div><label>Customer phone</label><input type="text" id="inv-phone" placeholder="07xx xxx xxx"></div>
+      </div>
+      <div class="admin-grid-fields wide">
+        <div style="grid-column:1/-1;"><label>Address / notes (optional)</label><input type="text" id="inv-address" placeholder="Address or notes"></div>
+      </div>
+      <button class="btn-add" onclick="generateManualDoc()">Generate ${invoiceBuilder.type==='quotation'?'quotation':'invoice'}</button>
+    </div>
+    <h4 style="margin:16px 0 8px 0;">Previously generated documents</h4>
+    ${docsList || '<div class="admin-note">None yet.</div>'}
+  `;
+}
+function generateManualDoc(){
+  if(!invoiceBuilder.items.length){ toast('Add at least one product first','⚠️'); return; }
+  const subtotal = invoiceBuilder.items.reduce((s,i)=>s+i.price*i.qty,0);
+  const type = invoiceBuilder.type;
+  const ref = (type==='quotation'?'QUO':'INV') + Math.floor(10000 + Math.random()*89999);
+  const doc = {
+    ref, docType: type,
+    items: invoiceBuilder.items.map(i=>({name:i.name, sku:i.sku, productId:i.productId, qty:i.qty, price:i.price})),
+    subtotal, discount:0, total: subtotal,
+    customerName: (document.getElementById('inv-name')||{}).value || '',
+    customerPhone: (document.getElementById('inv-phone')||{}).value || '',
+    address: (document.getElementById('inv-address')||{}).value || '',
+    paid: type==='invoice' ? false : undefined,
+    placedAt: Date.now(),
+  };
+  manualDocs.push(doc);
+  persistManualDocs();
+  invoiceBuilder = { type:'invoice', items:[] };
+  renderAdminModal();
+  toast(`${type==='quotation'?'Quotation':'Invoice'} ${ref} created`,'✓');
+  downloadInvoice(ref);
+}
+function deleteManualDoc(ref){
+  if(!confirm('Delete this document? This cannot be undone.')) return;
+  manualDocs = manualDocs.filter(d=>d.ref!==ref);
+  persistManualDocs();
+  renderAdminModal();
+  toast('Document deleted','🗑️');
+}
+
+/* ---------------- CATEGORIES TAB ---------------- */
+function renderAdminCategoriesTab(){
+  const catRows = navCats.filter(c=>c.key!=='all').map(c=>`
+    <div class="admin-row">
+      <div class="ar-fields">
+        <div class="admin-grid-fields wide">
+          <div><label>Key</label><input type="text" value="${escapeHtml(c.key)}" disabled></div>
+          <div><label>Label</label><input type="text" id="cat-label-${c.key}" value="${escapeHtml(c.label)}"></div>
+        </div>
+      </div>
+      <div class="ar-actions">
+        <button class="btn-save" onclick="saveCategoryLabel('${c.key}')">Save</button>
+        ${c.key!=='clearance' ? `<button class="btn-delete" onclick="deleteCategory('${c.key}')">Delete</button>` : ''}
+      </div>
+    </div>`).join('');
+  const subRows = subCats.map((s,i)=>`
+    <div class="admin-row">
+      <div class="ar-fields">
+        <div class="admin-grid-fields wide">
+          <div><label>Name</label><input type="text" id="subcat-name-${i}" value="${escapeHtml(s.name)}"></div>
+          <div><label>Parent category</label><select id="subcat-cat-${i}">${categoryOptionsHtml(s.cat)}</select></div>
+        </div>
+      </div>
+      <div class="ar-actions">
+        <button class="btn-save" onclick="saveSubcat(${i})">Save</button>
+        <button class="btn-delete" onclick="deleteSubcat(${i})">Delete</button>
+      </div>
+    </div>`).join('');
+  return `
+    <div class="admin-add">
+      <h4>Add a category</h4>
+      <div class="admin-grid-fields wide">
+        <div><label>Key (lowercase, no spaces, unique)</label><input type="text" id="new-cat-key" placeholder="e.g. laptops"></div>
+        <div><label>Label (shown to customers)</label><input type="text" id="new-cat-label" placeholder="e.g. Laptops"></div>
+      </div>
+      <button class="btn-add" onclick="addCategory()">Add category</button>
+    </div>
+    <h4 style="margin:14px 0 8px 0;">Categories</h4>
+    ${catRows}
+    <div class="admin-add" style="margin-top:20px;">
+      <h4>Add a subcategory</h4>
+      <div class="admin-grid-fields wide">
+        <div><label>Name</label><input type="text" id="new-subcat-name" placeholder="e.g. Laptop Chargers"></div>
+        <div><label>Parent category</label><select id="new-subcat-cat">${categoryOptionsHtml('components')}</select></div>
+      </div>
+      <button class="btn-add" onclick="addSubcat()">Add subcategory</button>
+    </div>
+    <h4 style="margin:14px 0 8px 0;">Subcategories</h4>
+    ${subRows}
+  `;
+}
+function saveCategoryLabel(key){
+  const c = navCats.find(x=>x.key===key);
+  if(!c) return;
+  const label = document.getElementById(`cat-label-${key}`).value.trim();
+  if(!label){ toast('Label cannot be empty','⚠️'); return; }
+  c.label = label;
+  persistCats();
+  render();
+  renderAdminModal();
+  toast('Category saved','✓');
+}
+function deleteCategory(key){
+  if(products.some(p=>p.category===key)){ toast('Move or delete products in this category first','⚠️'); return; }
+  if(!confirm('Delete this category?')) return;
+  navCats = navCats.filter(c=>c.key!==key);
+  subCats = subCats.filter(s=>s.cat!==key);
+  persistCats();
+  render();
+  renderAdminModal();
+  toast('Category deleted','🗑️');
+}
+function addCategory(){
+  const key = document.getElementById('new-cat-key').value.trim().toLowerCase().replace(/\s+/g,'-');
+  const label = document.getElementById('new-cat-label').value.trim();
+  if(!key || !label){ toast('Key and label are required','⚠️'); return; }
+  if(navCats.some(c=>c.key===key)){ toast('That key already exists','⚠️'); return; }
+  navCats.push({key, label});
+  persistCats();
+  render();
+  renderAdminModal();
+  toast('Category added','✓');
+}
+function saveSubcat(i){
+  const s = subCats[i];
+  if(!s) return;
+  const name = document.getElementById(`subcat-name-${i}`).value.trim();
+  if(!name){ toast('Name cannot be empty','⚠️'); return; }
+  const oldName = s.name;
+  s.name = name;
+  s.cat = document.getElementById(`subcat-cat-${i}`).value;
+  products.forEach(p=>{ if(p.subcategory===oldName) p.subcategory = name; });
+  persistCats();
+  persistProducts();
+  render();
+  renderAdminModal();
+  toast('Subcategory saved','✓');
+}
+function deleteSubcat(i){
+  if(!confirm('Delete this subcategory?')) return;
+  subCats.splice(i,1);
+  persistCats();
+  render();
+  renderAdminModal();
+  toast('Subcategory deleted','🗑️');
+}
+function addSubcat(){
+  const name = document.getElementById('new-subcat-name').value.trim();
+  const cat = document.getElementById('new-subcat-cat').value;
+  if(!name){ toast('Name is required','⚠️'); return; }
+  subCats.push({name, cat});
+  persistCats();
+  render();
+  renderAdminModal();
+  toast('Subcategory added','✓');
+}
+
+/* ---------------- COUPONS TAB ---------------- */
+function renderAdminCouponsTab(){
+  const rows = coupons.map((c,i)=>`
+    <div class="admin-row">
+      <div class="ar-fields">
+        <div class="admin-grid-fields wide">
+          <div><label>Code</label><input type="text" id="cp-code-${i}" value="${escapeHtml(c.code)}"></div>
+          <div><label>Type</label><select id="cp-type-${i}">
+            <option value="percent" ${c.type==='percent'?'selected':''}>Percent off (%)</option>
+            <option value="amount" ${c.type==='amount'?'selected':''}>Amount off (KES)</option>
+          </select></div>
+          <div><label>Value</label><input type="number" id="cp-value-${i}" value="${c.value}"></div>
+        </div>
+        <label class="check-row"><input type="checkbox" id="cp-active-${i}" ${c.active?'checked':''}>Active</label>
+      </div>
+      <div class="ar-actions">
+        <button class="btn-save" onclick="saveCoupon(${i})">Save</button>
+        <button class="btn-delete" onclick="deleteCoupon(${i})">Delete</button>
+      </div>
+    </div>`).join('');
+  return `
+    <div class="admin-add">
+      <h4>Add a coupon code</h4>
+      <div class="admin-grid-fields wide">
+        <div><label>Code</label><input type="text" id="new-cp-code" placeholder="e.g. SAVE500"></div>
+        <div><label>Type</label><select id="new-cp-type">
+          <option value="percent">Percent off (%)</option>
+          <option value="amount">Amount off (KES)</option>
+        </select></div>
+        <div><label>Value</label><input type="number" id="new-cp-value" placeholder="10"></div>
+      </div>
+      <button class="btn-add" onclick="addCoupon()">Add coupon</button>
+    </div>
+    ${rows || '<div class="admin-note">No coupons yet.</div>'}
+  `;
+}
+function saveCoupon(i){
+  const c = coupons[i];
+  if(!c) return;
+  const code = document.getElementById(`cp-code-${i}`).value.trim().toUpperCase();
+  const value = Number(document.getElementById(`cp-value-${i}`).value);
+  if(!code || !value){ toast('Code and a non-zero value are required','⚠️'); return; }
+  c.code = code;
+  c.type = document.getElementById(`cp-type-${i}`).value;
+  c.value = value;
+  c.active = document.getElementById(`cp-active-${i}`).checked;
+  persistCoupons();
+  renderAdminModal();
+  toast('Coupon saved','✓');
+}
+function deleteCoupon(i){
+  if(!confirm('Delete this coupon?')) return;
+  coupons.splice(i,1);
+  persistCoupons();
+  renderAdminModal();
+  toast('Coupon deleted','🗑️');
+}
+function addCoupon(){
+  const code = document.getElementById('new-cp-code').value.trim().toUpperCase();
+  const value = Number(document.getElementById('new-cp-value').value);
+  if(!code || !value){ toast('Code and a non-zero value are required','⚠️'); return; }
+  if(coupons.some(c=>c.code===code)){ toast('That code already exists','⚠️'); return; }
+  coupons.push({ code, type: document.getElementById('new-cp-type').value, value, active:true });
+  persistCoupons();
+  renderAdminModal();
+  toast('Coupon added','✓');
+}
+
+/* ---------------- PICKUP LOCATIONS TAB ---------------- */
+function renderAdminPickupsTab(){
+  const rows = pickupLocations.map((l,i)=>`
+    <div class="admin-row">
+      <div class="ar-fields">
+        <div class="admin-grid-fields wide">
+          <div><label>Name</label><input type="text" id="pk-name-${i}" value="${escapeHtml(l.name)}" placeholder="e.g. Imenti House, Shop 15"></div>
+          <div><label>Address / directions</label><input type="text" id="pk-addr-${i}" value="${escapeHtml(l.address||'')}" placeholder="e.g. Tom Mboya Street, Nairobi CBD"></div>
+        </div>
+      </div>
+      <div class="ar-actions">
+        <button class="btn-save" onclick="savePickup(${i})">Save</button>
+        <button class="btn-delete" onclick="deletePickup(${i})">Delete</button>
+      </div>
+    </div>`).join('');
+  return `
+    <div class="admin-add">
+      <h4>Add a pickup location</h4>
+      <div class="admin-grid-fields wide">
+        <div><label>Name</label><input type="text" id="new-pk-name" placeholder="e.g. Imenti House, Shop 15"></div>
+        <div><label>Address / directions</label><input type="text" id="new-pk-addr" placeholder="e.g. Tom Mboya Street, Nairobi CBD"></div>
+      </div>
+      <button class="btn-add" onclick="addPickup()">Add location</button>
+    </div>
+    ${rows || '<div class="admin-note">No pickup locations yet — customers won\'t be able to choose CBD pickup until you add one.</div>'}
+  `;
+}
+function savePickup(i){
+  const l = pickupLocations[i];
+  if(!l) return;
+  const name = document.getElementById(`pk-name-${i}`).value.trim();
+  if(!name){ toast('Name cannot be empty','⚠️'); return; }
+  l.name = name;
+  l.address = document.getElementById(`pk-addr-${i}`).value.trim();
+  persistPickups();
+  renderAdminModal();
+  toast('Pickup location saved','✓');
+}
+function deletePickup(i){
+  if(!confirm('Delete this pickup location?')) return;
+  pickupLocations.splice(i,1);
+  persistPickups();
+  renderAdminModal();
+  toast('Pickup location deleted','🗑️');
+}
+function addPickup(){
+  const name = document.getElementById('new-pk-name').value.trim();
+  if(!name){ toast('Name is required','⚠️'); return; }
+  const address = document.getElementById('new-pk-addr').value.trim();
+  const newId = pickupLocations.length ? Math.max(...pickupLocations.map(l=>l.id))+1 : 1;
+  pickupLocations.push({id:newId, name, address});
+  persistPickups();
+  renderAdminModal();
+  toast('Pickup location added','✓');
+}
+
+/* ---------------- BULK PRICING TAB ---------------- */
+function renderAdminPricingTab(){
+  return `
+    <div class="admin-add">
+      <h4>Bulk price adjustment</h4>
+      <p style="font-size:12px;color:var(--slate);margin-bottom:10px;">Apply a single percentage change to every product's price (and "was" price) at once. Use a positive number to increase — e.g. 10 for +10% — or a negative number to decrease — e.g. -10 for -10%.</p>
+      <div class="admin-grid-fields wide">
+        <div><label>Percentage (%)</label><input type="number" id="bulk-pct" placeholder="10 or -10" step="0.1"></div>
+      </div>
+      <button class="btn-add" onclick="applyBulkPricing()">Apply to all ${products.length} products</button>
+    </div>
+  `;
+}
+function applyBulkPricing(){
+  const pct = Number(document.getElementById('bulk-pct').value);
+  if(!pct){ toast('Enter a non-zero percentage','⚠️'); return; }
+  if(!confirm(`Apply ${pct>0?'+':''}${pct}% to the price of all ${products.length} products? This cannot be undone automatically.`)) return;
+  products.forEach(p=>{
+    p.price = Math.max(1, Math.round(p.price * (1+pct/100)));
+    if(p.oldPrice) p.oldPrice = Math.round(p.oldPrice * (1+pct/100));
+  });
+  persistProducts();
+  render();
+  renderAdminModal();
+  toast(`Applied ${pct>0?'+':''}${pct}% to all prices`,'✓');
 }
 
 /* ============================================================
@@ -2203,7 +2819,7 @@ document.getElementById('newsletterForm').addEventListener('submit', function(e)
 });
 function openWhatsApp(){
   const msg = encodeURIComponent("Hi PAT.Enterprise, I'd like some help choosing a part.");
-  window.open(`https://wa.me/254700000000?text=${msg}`, '_blank');
+  window.open(`https://wa.me/254769826085?text=${msg}`, '_blank');
 }
 
 /* close overlays when clicking backdrop, and on Escape */
@@ -2228,6 +2844,4 @@ render();
 
 </body>
 </html>
-
-</body>
 </html>
